@@ -1,0 +1,1941 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+--
+-- Table structure for table `fo_address_types`
+--
+
+CREATE TABLE `fo_address_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_address_types`
+--
+
+INSERT INTO `fo_address_types` (`id`, `name`, `is_system`) VALUES
+(1, 'home', 1),
+(2, 'work', 1),
+(3, 'other', 1),
+(4, 'postal', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_application_logs`
+--
+
+CREATE TABLE `fo_application_logs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `taken_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `rel_object_id` int(10) NOT NULL DEFAULT '0',
+  `object_name` text COLLATE utf8_unicode_ci,
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `action` enum('upload','open','close','delete','edit','add','trash','untrash','subscribe','unsubscribe','tag','comment','link','unlink','login','logout','untag','archive','unarchive','move','copy','read','download','checkin','checkout') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_private` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_silent` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `member_id` int(10) NOT NULL DEFAULT '0',
+  `log_data` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_application_logs`
+--
+
+INSERT INTO `fo_application_logs` (`id`, `taken_by_id`, `rel_object_id`, `object_name`, `created_on`, `created_by_id`, `action`, `is_private`, `is_silent`, `member_id`, `log_data`) VALUES
+(1, 2, 2, 'A0144', '2022-09-30 09:59:14', 2, 'login', 0, 0, 0, '124.123.181.38'),
+(2, 2, 4, 'Devarakonda, Prasad', '2022-09-30 10:03:18', 2, 'subscribe', 0, 0, 0, '2'),
+(3, 2, 4, 'Devarakonda, Prasad', '2022-09-30 10:03:18', 2, 'add', 0, 0, 0, ''),
+(4, 2, 4, 'Devarakonda, Prasad', '2022-09-30 10:03:18', 2, 'add', 0, 0, 0, ''),
+(5, 2, 2, 'A0144', '2022-09-30 10:07:37', 2, 'logout', 0, 0, 0, '124.123.181.38'),
+(6, 2, 2, 'A0144', '2022-09-30 10:30:15', 2, 'login', 0, 0, 0, '124.123.181.38'),
+(7, 2, 1, 'Fint Solutions', '2022-09-30 10:33:58', 2, 'edit', 0, 0, 0, ''),
+(8, 2, 1, 'Fint Solutions', '2022-09-30 10:34:14', 2, 'edit', 0, 0, 0, ''),
+(9, 2, 1, 'Fint Solutions', '2022-09-30 10:35:31', 2, 'edit', 0, 0, 0, ''),
+(10, 2, 2, 'Bandari, Rajnikar', '2022-09-30 10:43:15', 2, 'edit', 0, 0, 0, ''),
+(11, 2, 2, 'Bandari, Rajnikar', '2022-09-30 10:51:55', 2, 'logout', 0, 0, 0, '124.123.181.38'),
+(12, 2, 2, 'Bandari, Rajnikar', '2022-09-30 11:01:48', 2, 'login', 0, 0, 0, '124.123.181.38'),
+(13, 2, 2, 'Bandari, Rajnikar', '2022-09-30 11:21:49', 2, 'logout', 0, 0, 0, '124.123.181.38'),
+(14, 2, 2, 'Bandari, Rajnikar', '2022-09-30 11:23:02', 2, 'login', 0, 0, 0, '124.123.181.38'),
+(15, 2, 2, 'Bandari, Rajnikar', '2022-09-30 11:31:08', 2, 'logout', 0, 0, 0, '124.123.181.38'),
+(16, 4, 4, 'Devarakonda, Prasad', '2022-09-30 11:31:20', 4, 'login', 0, 0, 0, '124.123.181.38'),
+(17, 4, 4, 'Devarakonda, Prasad', '2022-09-30 11:32:03', 4, 'logout', 0, 0, 0, '124.123.181.38'),
+(18, 2, 2, 'Bandari, Rajnikar', '2022-09-30 12:55:30', 2, 'login', 0, 0, 0, '124.123.183.68'),
+(19, 2, 2, 'Bandari, Rajnikar', '2022-09-30 12:56:21', 2, 'login', 0, 0, 0, '124.123.167.64'),
+(20, 2, 2, 'Bandari, Rajnikar', '2022-09-30 12:56:22', 2, 'login', 0, 0, 0, '124.123.183.68'),
+(21, 2, 2, 'Bandari, Rajnikar', '2022-09-30 13:00:09', 2, 'logout', 0, 0, 0, '124.123.183.68'),
+(22, 2, 2, 'Bandari, Rajnikar', '2022-09-30 13:05:16', 2, 'logout', 0, 0, 0, '124.123.183.68'),
+(23, 4, 4, 'Devarakonda, Prasad', '2022-10-02 14:41:08', 4, 'login', 0, 0, 0, '2401:4900:16b3:8030:5d1d:eaa3:7a56:957a'),
+(24, 4, 4, 'Devarakonda, Prasad', '2022-10-03 04:54:39', 4, 'login', 0, 0, 0, '124.123.179.100'),
+(25, 4, 4, 'Devarakonda, Prasad', '2022-10-03 08:21:47', 4, 'login', 0, 0, 0, '49.205.240.119'),
+(26, 4, 4, 'Devarakonda, Prasad', '2022-10-03 08:24:11', 4, 'logout', 0, 0, 0, '49.205.240.119'),
+(27, 4, 4, 'Devarakonda, Prasad', '2022-10-03 08:24:44', 4, 'login', 0, 0, 0, '49.205.240.119'),
+(28, 4, 4, 'Devarakonda, Prasad', '2022-10-03 08:30:32', 4, 'logout', 0, 0, 0, '124.123.179.100'),
+(29, 4, 4, 'Devarakonda, Prasad', '2022-10-03 08:45:57', 4, 'login', 0, 0, 0, '124.123.179.100'),
+(30, 4, 4, 'Devarakonda, Prasad', '2022-10-03 11:12:36', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(31, 4, 4, 'Devarakonda, Prasad', '2022-10-03 11:16:42', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(32, 4, 4, 'Devarakonda, Prasad', '2022-10-03 11:45:24', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(33, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:25:07', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(34, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:25:14', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(35, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:25:50', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(36, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:26:14', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(37, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:26:27', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(38, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:26:54', 4, 'login', 0, 0, 0, '223.196.169.80'),
+(39, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:40:27', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(40, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:42:01', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(41, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:43:34', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(42, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:44:47', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(43, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:50:26', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(44, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:50:36', 4, 'logout', 0, 0, 0, '223.196.173.163'),
+(45, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:54:28', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(46, 4, 4, 'Devarakonda, Prasad', '2022-10-03 12:54:35', 4, 'logout', 0, 0, 0, '49.206.36.84'),
+(47, 4, 4, 'Devarakonda, Prasad', '2022-10-03 13:07:37', 4, 'login', 0, 0, 0, '49.206.36.84'),
+(48, 0, 0, '', '2022-10-04 05:33:19', 0, 'logout', 0, 0, 0, '49.206.55.16'),
+(49, 4, 4, 'Devarakonda, Prasad', '2022-10-04 05:33:57', 4, 'login', 0, 0, 0, '49.206.55.16'),
+(50, 4, 5, 'Pradeep Kumar', '2022-10-04 06:20:23', 4, 'subscribe', 0, 0, 0, '4'),
+(51, 4, 5, 'Pradeep Kumar', '2022-10-04 06:20:23', 4, 'add', 0, 0, 0, ''),
+(52, 4, 5, 'Pradeep Kumar', '2022-10-04 06:20:23', 4, 'add', 0, 0, 0, ''),
+(53, 4, 6, 'Testing', '2022-10-04 06:39:01', 4, 'subscribe', 0, 0, 0, '4'),
+(54, 4, 6, 'Testing', '2022-10-04 06:39:01', 4, 'add', 0, 0, 0, ''),
+(55, 4, 7, 'Test task', '2022-10-04 06:43:30', 4, 'subscribe', 0, 0, 0, '4'),
+(56, 4, 7, 'Test task', '2022-10-04 06:43:30', 4, 'add', 0, 0, 0, ''),
+(57, 4, 7, 'Test task', '2022-10-04 06:47:09', 4, 'close', 0, 0, 0, ''),
+(58, 4, 5, 'Pradeep Kumar', '2022-10-04 07:10:27', 4, 'edit', 0, 0, 0, ''),
+(59, 4, 5, 'Pradeep Kumar', '2022-10-04 07:13:47', 4, 'trash', 0, 0, 0, ''),
+(60, 4, 5, 'Pradeep Kumar', '2022-10-04 07:16:33', 4, 'edit', 0, 0, 0, ''),
+(61, 4, 5, 'Pradeep Kumar', '2022-10-04 07:18:30', 4, 'untrash', 0, 0, 0, ''),
+(62, 4, 8, 'Test Last Name', '2022-10-04 07:42:03', 4, 'subscribe', 0, 0, 0, '4'),
+(63, 4, 8, 'Test Last Name', '2022-10-04 07:42:03', 4, 'add', 0, 0, 0, ''),
+(64, 4, 8, 'Test Last Name', '2022-10-04 07:42:03', 4, 'add', 0, 0, 0, ''),
+(65, 4, 9, 'Test Workspace', '2022-10-04 07:43:22', 4, 'add', 0, 0, 5, ''),
+(66, 4, 8, 'Test Last Name', '2022-10-04 07:49:50', 4, 'edit', 0, 0, 0, ''),
+(67, 4, 8, 'Test Last Name', '2022-10-04 08:00:19', 4, 'edit', 0, 0, 0, ''),
+(68, 4, 4, 'Prasad Devarakonda', '2022-10-04 09:07:07', 4, 'logout', 0, 0, 0, '49.206.55.16'),
+(69, 4, 4, 'Prasad Devarakonda', '2022-10-04 09:07:11', 4, 'login', 0, 0, 0, '49.206.55.16'),
+(70, 4, 4, 'Prasad Devarakonda', '2022-10-04 09:11:13', 4, 'logout', 0, 0, 0, '49.206.55.16'),
+(71, 4, 4, 'Prasad Devarakonda', '2022-10-04 09:13:26', 4, 'login', 0, 0, 0, '49.206.55.16'),
+(72, 0, 0, '', '2022-10-06 04:43:14', 0, 'logout', 0, 0, 0, '49.206.45.86'),
+(73, 4, 4, 'Prasad Devarakonda', '2022-10-10 07:13:11', 4, 'login', 0, 0, 0, '183.82.4.107'),
+(74, 4, 4, 'Prasad Devarakonda', '2022-10-13 05:53:09', 4, 'login', 0, 0, 0, '183.82.4.107'),
+(75, 4, 4, 'Prasad Devarakonda', '2022-10-13 05:56:35', 4, 'logout', 0, 0, 0, '183.82.4.107'),
+(76, 4, 4, 'Prasad Devarakonda', '2022-11-03 10:06:34', 4, 'login', 0, 0, 0, '183.82.4.107'),
+(77, 4, 4, 'Prasad Devarakonda', '2022-11-03 10:09:04', 4, 'logout', 0, 0, 0, '183.82.4.107'),
+(78, 4, 4, 'Prasad Devarakonda', '2022-11-15 05:21:23', 4, 'login', 0, 0, 0, '183.82.4.107'),
+(79, 4, 4, 'Prasad Devarakonda', '2022-11-15 11:41:17', 4, 'login', 0, 0, 0, '183.82.4.107'),
+(80, 4, 9, 'Offer forwarded', '2022-11-15 11:42:14', 4, 'edit', 0, 0, 5, ''),
+(81, 4, 11, 'Offer accepted', '2022-11-15 11:42:30', 4, 'add', 0, 0, 6, ''),
+(82, 4, 12, 'Offer rejected', '2022-11-15 11:42:45', 4, 'add', 0, 0, 7, ''),
+(83, 4, 13, 'On Boarded', '2022-11-15 11:43:07', 4, 'add', 0, 0, 8, ''),
+(84, 4, 11, 'Ravi chandra', '2022-11-15 11:44:23', 4, 'edit', 0, 0, 6, ''),
+(85, 4, 12, 'Rajnikar', '2022-11-15 11:44:33', 4, 'edit', 0, 0, 7, ''),
+(86, 4, 14, 'Employee_Data_Form_FTE.docx', '2022-11-15 11:48:52', 4, 'subscribe', 0, 0, 0, '4'),
+(87, 4, 14, 'Employee_Data_Form_FTE.docx', '2022-11-15 11:48:53', 4, 'add', 0, 0, 0, ''),
+(88, 4, 16, 'NavathaTransport.docx', '2022-11-15 11:48:53', 4, 'subscribe', 0, 0, 0, '4'),
+(89, 4, 16, 'NavathaTransport.docx', '2022-11-15 11:48:53', 4, 'add', 0, 0, 0, ''),
+(90, 4, 18, 'Acko Bike Policy - DBCR00526752899_00.pdf', '2022-11-15 11:48:53', 4, 'subscribe', 0, 0, 0, '4'),
+(91, 4, 18, 'Acko Bike Policy - DBCR00526752899_00.pdf', '2022-11-15 11:48:53', 4, 'add', 0, 0, 0, ''),
+(92, 4, 20, 'PaymentReceipt_16006782_.pdf', '2022-11-15 11:48:53', 4, 'subscribe', 0, 0, 0, '4'),
+(93, 4, 20, 'PaymentReceipt_16006782_.pdf', '2022-11-15 11:48:53', 4, 'add', 0, 0, 0, ''),
+(94, 4, 16, 'NavathaTransport.docx', '2022-11-15 11:49:08', 4, 'checkout', 0, 0, 0, ''),
+(95, 4, 16, 'NavathaTransport.docx', '2022-11-15 11:49:27', 4, 'checkout', 0, 0, 0, ''),
+(96, 4, 16, 'NavathaTransport.docx', '2022-11-15 11:49:40', 4, 'upload', 0, 0, 0, ''),
+(97, 4, 11, 'Ravi chandra', '2022-11-15 11:50:31', 4, 'edit', 0, 0, 6, ''),
+(98, 4, 4, 'Prasad Devarakonda', '2022-11-15 11:57:32', 4, 'logout', 0, 0, 0, '183.82.4.107');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_config_categories`
+--
+
+CREATE TABLE `fo_config_categories` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `category_order` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_config_categories`
+--
+
+INSERT INTO `fo_config_categories` (`id`, `name`, `is_system`, `category_order`) VALUES
+(1, 'system', 1, 0),
+(2, 'general', 0, 1),
+(3, 'mailing', 0, 2),
+(4, 'brand_colors', 0, 3),
+(5, 'passwords', 0, 4),
+(6, 'reports', 0, 5),
+(7, 'mail module', 0, 60);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_config_options`
+--
+
+CREATE TABLE `fo_config_options` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `category_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `value` text COLLATE utf8_unicode_ci,
+  `config_handler_class` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `option_order` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `dev_comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `options` varchar(255) COLLATE utf8_unicode_ci DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_config_options`
+--
+
+INSERT INTO `fo_config_options` (`id`, `category_name`, `name`, `value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`, `options`) VALUES
+(1, 'system', 'project_logs_per_page', '10', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(2, 'system', 'messages_per_page', '5', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(3, 'system', 'max_avatar_width', '50', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(4, 'system', 'max_avatar_height', '50', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(5, 'system', 'logs_per_project', '5', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(6, 'system', 'max_logo_width', '50', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(7, 'system', 'max_logo_height', '50', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(8, 'system', 'files_per_page', '50', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(9, 'system', 'notification_from_address', '', 'StringConfigHandler', 1, 0, 'Address to use as from field in email notifications. If empty, users address is used', ''),
+(10, 'system', 'min_chars_for_match', '3', 'IntegerConfigHandler', 1, 0, 'If search criteria len is less than this, then use always LIKE', ''),
+(11, 'system', 'getting_started_step', '99', 'IntegerConfigHandler', 1, 0, '', ''),
+(12, 'general', 'upgrade_last_check_datetime', '2006-09-02 13:46:47', 'DateTimeConfigHandler', 1, 0, 'Date and time of the last upgrade check', ''),
+(13, 'general', 'upgrade_last_check_new_version', '0', 'BoolConfigHandler', 1, 0, 'True if system checked for the new version and found it. This value is used to hightligh upgrade tab in the administration', ''),
+(14, 'general', 'file_storage_adapter', 'fs', 'FileStorageConfigHandler', 0, 0, 'What storage adapter should be used? fs or mysql', ''),
+(15, 'general', 'theme', 'default', 'ThemeConfigHandler', 0, 0, NULL, ''),
+(16, 'general', 'days_on_trash', '30', 'IntegerConfigHandler', 0, 0, 'Days before a file is deleted from trash. 0 = Not deleted', ''),
+(17, 'general', 'show_pause_time_action', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(18, 'mailing', 'exchange_compatible', '0', 'BoolConfigHandler', 1, 0, NULL, ''),
+(19, 'mailing', 'mail_transport', 'mail()', 'MailTransportConfigHandler', 0, 0, 'Values: \'mail()\' - try to emulate mail() function, \'smtp\' - use SMTP connection', ''),
+(20, 'mailing', 'smtp_server', '', 'StringConfigHandler', 0, 0, '', ''),
+(21, 'mailing', 'smtp_port', '25', 'IntegerConfigHandler', 0, 0, NULL, ''),
+(22, 'mailing', 'smtp_address', '', 'StringConfigHandler', 0, 0, '', ''),
+(23, 'mailing', 'notification_from_name', '', 'StringConfigHandler', 0, 0, '', ''),
+(24, 'mailing', 'smtp_authenticate', '0', 'BoolConfigHandler', 0, 0, 'Use SMTP authentication', ''),
+(25, 'mailing', 'smtp_username', '', 'StringConfigHandler', 0, 0, NULL, ''),
+(26, 'mailing', 'smtp_password', '', 'PasswordConfigHandler', 0, 0, NULL, ''),
+(27, 'mailing', 'smtp_secure_connection', 'no', 'SecureSmtpConnectionConfigHandler', 0, 0, 'Values: no, ssl, tls', ''),
+(28, 'mailing', 'show images in document notifications', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(29, 'mailing', 'show company logo in notifications', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(30, 'mailing', 'notification_recipients_field', 'to', 'MailFieldConfigHandler', 0, 10, NULL, ''),
+(31, 'mailing', 'disable_notifications_for_object_type', '', 'MultipleObjectTypeConfigHandler', 0, 0, NULL, ''),
+(32, 'mailing', 'notifications_add_members_in_subject', '', 'ManageableDimensionsConfigHandler', 0, 0, NULL, ''),
+(33, 'passwords', 'min_password_length', '0', 'IntegerConfigHandler', 0, 1, NULL, ''),
+(34, 'passwords', 'password_numbers', '0', 'IntegerConfigHandler', 0, 2, NULL, ''),
+(35, 'passwords', 'password_uppercase_characters', '0', 'IntegerConfigHandler', 0, 3, NULL, ''),
+(36, 'passwords', 'password_metacharacters', '0', 'IntegerConfigHandler', 0, 4, NULL, ''),
+(37, 'passwords', 'password_expiration', '0', 'IntegerConfigHandler', 0, 5, NULL, ''),
+(38, 'passwords', 'password_expiration_notification', '0', 'IntegerConfigHandler', 0, 6, NULL, ''),
+(39, 'passwords', 'account_block', '0', 'BoolConfigHandler', 0, 7, NULL, ''),
+(40, 'passwords', 'new_password_char_difference', '0', 'BoolConfigHandler', 0, 8, NULL, ''),
+(41, 'passwords', 'validate_password_history', '0', 'BoolConfigHandler', 0, 9, NULL, ''),
+(42, 'passwords', 'block_login_after_x_tries', '0', 'BoolConfigHandler', 0, 20, NULL, ''),
+(43, 'general', 'checkout_notification_dialog', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(44, 'general', 'file_revision_comments_required', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(45, 'general', 'currency_code', '₹', 'StringConfigHandler', 0, 0, NULL, ''),
+(46, 'general', 'checkout_for_editing_online', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(47, 'general', 'show_feed_links', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(48, 'general', 'use_owner_company_logo_at_header', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(49, 'general', 'ask_administration_autentification', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(50, 'general', 'use tasks dependencies', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(51, 'general', 'use_task_work_performed', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(52, 'general', 'use_task_estimated_time', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(53, 'general', 'use_task_pending_time', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(54, 'general', 'use_task_percent_completed', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(55, 'general', 'untitled_notes', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(56, 'general', 'repeating_task', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(57, 'general', 'working_days', '1,2,3,4,5', 'StringConfigHandler', 0, 0, NULL, ''),
+(58, 'general', 'wysiwyg_tasks', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(59, 'general', 'wysiwyg_messages', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(60, 'general', 'wysiwyg_projects', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(61, 'general', 'use_milestones', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(62, 'general', 'apply_milestone_subtasks', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(63, 'general', 'show_tab_icons', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(64, 'general', 'can_assign_tasks_to_companies', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(65, 'general', 'use_object_properties', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(66, 'general', 'let_users_create_objects_in_root', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(67, 'general', 'add_default_permissions_for_users', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(68, 'general', 'inherit_permissions_from_parent_member', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(69, 'general', 'give_member_permissions_to_new_users', '1,2,3,4', 'UserTypeMultipleConfigHandler', 0, 0, NULL, ''),
+(70, 'general', 'milestone_selector_filter', 'current_and_parents', 'MilestoneSelectorFilterConfigHandler', 0, 0, NULL, ''),
+(71, 'general', 'show_owner_company_name_header', '0', 'BoolConfigHandler', 1, 100, '', ''),
+(72, 'general', 'enabled_dimensions', ',2', 'RootDimensionsConfigHandler', 1, 0, NULL, ''),
+(73, 'general', 'last_sharing_table_rebuild', '', 'StringConfigHandler', 1, 0, NULL, ''),
+(74, 'general', 'check_unique_mail_contact_comp', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(75, 'general', 'mandatory_address_fields', '', 'AddressFieldsConfigHandler', 0, 0, NULL, ''),
+(76, 'system', 'last_template_instantiation_id', '0', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(77, 'brand_colors', 'brand_colors_head_back', '424242', 'ColorPickerConfigHandler', 0, 0, NULL, ''),
+(78, 'brand_colors', 'brand_colors_texture', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(79, 'brand_colors', 'brand_colors_head_font', 'FFFFFF', 'ColorPickerConfigHandler', 0, 0, NULL, ''),
+(80, 'brand_colors', 'brand_colors_tabs_back', 'e7e7e7', 'ColorPickerConfigHandler', 1, 0, NULL, ''),
+(81, 'brand_colors', 'brand_colors_tabs_font', '333333', 'ColorPickerConfigHandler', 1, 0, NULL, ''),
+(82, 'reports', 'reports_inherit_company_address', '', 'BoolConfigHandler', 0, 0, NULL, ''),
+(83, 'reports', 'reports_inherit_company_phones', '', 'BoolConfigHandler', 0, 0, NULL, ''),
+(84, 'reports', 'show_company_info_report_print', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(85, 'general', 'use_time_quick_add_row', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(86, 'general', 'reclassify_time_when_linking_task', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(87, 'system', 'default_timezone', '', 'TimezoneConfigHandler', 1, 0, '', ''),
+(88, 'system', 'hide_people_vinculations', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(89, 'mail module', 'user_email_fetch_count', '10', 'IntegerConfigHandler', 0, 0, 'How many emails to fetch when checking for email', ''),
+(90, 'mail module', 'sent_mails_sync', '0', 'BoolConfigHandler', 0, 0, 'imap email accounts synchronization possibility', ''),
+(91, 'mail module', 'check_spam_in_subject', '0', 'BoolConfigHandler', 0, 0, '', ''),
+(92, 'mail module', 'use_mail_accounts_to_send_nots', '0', 'BoolConfigHandler', 0, 0, '', ''),
+(93, 'mail module', 'send_outbox_emails_in_background', '0', 'BoolConfigHandler', 0, 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contacts`
+--
+
+CREATE TABLE `fo_contacts` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `surname` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_company` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `company_id` int(10) UNSIGNED DEFAULT NULL,
+  `department` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `job_title` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `birthday` datetime DEFAULT NULL,
+  `timezone` decimal(3,1) NOT NULL DEFAULT '0.0',
+  `user_type` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `is_active_user` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `token` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `salt` varchar(13) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `twister` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `display_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `contact_passwords_id` int(10) UNSIGNED NOT NULL,
+  `picture_file` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `picture_file_small` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `picture_file_medium` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar_file` varchar(44) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comments` text COLLATE utf8_unicode_ci,
+  `last_login` datetime DEFAULT NULL,
+  `last_visit` datetime DEFAULT NULL,
+  `last_activity` datetime DEFAULT NULL,
+  `token_disabled` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `personal_member_id` int(10) UNSIGNED DEFAULT NULL,
+  `disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `default_billing_id` int(10) NOT NULL DEFAULT '0',
+  `user_timezone_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `default_hour_type_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contacts`
+--
+
+INSERT INTO `fo_contacts` (`object_id`, `first_name`, `surname`, `is_company`, `company_id`, `department`, `job_title`, `birthday`, `timezone`, `user_type`, `is_active_user`, `token`, `salt`, `twister`, `display_name`, `permission_group_id`, `username`, `contact_passwords_id`, `picture_file`, `picture_file_small`, `picture_file_medium`, `avatar_file`, `comments`, `last_login`, `last_visit`, `last_activity`, `token_disabled`, `personal_member_id`, `disabled`, `default_billing_id`, `user_timezone_id`, `default_hour_type_id`) VALUES
+(1, 'Fint Solutions', '', 1, 0, '', '', '0000-00-00 00:00:00', '0.0', 0, 0, '', '', '', '', 0, '', 0, '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, 0, 0, 192, 0),
+(2, 'Rajnikar', 'Bandari', 0, 1, '', '', '0000-00-00 00:00:00', '5.5', 1, 0, 'e683974418c04930a72046011fc57c1ba34a1de5', '1727e8f7e3fcd', '6590738124', '', 14, 'A0144', 0, '', '', '', '', '', '2022-09-30 12:56:22', '2022-09-30 12:56:21', '2022-09-30 12:56:22', '', 0, 0, 0, 192, 0),
+(4, 'Prasad', 'Devarakonda', 0, 1, '', '', '0000-00-00 00:00:00', '-4.0', 1, 0, '2cf89c1502e594d6156fdd46d54fbbb11e9c5c27', '71923aa19f739', '9357126084', '', 15, 'A0180', 0, '', '', '', '', '', '2022-11-15 11:51:19', '2022-11-15 11:41:17', '2022-11-15 11:51:19', '', 0, 0, 0, 376, 0),
+(5, 'Pradeep', 'Kumar', 0, 1, 'Test', 'Developer', '2022-10-03 00:00:00', '0.0', 12, 0, 'b6919c98c3b38c7adf41b3c2cab1e0cdd5251eeb', 'dd18b27e50dcc', '9874563102', '', 16, 'pradeepkumar', 0, '33c0caf7dc9ccd590289ec8ba3176c301e1fea2b', 'eff623e2cfe561b62ed3c2af80e7de40dce05797', 'a7c8dc806f061d132be3571d272158af832c7036', '', 'Testing', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'b6919c98c3b38c7adf41b3c2cab1e0cdd5251eeb', 0, 0, 0, 0, 0),
+(8, 'Test', 'Last Name', 0, 1, 'Test', 'Testing', '2022-11-16 00:00:00', '0.0', 6, 0, 'f47e85e4d04a65470eacea6de2b8770488fb0ddf', '32d3f63585b75', '8650293471', '', 17, 'testlastname', 0, '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_emails`
+--
+
+CREATE TABLE `fo_contact_emails` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `email_type_id` int(10) UNSIGNED NOT NULL,
+  `email_address` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_main` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_emails`
+--
+
+INSERT INTO `fo_contact_emails` (`id`, `contact_id`, `email_type_id`, `email_address`, `is_main`) VALUES
+(1, 2, 2, 'rajnikar.bandari@fintinc.com', 1),
+(2, 4, 2, 'prasad@fintinc.com', 1),
+(3, 4, 3, 'prasad@fintinc.com', 0),
+(4, 5, 2, 'pradeep.namala@fintinc.com', 1),
+(5, 8, 2, 'test@test.com', 1),
+(6, 8, 3, 'test@test.com', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_widgets`
+--
+
+CREATE TABLE `fo_contact_widgets` (
+  `widget_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `contact_id` int(11) NOT NULL,
+  `section` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `order` int(11) NOT NULL,
+  `options` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_widgets`
+--
+
+INSERT INTO `fo_contact_widgets` (`widget_name`, `contact_id`, `section`, `order`, `options`) VALUES
+('active_context_info', 4, 'none', 1, ''),
+('activity_feed', 4, 'left', 10, ''),
+('calendar', 4, 'top', 0, ''),
+('comments', 4, 'none', 15, ''),
+('completed_tasks_list', 4, 'right', 150, ''),
+('documents', 4, 'right', 1100, ''),
+('emails', 4, 'none', 10, ''),
+('messages', 4, 'right', 1000, ''),
+('overdue_upcoming', 4, 'none', 3, ''),
+('people', 4, 'right', 0, ''),
+('workspaces', 4, 'none', 3, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_email_types`
+--
+
+CREATE TABLE `fo_email_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_email_types`
+--
+
+INSERT INTO `fo_email_types` (`id`, `name`, `is_system`) VALUES
+(1, 'user', 1),
+(2, 'personal', 1),
+(3, 'work', 1),
+(4, 'other', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_objects`
+--
+
+CREATE TABLE `fo_objects` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `updated_on` datetime NOT NULL,
+  `updated_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `trashed_on` datetime DEFAULT NULL,
+  `trashed_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `archived_on` datetime DEFAULT NULL,
+  `archived_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `timezone_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `timezone_value` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_objects`
+--
+
+INSERT INTO `fo_objects` (`id`, `object_type_id`, `name`, `created_on`, `created_by_id`, `updated_on`, `updated_by_id`, `trashed_on`, `trashed_by_id`, `archived_on`, `archived_by_id`, `timezone_id`, `timezone_value`) VALUES
+(1, 15, 'Fint Solutions', '2022-09-30 09:58:32', 2, '2022-09-30 10:35:31', 2, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, 0),
+(2, 15, 'Rajnikar Bandari', '2022-09-30 09:58:32', 0, '2022-09-30 10:43:15', 2, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, 0),
+(3, 11, 'task time report', '2022-09-30 05:58:32', 2, '2022-09-30 05:58:32', 2, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, 0),
+(4, 15, 'Prasad Devarakonda', '2022-09-30 10:03:18', 2, '2022-09-30 10:03:18', 2, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, 0),
+(5, 15, 'Pradeep Kumar', '2022-10-04 06:20:23', 4, '2022-10-04 07:18:30', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(6, 3, 'Testing', '2022-10-04 06:39:01', 4, '2022-10-04 06:39:01', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(7, 5, 'Test task', '2022-10-04 06:43:30', 4, '2022-10-04 06:47:09', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(8, 15, 'Test Last Name', '2022-10-04 07:42:03', 4, '2022-10-04 08:00:19', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(9, 1, 'Offer forwarded', '2022-10-04 07:43:22', 4, '2022-11-15 11:42:14', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(10, 11, 'Test report', '2022-10-04 09:14:23', 4, '2022-10-04 09:14:23', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(11, 1, 'Ravi chandra', '2022-11-15 11:42:29', 4, '2022-11-15 11:50:31', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(12, 1, 'Rajnikar', '2022-11-15 11:42:45', 4, '2022-11-15 11:44:33', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(13, 1, 'On Boarded', '2022-11-15 11:43:07', 4, '2022-11-15 11:43:07', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(14, 6, 'Employee_Data_Form_FTE.docx', '2022-11-15 11:48:52', 4, '2022-11-15 11:48:52', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(15, 16, '', '2022-11-15 11:48:52', 4, '2022-11-15 11:48:52', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(16, 6, 'NavathaTransport.docx', '2022-11-15 11:48:53', 4, '2022-11-15 11:49:40', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(17, 16, '', '2022-11-15 11:48:53', 4, '2022-11-15 11:48:53', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(18, 6, 'Acko Bike Policy - DBCR00526752899_00.pdf', '2022-11-15 11:48:53', 4, '2022-11-15 11:48:53', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(19, 16, '', '2022-11-15 11:48:53', 4, '2022-11-15 11:48:53', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(20, 6, 'PaymentReceipt_16006782_.pdf', '2022-11-15 11:48:53', 4, '2022-11-15 11:48:53', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(21, 16, '', '2022-11-15 11:48:53', 4, '2022-11-15 11:48:53', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000),
+(22, 16, '', '2022-11-15 11:49:40', 4, '2022-11-15 11:49:40', 4, '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 376, -18000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_object_members`
+--
+
+CREATE TABLE `fo_object_members` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `is_optimization` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_object_members`
+--
+
+INSERT INTO `fo_object_members` (`object_id`, `member_id`, `is_optimization`) VALUES
+(2, 1, 0),
+(2, 2, 0),
+(2, 5, 0),
+(2, 6, 0),
+(2, 7, 0),
+(2, 8, 0),
+(4, 1, 0),
+(4, 2, 0),
+(4, 5, 0),
+(4, 6, 0),
+(4, 7, 0),
+(4, 8, 0),
+(5, 3, 0),
+(6, 2, 0),
+(7, 2, 0),
+(8, 4, 0),
+(14, 2, 0),
+(14, 6, 0),
+(16, 2, 0),
+(16, 6, 0),
+(18, 2, 0),
+(18, 6, 0),
+(20, 2, 0),
+(20, 6, 0),
+(14, 8, 1),
+(16, 8, 1),
+(18, 8, 1),
+(20, 8, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_object_subscriptions`
+--
+
+CREATE TABLE `fo_object_subscriptions` (
+  `object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_object_subscriptions`
+--
+
+INSERT INTO `fo_object_subscriptions` (`object_id`, `contact_id`) VALUES
+(4, 2),
+(5, 4),
+(6, 4),
+(7, 4),
+(8, 4),
+(14, 4),
+(16, 4),
+(18, 4),
+(20, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_object_types`
+--
+
+CREATE TABLE `fo_object_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `handler_class` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `table_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `type` enum('content_object','dimension_object','dimension_group','located','comment','') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `icon` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `plugin_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `uses_order` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_object_types`
+--
+
+INSERT INTO `fo_object_types` (`id`, `name`, `handler_class`, `table_name`, `type`, `icon`, `plugin_id`, `uses_order`) VALUES
+(1, 'workspace', 'Workspaces', 'workspaces', 'dimension_object', 'workspace', 0, 0),
+(2, 'tag', '', '', 'dimension_group', 'tag', 0, 0),
+(3, 'message', 'ProjectMessages', 'project_messages', 'content_object', 'message', 0, 0),
+(4, 'weblink', 'ProjectWebpages', 'project_webpages', 'content_object', 'weblink', 0, 0),
+(5, 'task', 'ProjectTasks', 'project_tasks', 'content_object', 'task', 0, 0),
+(6, 'file', 'ProjectFiles', 'project_files', 'content_object', 'file', 0, 0),
+(7, 'form', 'ProjectForms', 'project_forms', '', '', 0, 0),
+(8, 'chart', 'ProjectCharts', 'project_charts', '', '', 0, 0),
+(9, 'milestone', 'ProjectMilestones', 'project_milestones', 'content_object', 'milestone', 0, 0),
+(10, 'event', 'ProjectEvents', 'project_events', 'content_object', 'event', 0, 0),
+(11, 'report', 'Reports', 'reports', 'located', 'reporting', 0, 0),
+(12, 'template', 'COTemplates', 'templates', 'located', 'template', 0, 0),
+(13, 'comment', 'Comments', 'comments', 'comment', 'comment', 0, 0),
+(14, 'billing', 'Billings', 'billings', '', '', 0, 0),
+(15, 'contact', 'Contacts', 'contacts', 'content_object', 'contact', 0, 0),
+(16, 'file revision', 'ProjectFileRevisions', 'project_file_revisions', 'content_object', 'file', 0, 0),
+(17, 'timeslot', 'Timeslots', 'timeslots', 'located', 'time', 0, 0),
+(18, 'template_task', 'TemplateTasks', 'template_tasks', 'content_object', 'task', 0, 0),
+(19, 'template_milestone', 'TemplateMilestones', 'template_milestones', 'content_object', 'milestone', 0, 0),
+(20, 'report_category', 'ReportCategories', 'report_category', 'located', 'reporting', 0, 0),
+(21, 'person', 'Contacts', 'contacts', 'dimension_object', 'contact', 1, 0),
+(22, 'company', 'Contacts', 'contacts', 'dimension_object', 'company', 1, 0),
+(23, 'mail', 'MailContents', 'mail_contents', 'content_object', 'mail', 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_permission_groups`
+--
+
+CREATE TABLE `fo_permission_groups` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `contact_id` int(10) UNSIGNED DEFAULT NULL,
+  `is_context` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `plugin_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `parent_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `type` enum('roles','permission_groups','user_groups') COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_permission_groups`
+--
+
+INSERT INTO `fo_permission_groups` (`id`, `name`, `contact_id`, `is_context`, `plugin_id`, `parent_id`, `type`) VALUES
+(1, 'Super Administrator', 0, 0, 0, 8, 'roles'),
+(2, 'Administrator', 0, 0, 0, 8, 'roles'),
+(3, 'Manager', 0, 0, 0, 8, 'roles'),
+(4, 'Executive', 0, 0, 0, 8, 'roles'),
+(5, 'Collaborator Customer', 0, 0, 0, 9, 'roles'),
+(6, 'Internal Collaborator', 0, 0, 0, 9, 'roles'),
+(7, 'External Collaborator', 0, 0, 0, 9, 'roles'),
+(8, 'ExecutiveGroup', 0, 0, 0, 0, 'roles'),
+(9, 'CollaboratorGroup', 0, 0, 0, 0, 'roles'),
+(10, 'GuestGroup', 0, 0, 0, 0, 'roles'),
+(11, 'Guest Customer', 0, 0, 0, 10, 'roles'),
+(12, 'Guest', 0, 0, 0, 10, 'roles'),
+(13, 'Non-Exec Director', 0, 0, 0, 10, 'roles'),
+(14, 'Account Owner', 2, 0, 0, 0, 'permission_groups'),
+(15, 'User 4 Personal', 4, 0, 0, 0, 'permission_groups'),
+(16, 'User 5 Personal', 5, 0, 0, 0, 'permission_groups'),
+(17, 'User 8 Personal', 8, 0, 0, 0, 'permission_groups');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_tasks`
+--
+
+CREATE TABLE `fo_project_tasks` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `parent_id` int(10) UNSIGNED DEFAULT NULL,
+  `parents_path` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `depth` int(2) UNSIGNED NOT NULL DEFAULT '0',
+  `text` text COLLATE utf8_unicode_ci,
+  `due_date` datetime NOT NULL,
+  `start_date` datetime NOT NULL,
+  `assigned_to_contact_id` int(10) UNSIGNED DEFAULT NULL,
+  `assigned_on` datetime DEFAULT NULL,
+  `assigned_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `time_estimate` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `completed_on` datetime NOT NULL,
+  `completed_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `started_on` datetime DEFAULT NULL,
+  `started_by_id` int(10) UNSIGNED NOT NULL,
+  `priority` int(10) UNSIGNED DEFAULT '200',
+  `state` int(10) UNSIGNED DEFAULT NULL,
+  `order` int(10) UNSIGNED DEFAULT '0',
+  `milestone_id` int(10) UNSIGNED DEFAULT NULL,
+  `is_template` tinyint(1) NOT NULL DEFAULT '0',
+  `from_template_id` int(10) NOT NULL DEFAULT '0',
+  `from_template_object_id` int(10) UNSIGNED DEFAULT '0',
+  `repeat_end` datetime NOT NULL,
+  `repeat_forever` tinyint(1) NOT NULL,
+  `repeat_num` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `repeat_d` int(10) UNSIGNED NOT NULL,
+  `repeat_m` int(10) UNSIGNED NOT NULL,
+  `repeat_y` int(10) UNSIGNED NOT NULL,
+  `repeat_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `object_subtype` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `percent_completed` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `use_due_time` tinyint(1) DEFAULT '0',
+  `use_start_time` tinyint(1) DEFAULT '0',
+  `original_task_id` int(10) UNSIGNED DEFAULT '0',
+  `instantiation_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `type_content` enum('text','html') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'text',
+  `total_worked_time` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `mark_as_started` tinyint(1) NOT NULL DEFAULT '0',
+  `move_direction_non_working_days` varchar(255) COLLATE utf8_unicode_ci DEFAULT 'advance'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_project_tasks`
+--
+
+INSERT INTO `fo_project_tasks` (`object_id`, `parent_id`, `parents_path`, `depth`, `text`, `due_date`, `start_date`, `assigned_to_contact_id`, `assigned_on`, `assigned_by_id`, `time_estimate`, `completed_on`, `completed_by_id`, `started_on`, `started_by_id`, `priority`, `state`, `order`, `milestone_id`, `is_template`, `from_template_id`, `from_template_object_id`, `repeat_end`, `repeat_forever`, `repeat_num`, `repeat_d`, `repeat_m`, `repeat_y`, `repeat_by`, `object_subtype`, `percent_completed`, `use_due_time`, `use_start_time`, `original_task_id`, `instantiation_id`, `type_content`, `total_worked_time`, `mark_as_started`, `move_direction_non_working_days`) VALUES
+(7, 0, '', 0, '', '2022-10-04 00:00:00', '2022-10-04 00:00:00', 0, '2022-10-04 06:43:30', 4, 60, '2022-10-04 06:47:09', 4, '0000-00-00 00:00:00', 0, 200, 0, 1, 0, 0, 0, 0, '0000-00-00 00:00:00', 0, 0, 0, 0, 0, '', 0, 100, 0, 0, 0, 0, 'html', 0, 0, 'advance');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_widgets`
+--
+
+CREATE TABLE `fo_widgets` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `plugin_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `path` varchar(512) COLLATE utf8_unicode_ci NOT NULL,
+  `default_options` text COLLATE utf8_unicode_ci NOT NULL,
+  `default_section` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `default_order` int(10) NOT NULL,
+  `icon_cls` varchar(64) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_widgets`
+--
+
+INSERT INTO `fo_widgets` (`name`, `title`, `plugin_id`, `path`, `default_options`, `default_section`, `default_order`, `icon_cls`) VALUES
+('active_context_info', 'active_context_info', 0, '', '', 'left', 1, 'ico-summary'),
+('activity_feed', 'activity_feed', 0, '', '', 'left', 10, 'ico-properties'),
+('calendar', 'upcoming events milestones and tasks', 0, '', '', 'top', 0, 'ico-event'),
+('comments', 'comments', 0, '', '', 'left', 15, 'ico-comment'),
+('completed_tasks_list', 'completed tasks list', 0, '', '', 'right', 150, 'ico-task'),
+('documents', 'documents', 0, '', '', 'right', 1100, 'ico-file'),
+('emails', 'emails', 0, '', '', 'right', 10, 'ico-email'),
+('messages', 'notes', 0, '', '', 'right', 1000, 'ico-message'),
+('overdue_upcoming', 'overdue and upcoming', 0, '', '', 'left', 3, 'ico-task'),
+('people', 'people', 0, '', '', 'right', -1, 'ico-contact'),
+('workspaces', 'workspaces', 4, '', '', 'left', 3, 'ico-workspace');
+
+-- --------------------------------------------------------
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `fo_address_types`
+--
+ALTER TABLE `fo_address_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_administration_logs`
+--
+ALTER TABLE `fo_administration_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_on` (`created_on`),
+  ADD KEY `category` (`category`);
+
+--
+-- Indexes for table `fo_administration_tools`
+--
+ALTER TABLE `fo_administration_tools`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `fo_application_logs`
+--
+ALTER TABLE `fo_application_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_on` (`created_on`,`is_silent`) USING BTREE,
+  ADD KEY `object` (`rel_object_id`,`created_on`,`is_silent`),
+  ADD KEY `member` (`member_id`,`created_on`,`is_silent`);
+
+--
+-- Indexes for table `fo_application_log_details`
+--
+ALTER TABLE `fo_application_log_details`
+  ADD PRIMARY KEY (`application_log_id`,`property`);
+
+--
+-- Indexes for table `fo_application_read_logs`
+--
+ALTER TABLE `fo_application_read_logs`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_on` (`created_on`),
+  ADD KEY `object_key` (`rel_object_id`);
+
+--
+-- Indexes for table `fo_billings`
+--
+ALTER TABLE `fo_billings`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_billing_categories`
+--
+ALTER TABLE `fo_billing_categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_comments`
+--
+ALTER TABLE `fo_comments`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `object_id` (`rel_object_id`);
+
+--
+-- Indexes for table `fo_config_categories`
+--
+ALTER TABLE `fo_config_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `order` (`category_order`);
+
+--
+-- Indexes for table `fo_config_options`
+--
+ALTER TABLE `fo_config_options`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `order` (`option_order`),
+  ADD KEY `category_id` (`category_name`);
+
+--
+-- Indexes for table `fo_contacts`
+--
+ALTER TABLE `fo_contacts`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `first_name` (`first_name`,`surname`) USING BTREE,
+  ADD KEY `surname` (`surname`,`first_name`) USING BTREE,
+  ADD KEY `company` (`is_company`,`company_id`,`department`),
+  ADD KEY `username` (`user_type`,`username`),
+  ADD KEY `perm_group` (`permission_group_id`) USING HASH;
+
+--
+-- Indexes for table `fo_contact_addresses`
+--
+ALTER TABLE `fo_contact_addresses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_contact` (`contact_id`,`is_main`) USING HASH;
+
+--
+-- Indexes for table `fo_contact_config_categories`
+--
+ALTER TABLE `fo_contact_config_categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `order` (`category_order`);
+
+--
+-- Indexes for table `fo_contact_config_options`
+--
+ALTER TABLE `fo_contact_config_options`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`),
+  ADD KEY `order` (`option_order`),
+  ADD KEY `category_id` (`category_name`,`is_system`) USING BTREE;
+
+--
+-- Indexes for table `fo_contact_config_option_values`
+--
+ALTER TABLE `fo_contact_config_option_values`
+  ADD PRIMARY KEY (`option_id`,`contact_id`,`member_id`);
+
+--
+-- Indexes for table `fo_contact_dimension_permissions`
+--
+ALTER TABLE `fo_contact_dimension_permissions`
+  ADD PRIMARY KEY (`permission_group_id`,`dimension_id`);
+
+--
+-- Indexes for table `fo_contact_emails`
+--
+ALTER TABLE `fo_contact_emails`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_contact` (`contact_id`,`is_main`);
+
+--
+-- Indexes for table `fo_contact_external_tokens`
+--
+ALTER TABLE `fo_contact_external_tokens`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_contact_im_values`
+--
+ALTER TABLE `fo_contact_im_values`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_contact` (`contact_id`,`is_main`);
+
+--
+-- Indexes for table `fo_contact_member_cache`
+--
+ALTER TABLE `fo_contact_member_cache`
+  ADD PRIMARY KEY (`contact_id`,`member_id`),
+  ADD KEY `by_contact` (`contact_id`) USING HASH,
+  ADD KEY `by_parent` (`parent_member_id`) USING HASH,
+  ADD KEY `last_activity` (`last_activity`);
+
+--
+-- Indexes for table `fo_contact_member_permissions`
+--
+ALTER TABLE `fo_contact_member_permissions`
+  ADD PRIMARY KEY (`permission_group_id`,`member_id`,`object_type_id`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `obj_type` (`object_type_id`);
+
+--
+-- Indexes for table `fo_contact_passwords`
+--
+ALTER TABLE `fo_contact_passwords`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `fo_contact_permission_groups`
+--
+ALTER TABLE `fo_contact_permission_groups`
+  ADD PRIMARY KEY (`contact_id`,`permission_group_id`),
+  ADD KEY `contact_id` (`contact_id`),
+  ADD KEY `permission_group_id` (`permission_group_id`);
+
+--
+-- Indexes for table `fo_contact_telephones`
+--
+ALTER TABLE `fo_contact_telephones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_contact` (`contact_id`,`is_main`);
+
+--
+-- Indexes for table `fo_contact_web_pages`
+--
+ALTER TABLE `fo_contact_web_pages`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_contact` (`contact_id`,`web_type_id`) USING HASH;
+
+--
+-- Indexes for table `fo_contact_widgets`
+--
+ALTER TABLE `fo_contact_widgets`
+  ADD PRIMARY KEY (`widget_name`,`contact_id`) USING BTREE;
+
+--
+-- Indexes for table `fo_contact_widget_options`
+--
+ALTER TABLE `fo_contact_widget_options`
+  ADD PRIMARY KEY (`widget_name`,`contact_id`,`member_type_id`,`option`) USING BTREE;
+
+--
+-- Indexes for table `fo_countries`
+--
+ALTER TABLE `fo_countries`
+  ADD PRIMARY KEY (`code`),
+  ADD KEY `name` (`name`);
+
+--
+-- Indexes for table `fo_cron_events`
+--
+ALTER TABLE `fo_cron_events`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uk_name` (`name`);
+
+--
+-- Indexes for table `fo_currencies`
+--
+ALTER TABLE `fo_currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_custom_properties`
+--
+ALTER TABLE `fo_custom_properties`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_custom_property_values`
+--
+ALTER TABLE `fo_custom_property_values`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `object_id` (`object_id`),
+  ADD KEY `custom_property_id` (`custom_property_id`),
+  ADD KEY `value` (`value`(255));
+
+--
+-- Indexes for table `fo_dimensions`
+--
+ALTER TABLE `fo_dimensions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `code` (`code`) USING BTREE,
+  ADD KEY `by_name` (`name`),
+  ADD KEY `defines_perm` (`defines_permissions`);
+
+--
+-- Indexes for table `fo_dimension_associations_config`
+--
+ALTER TABLE `fo_dimension_associations_config`
+  ADD PRIMARY KEY (`association_id`,`config_name`);
+
+--
+-- Indexes for table `fo_dimension_member_associations`
+--
+ALTER TABLE `fo_dimension_member_associations`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_associated` (`associated_dimension_id`,`associated_object_type_id`) USING HASH,
+  ADD KEY `by_dimension_objtype` (`dimension_id`,`object_type_id`) USING HASH;
+
+--
+-- Indexes for table `fo_dimension_member_association_default_selections`
+--
+ALTER TABLE `fo_dimension_member_association_default_selections`
+  ADD PRIMARY KEY (`association_id`,`member_id`,`selected_member_id`);
+
+--
+-- Indexes for table `fo_dimension_member_restriction_definitions`
+--
+ALTER TABLE `fo_dimension_member_restriction_definitions`
+  ADD PRIMARY KEY (`dimension_id`,`object_type_id`,`restricted_dimension_id`,`restricted_object_type_id`);
+
+--
+-- Indexes for table `fo_dimension_object_types`
+--
+ALTER TABLE `fo_dimension_object_types`
+  ADD PRIMARY KEY (`dimension_id`,`object_type_id`);
+
+--
+-- Indexes for table `fo_dimension_object_type_contents`
+--
+ALTER TABLE `fo_dimension_object_type_contents`
+  ADD PRIMARY KEY (`dimension_id`,`dimension_object_type_id`,`content_object_type_id`),
+  ADD KEY `by_co_obj_type` (`content_object_type_id`) USING HASH;
+
+--
+-- Indexes for table `fo_dimension_object_type_hierarchies`
+--
+ALTER TABLE `fo_dimension_object_type_hierarchies`
+  ADD PRIMARY KEY (`dimension_id`,`parent_object_type_id`,`child_object_type_id`);
+
+--
+-- Indexes for table `fo_dimension_object_type_options`
+--
+ALTER TABLE `fo_dimension_object_type_options`
+  ADD PRIMARY KEY (`dimension_id`,`object_type_id`,`name`);
+
+--
+-- Indexes for table `fo_dimension_options`
+--
+ALTER TABLE `fo_dimension_options`
+  ADD PRIMARY KEY (`dimension_id`,`name`);
+
+--
+-- Indexes for table `fo_email_types`
+--
+ALTER TABLE `fo_email_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_event_invitations`
+--
+ALTER TABLE `fo_event_invitations`
+  ADD PRIMARY KEY (`event_id`,`contact_id`),
+  ADD KEY `contact_id` (`contact_id`,`event_id`);
+
+--
+-- Indexes for table `fo_external_calendars`
+--
+ALTER TABLE `fo_external_calendars`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_external_calendar_properties`
+--
+ALTER TABLE `fo_external_calendar_properties`
+  ADD PRIMARY KEY (`external_calendar_id`,`key`);
+
+--
+-- Indexes for table `fo_external_calendar_users`
+--
+ALTER TABLE `fo_external_calendar_users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_file_repo`
+--
+ALTER TABLE `fo_file_repo`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order` (`order`);
+
+--
+-- Indexes for table `fo_file_repo_attributes`
+--
+ALTER TABLE `fo_file_repo_attributes`
+  ADD PRIMARY KEY (`id`,`attribute`);
+
+--
+-- Indexes for table `fo_file_types`
+--
+ALTER TABLE `fo_file_types`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `extension` (`extension`);
+
+--
+-- Indexes for table `fo_guistate`
+--
+ALTER TABLE `fo_guistate`
+  ADD PRIMARY KEY (`contact_id`,`name`);
+
+--
+-- Indexes for table `fo_historic_values`
+--
+ALTER TABLE `fo_historic_values`
+  ADD PRIMARY KEY (`object_id`,`created_on`);
+
+--
+-- Indexes for table `fo_im_types`
+--
+ALTER TABLE `fo_im_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_linked_objects`
+--
+ALTER TABLE `fo_linked_objects`
+  ADD PRIMARY KEY (`rel_object_id`,`object_id`);
+
+--
+-- Indexes for table `fo_mail_accounts`
+--
+ALTER TABLE `fo_mail_accounts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `contact_id` (`contact_id`);
+
+--
+-- Indexes for table `fo_mail_account_contacts`
+--
+ALTER TABLE `fo_mail_account_contacts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uk_contactacc` (`account_id`,`contact_id`),
+  ADD KEY `ix_contact` (`contact_id`);
+
+--
+-- Indexes for table `fo_mail_account_imap_folder`
+--
+ALTER TABLE `fo_mail_account_imap_folder`
+  ADD PRIMARY KEY (`account_id`,`folder_name`);
+
+--
+-- Indexes for table `fo_mail_contents`
+--
+ALTER TABLE `fo_mail_contents`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `account_id` (`account_id`,`uid`),
+  ADD KEY `sent_date` (`sent_date`),
+  ADD KEY `received_date` (`received_date`),
+  ADD KEY `uid` (`uid`),
+  ADD KEY `conversation_id` (`conversation_id`),
+  ADD KEY `message_id` (`message_id`),
+  ADD KEY `state` (`state`);
+
+--
+-- Indexes for table `fo_mail_content_imap_folders`
+--
+ALTER TABLE `fo_mail_content_imap_folders`
+  ADD PRIMARY KEY (`account_id`,`folder`,`object_id`),
+  ADD KEY `account_id_folder_object_id` (`account_id`,`folder`,`object_id`);
+
+--
+-- Indexes for table `fo_mail_conversations`
+--
+ALTER TABLE `fo_mail_conversations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_mail_datas`
+--
+ALTER TABLE `fo_mail_datas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_mail_spam_filters`
+--
+ALTER TABLE `fo_mail_spam_filters`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_max_role_object_type_permissions`
+--
+ALTER TABLE `fo_max_role_object_type_permissions`
+  ADD PRIMARY KEY (`role_id`,`object_type_id`);
+
+--
+-- Indexes for table `fo_max_system_permissions`
+--
+ALTER TABLE `fo_max_system_permissions`
+  ADD PRIMARY KEY (`permission_group_id`);
+
+--
+-- Indexes for table `fo_members`
+--
+ALTER TABLE `fo_members`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `by_parent` (`parent_member_id`) USING HASH,
+  ADD KEY `by_dimension` (`dimension_id`,`parent_member_id`,`name`),
+  ADD KEY `by_object_id` (`object_id`),
+  ADD KEY `archived_on` (`archived_on`),
+  ADD KEY `name` (`name`);
+
+--
+-- Indexes for table `fo_member_property_members`
+--
+ALTER TABLE `fo_member_property_members`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `member_id_property_member_id` (`member_id`,`property_member_id`),
+  ADD KEY `property_member_id_member_id` (`property_member_id`,`member_id`),
+  ADD KEY `is_active` (`is_active`);
+
+--
+-- Indexes for table `fo_member_restrictions`
+--
+ALTER TABLE `fo_member_restrictions`
+  ADD PRIMARY KEY (`member_id`,`restricted_member_id`);
+
+--
+-- Indexes for table `fo_objects`
+--
+ALTER TABLE `fo_objects`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_on` (`created_on`),
+  ADD KEY `updated_on` (`updated_on`),
+  ADD KEY `trashed_on` (`trashed_on`),
+  ADD KEY `archived_on` (`archived_on`),
+  ADD KEY `object_type` (`object_type_id`),
+  ADD KEY `name` (`name`) USING HASH,
+  ADD KEY `type_trash_arch` (`object_type_id`,`trashed_on`,`archived_on`);
+
+--
+-- Indexes for table `fo_object_contact_permissions`
+--
+ALTER TABLE `fo_object_contact_permissions`
+  ADD PRIMARY KEY (`rel_object_id`,`contact_id`);
+
+--
+-- Indexes for table `fo_object_members`
+--
+ALTER TABLE `fo_object_members`
+  ADD PRIMARY KEY (`object_id`,`member_id`),
+  ADD KEY `member_id` (`member_id`),
+  ADD KEY `is_optimization` (`is_optimization`);
+
+--
+-- Indexes for table `fo_object_properties`
+--
+ALTER TABLE `fo_object_properties`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ObjectID` (`rel_object_id`);
+
+--
+-- Indexes for table `fo_object_reminders`
+--
+ALTER TABLE `fo_object_reminders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `type_date` (`type`,`date`),
+  ADD KEY `obj_date` (`object_id`,`date`);
+
+--
+-- Indexes for table `fo_object_reminder_types`
+--
+ALTER TABLE `fo_object_reminder_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_object_selector_temp_values`
+--
+ALTER TABLE `fo_object_selector_temp_values`
+  ADD PRIMARY KEY (`user_id`,`identifier`);
+
+--
+-- Indexes for table `fo_object_subscriptions`
+--
+ALTER TABLE `fo_object_subscriptions`
+  ADD PRIMARY KEY (`object_id`,`contact_id`);
+
+--
+-- Indexes for table `fo_object_types`
+--
+ALTER TABLE `fo_object_types`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `name` (`name`),
+  ADD KEY `plugin_id` (`plugin_id`) USING HASH;
+
+--
+-- Indexes for table `fo_object_type_dependencies`
+--
+ALTER TABLE `fo_object_type_dependencies`
+  ADD PRIMARY KEY (`object_type_id`,`dependant_object_type_id`);
+
+--
+-- Indexes for table `fo_object_type_hierarchies`
+--
+ALTER TABLE `fo_object_type_hierarchies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_object_type_hierarchy_options`
+--
+ALTER TABLE `fo_object_type_hierarchy_options`
+  ADD PRIMARY KEY (`hierarchy_id`,`dimension_id`,`member_type_id`,`option`);
+
+--
+-- Indexes for table `fo_permission_contexts`
+--
+ALTER TABLE `fo_permission_contexts`
+  ADD PRIMARY KEY (`contact_id`,`permission_group_id`,`member_id`);
+
+--
+-- Indexes for table `fo_permission_groups`
+--
+ALTER TABLE `fo_permission_groups`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `fo_plugins`
+--
+ALTER TABLE `fo_plugins`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `fo_project_charts`
+--
+ALTER TABLE `fo_project_charts`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_project_chart_params`
+--
+ALTER TABLE `fo_project_chart_params`
+  ADD PRIMARY KEY (`id`,`chart_id`);
+
+--
+-- Indexes for table `fo_project_co_types`
+--
+ALTER TABLE `fo_project_co_types`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `object_manager` (`object_manager`);
+
+--
+-- Indexes for table `fo_project_events`
+--
+ALTER TABLE `fo_project_events`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `start` (`start`),
+  ADD KEY `repeat_h` (`repeat_h`),
+  ADD KEY `type_id` (`type_id`);
+
+--
+-- Indexes for table `fo_project_files`
+--
+ALTER TABLE `fo_project_files`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_project_file_revisions`
+--
+ALTER TABLE `fo_project_file_revisions`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `filesize` (`filesize`),
+  ADD KEY `file_id` (`file_id`,`revision_number`) USING BTREE;
+
+--
+-- Indexes for table `fo_project_forms`
+--
+ALTER TABLE `fo_project_forms`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_project_messages`
+--
+ALTER TABLE `fo_project_messages`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_project_milestones`
+--
+ALTER TABLE `fo_project_milestones`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `due_date` (`due_date`),
+  ADD KEY `completed_on` (`completed_on`);
+
+--
+-- Indexes for table `fo_project_tasks`
+--
+ALTER TABLE `fo_project_tasks`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `parent_id` (`parent_id`),
+  ADD KEY `completed_on` (`completed_on`),
+  ADD KEY `order` (`order`),
+  ADD KEY `milestone_id` (`milestone_id`),
+  ADD KEY `priority` (`priority`),
+  ADD KEY `assigned_to` (`assigned_to_contact_id`) USING HASH,
+  ADD KEY `total_worked_time` (`total_worked_time`),
+  ADD KEY `start_date` (`start_date`),
+  ADD KEY `due_date` (`due_date`),
+  ADD KEY `completed_by_id` (`completed_by_id`);
+
+--
+-- Indexes for table `fo_project_task_dependencies`
+--
+ALTER TABLE `fo_project_task_dependencies`
+  ADD PRIMARY KEY (`previous_task_id`,`task_id`);
+
+--
+-- Indexes for table `fo_project_webpages`
+--
+ALTER TABLE `fo_project_webpages`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_queued_emails`
+--
+ALTER TABLE `fo_queued_emails`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_read_objects`
+--
+ALTER TABLE `fo_read_objects`
+  ADD PRIMARY KEY (`rel_object_id`,`contact_id`);
+
+--
+-- Indexes for table `fo_reports`
+--
+ALTER TABLE `fo_reports`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `object_type` (`report_object_type_id`);
+
+--
+-- Indexes for table `fo_report_columns`
+--
+ALTER TABLE `fo_report_columns`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_report_conditions`
+--
+ALTER TABLE `fo_report_conditions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_role_object_type_permissions`
+--
+ALTER TABLE `fo_role_object_type_permissions`
+  ADD PRIMARY KEY (`role_id`,`object_type_id`);
+
+--
+-- Indexes for table `fo_searchable_objects`
+--
+ALTER TABLE `fo_searchable_objects`
+  ADD PRIMARY KEY (`rel_object_id`,`column_name`),
+  ADD KEY `assoc_member_id` (`assoc_member_id`),
+  ADD KEY `rel_obj_id` (`rel_object_id`);
+ALTER TABLE `fo_searchable_objects` ADD FULLTEXT KEY `content` (`content`);
+
+--
+-- Indexes for table `fo_sent_notifications`
+--
+ALTER TABLE `fo_sent_notifications`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_sharing_table`
+--
+ALTER TABLE `fo_sharing_table`
+  ADD PRIMARY KEY (`group_id`,`object_id`),
+  ADD KEY `object_id` (`object_id`),
+  ADD KEY `group_id` (`group_id`);
+
+--
+-- Indexes for table `fo_sharing_table_flags`
+--
+ALTER TABLE `fo_sharing_table_flags`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_specific_permissions`
+--
+ALTER TABLE `fo_specific_permissions`
+  ADD PRIMARY KEY (`permission_group_id`);
+
+--
+-- Indexes for table `fo_system_permissions`
+--
+ALTER TABLE `fo_system_permissions`
+  ADD PRIMARY KEY (`permission_group_id`);
+
+--
+-- Indexes for table `fo_tab_panels`
+--
+ALTER TABLE `fo_tab_panels`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `enabled` (`enabled`,`type`,`plugin_id`);
+
+--
+-- Indexes for table `fo_tab_panel_permissions`
+--
+ALTER TABLE `fo_tab_panel_permissions`
+  ADD PRIMARY KEY (`permission_group_id`,`tab_panel_id`);
+
+--
+-- Indexes for table `fo_telephone_types`
+--
+ALTER TABLE `fo_telephone_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_templates`
+--
+ALTER TABLE `fo_templates`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- Indexes for table `fo_template_instantiated_parameters`
+--
+ALTER TABLE `fo_template_instantiated_parameters`
+  ADD PRIMARY KEY (`template_id`,`instantiation_id`,`parameter_name`);
+
+--
+-- Indexes for table `fo_template_milestones`
+--
+ALTER TABLE `fo_template_milestones`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `due_date` (`due_date`),
+  ADD KEY `completed_on` (`completed_on`);
+
+--
+-- Indexes for table `fo_template_objects`
+--
+ALTER TABLE `fo_template_objects`
+  ADD PRIMARY KEY (`template_id`,`object_id`);
+
+--
+-- Indexes for table `fo_template_object_properties`
+--
+ALTER TABLE `fo_template_object_properties`
+  ADD PRIMARY KEY (`template_id`,`object_id`,`property`);
+
+--
+-- Indexes for table `fo_template_parameters`
+--
+ALTER TABLE `fo_template_parameters`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_template_tasks`
+--
+ALTER TABLE `fo_template_tasks`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `parent_id` (`parent_id`),
+  ADD KEY `completed_on` (`completed_on`),
+  ADD KEY `order` (`order`),
+  ADD KEY `milestone_id` (`milestone_id`),
+  ADD KEY `priority` (`priority`),
+  ADD KEY `assigned_to` (`assigned_to_contact_id`) USING HASH;
+
+--
+-- Indexes for table `fo_timeslots`
+--
+ALTER TABLE `fo_timeslots`
+  ADD PRIMARY KEY (`object_id`),
+  ADD KEY `rel_obj_id` (`rel_object_id`) USING BTREE,
+  ADD KEY `end_time` (`end_time`),
+  ADD KEY `contact_end` (`contact_id`,`end_time`),
+  ADD KEY `contact_start` (`contact_id`,`start_time`),
+  ADD KEY `start_time` (`start_time`);
+
+--
+-- Indexes for table `fo_timezones`
+--
+ALTER TABLE `fo_timezones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_country_code` (`country_code`),
+  ADD KEY `idx_zone_name` (`name`);
+
+--
+-- Indexes for table `fo_webpage_types`
+--
+ALTER TABLE `fo_webpage_types`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `fo_widgets`
+--
+ALTER TABLE `fo_widgets`
+  ADD PRIMARY KEY (`name`);
+
+--
+-- Indexes for table `fo_workspaces`
+--
+ALTER TABLE `fo_workspaces`
+  ADD PRIMARY KEY (`object_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `fo_address_types`
+--
+ALTER TABLE `fo_address_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `fo_administration_logs`
+--
+ALTER TABLE `fo_administration_logs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fo_administration_tools`
+--
+ALTER TABLE `fo_administration_tools`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fo_application_logs`
+--
+ALTER TABLE `fo_application_logs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+
+--
+-- AUTO_INCREMENT for table `fo_application_read_logs`
+--
+ALTER TABLE `fo_application_read_logs`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
+-- AUTO_INCREMENT for table `fo_billing_categories`
+--
+ALTER TABLE `fo_billing_categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_comments`
+--
+ALTER TABLE `fo_comments`
+  MODIFY `object_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_config_categories`
+--
+ALTER TABLE `fo_config_categories`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `fo_config_options`
+--
+ALTER TABLE `fo_config_options`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+
+--
+-- AUTO_INCREMENT for table `fo_contacts`
+--
+ALTER TABLE `fo_contacts`
+  MODIFY `object_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_addresses`
+--
+ALTER TABLE `fo_contact_addresses`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_config_categories`
+--
+ALTER TABLE `fo_contact_config_categories`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_config_options`
+--
+ALTER TABLE `fo_contact_config_options`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_emails`
+--
+ALTER TABLE `fo_contact_emails`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_external_tokens`
+--
+ALTER TABLE `fo_contact_external_tokens`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_im_values`
+--
+ALTER TABLE `fo_contact_im_values`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_passwords`
+--
+ALTER TABLE `fo_contact_passwords`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_telephones`
+--
+ALTER TABLE `fo_contact_telephones`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_contact_web_pages`
+--
+ALTER TABLE `fo_contact_web_pages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_cron_events`
+--
+ALTER TABLE `fo_cron_events`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `fo_currencies`
+--
+ALTER TABLE `fo_currencies`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `fo_custom_properties`
+--
+ALTER TABLE `fo_custom_properties`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `fo_custom_property_values`
+--
+ALTER TABLE `fo_custom_property_values`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `fo_dimensions`
+--
+ALTER TABLE `fo_dimensions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `fo_dimension_member_associations`
+--
+ALTER TABLE `fo_dimension_member_associations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fo_email_types`
+--
+ALTER TABLE `fo_email_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `fo_external_calendars`
+--
+ALTER TABLE `fo_external_calendars`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_external_calendar_users`
+--
+ALTER TABLE `fo_external_calendar_users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_file_types`
+--
+ALTER TABLE `fo_file_types`
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `fo_im_types`
+--
+ALTER TABLE `fo_im_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `fo_mail_accounts`
+--
+ALTER TABLE `fo_mail_accounts`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_mail_account_contacts`
+--
+ALTER TABLE `fo_mail_account_contacts`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_mail_conversations`
+--
+ALTER TABLE `fo_mail_conversations`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_mail_spam_filters`
+--
+ALTER TABLE `fo_mail_spam_filters`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_members`
+--
+ALTER TABLE `fo_members`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `fo_member_property_members`
+--
+ALTER TABLE `fo_member_property_members`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `fo_objects`
+--
+ALTER TABLE `fo_objects`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `fo_object_properties`
+--
+ALTER TABLE `fo_object_properties`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_object_reminders`
+--
+ALTER TABLE `fo_object_reminders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `fo_object_reminder_types`
+--
+ALTER TABLE `fo_object_reminder_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `fo_object_types`
+--
+ALTER TABLE `fo_object_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `fo_object_type_hierarchies`
+--
+ALTER TABLE `fo_object_type_hierarchies`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_permission_groups`
+--
+ALTER TABLE `fo_permission_groups`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+
+--
+-- AUTO_INCREMENT for table `fo_plugins`
+--
+ALTER TABLE `fo_plugins`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `fo_project_co_types`
+--
+ALTER TABLE `fo_project_co_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_project_file_revisions`
+--
+ALTER TABLE `fo_project_file_revisions`
+  MODIFY `object_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `fo_queued_emails`
+--
+ALTER TABLE `fo_queued_emails`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_reports`
+--
+ALTER TABLE `fo_reports`
+  MODIFY `object_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `fo_report_columns`
+--
+ALTER TABLE `fo_report_columns`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `fo_report_conditions`
+--
+ALTER TABLE `fo_report_conditions`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_sent_notifications`
+--
+ALTER TABLE `fo_sent_notifications`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_sharing_table_flags`
+--
+ALTER TABLE `fo_sharing_table_flags`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_telephone_types`
+--
+ALTER TABLE `fo_telephone_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `fo_templates`
+--
+ALTER TABLE `fo_templates`
+  MODIFY `object_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_template_parameters`
+--
+ALTER TABLE `fo_template_parameters`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_timeslots`
+--
+ALTER TABLE `fo_timeslots`
+  MODIFY `object_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fo_timezones`
+--
+ALTER TABLE `fo_timezones`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=422;
+
+--
+-- AUTO_INCREMENT for table `fo_webpage_types`
+--
+ALTER TABLE `fo_webpage_types`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `fo_workspaces`
+--
+ALTER TABLE `fo_workspaces`
+  MODIFY `object_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+COMMIT;

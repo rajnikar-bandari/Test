@@ -1,0 +1,16 @@
+Project overview - Don't have
+Resources - Don't have(Machenary,budgetry)
+Issue logs - Don't have
+Progress report - Don't have
+
+Stores
+ Subgroup - Don't have
+ Equipment list - Don't have
+ Depreceation - Don't have
+
+Accounts
+ Purchase - We have option
+ Orders - We have option
+ Invoice - We have option
+
+ Programme,Quotations,vouchers we need clarity

@@ -1,0 +1,3962 @@
+CREATE TABLE `fo_billings` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `value` float NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_billing_categories`
+--
+
+CREATE TABLE `fo_billing_categories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
+  `description` text COLLATE utf8_unicode_ci,
+  `default_value` float NOT NULL DEFAULT '0',
+  `report_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
+  `created_on` datetime DEFAULT NULL,
+  `created_by_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `updated_on` datetime NOT NULL,
+  `updated_by_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_comments`
+--
+
+CREATE TABLE `fo_comments` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `rel_object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `text` text COLLATE utf8_unicode_ci,
+  `author_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `author_email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `author_homepage` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_external_tokens`
+--
+
+CREATE TABLE `fo_contact_external_tokens` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `token` text COLLATE utf8_unicode_ci,
+  `type` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `external_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `external_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
+  `created_date` datetime NOT NULL,
+  `expired_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_im_values`
+--
+
+CREATE TABLE `fo_contact_im_values` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `im_type_id` int(10) UNSIGNED NOT NULL,
+  `value` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_main` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_telephones`
+--
+
+CREATE TABLE `fo_contact_telephones` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `telephone_type_id` int(10) UNSIGNED NOT NULL,
+  `number` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(256) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_main` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_web_pages`
+--
+
+CREATE TABLE `fo_contact_web_pages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `web_type_id` int(10) UNSIGNED NOT NULL,
+  `url` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_associations_config`
+--
+
+CREATE TABLE `fo_dimension_associations_config` (
+  `association_id` int(10) UNSIGNED NOT NULL,
+  `config_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'boolean',
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_member_association_default_selections`
+--
+
+CREATE TABLE `fo_dimension_member_association_default_selections` (
+  `association_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `selected_member_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_member_restriction_definitions`
+--
+
+CREATE TABLE `fo_dimension_member_restriction_definitions` (
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `restricted_dimension_id` int(10) UNSIGNED NOT NULL,
+  `restricted_object_type_id` int(10) UNSIGNED NOT NULL,
+  `is_orderable` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `enforce_order_progression` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_required` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table `fo_external_calendars`
+--
+
+CREATE TABLE `fo_external_calendars` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `ext_cal_user_id` int(10) UNSIGNED NOT NULL,
+  `original_calendar_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `calendar_visibility` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `calendar_name` text COLLATE utf8_unicode_ci NOT NULL,
+  `calendar_feng` tinyint(1) NOT NULL DEFAULT '0',
+  `sync` tinyint(1) NOT NULL DEFAULT '0',
+  `related_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_external_calendar_properties`
+--
+
+CREATE TABLE `fo_external_calendar_properties` (
+  `external_calendar_id` int(10) UNSIGNED NOT NULL,
+  `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_external_calendar_users`
+--
+
+CREATE TABLE `fo_external_calendar_users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `auth_user` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_pass` text COLLATE utf8_unicode_ci NOT NULL,
+  `type` text COLLATE utf8_unicode_ci NOT NULL,
+  `sync` tinyint(1) DEFAULT '0',
+  `related_to` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_file_repo`
+--
+
+CREATE TABLE `fo_file_repo` (
+  `id` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `content` longblob NOT NULL,
+  `order` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_event_invitations`
+--
+
+CREATE TABLE `fo_event_invitations` (
+  `event_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `invitation_state` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `synced` int(1) DEFAULT '0',
+  `special_id` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_historic_values`
+--
+
+CREATE TABLE `fo_historic_values` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `value` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_linked_objects`
+--
+
+CREATE TABLE `fo_linked_objects` (
+  `rel_object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_accounts`
+--
+
+CREATE TABLE `fo_mail_accounts` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `name` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
+  `email_addr` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `password` varchar(40) COLLATE utf8_unicode_ci DEFAULT '',
+  `server` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_imap` int(1) NOT NULL DEFAULT '0',
+  `incoming_ssl` int(1) NOT NULL DEFAULT '0',
+  `incoming_ssl_port` int(11) DEFAULT '995',
+  `incoming_ssl_verify_peer` tinyint(1) NOT NULL DEFAULT '0',
+  `smtp_server` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `smtp_use_auth` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `smtp_username` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_password` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `smtp_port` int(10) UNSIGNED NOT NULL DEFAULT '25',
+  `del_from_server` int(11) NOT NULL DEFAULT '0',
+  `mark_read_on_server` int(11) NOT NULL DEFAULT '1',
+  `get_read_state_from_server` tinyint(1) NOT NULL DEFAULT '1',
+  `outgoing_transport_type` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `last_checked` datetime NOT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `signature` text COLLATE utf8_unicode_ci NOT NULL,
+  `sender_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `last_error_date` datetime NOT NULL,
+  `last_error_msg` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `sync_addr` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `sync_pass` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `sync_server` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `sync_ssl` tinyint(1) NOT NULL DEFAULT '0',
+  `sync_ssl_port` int(11) NOT NULL DEFAULT '993',
+  `sync_folder` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `member_id` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `can_detect_special_folders` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_account_contacts`
+--
+
+CREATE TABLE `fo_mail_account_contacts` (
+  `id` int(10) NOT NULL,
+  `account_id` int(10) NOT NULL,
+  `contact_id` int(10) NOT NULL,
+  `can_edit` tinyint(1) NOT NULL DEFAULT '0',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `signature` text COLLATE utf8_unicode_ci NOT NULL,
+  `sender_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `last_error_state` int(1) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0:no error,1:err unread, 2:err read'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_account_imap_folder`
+--
+
+CREATE TABLE `fo_mail_account_imap_folder` (
+  `account_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `folder_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `check_folder` tinyint(1) NOT NULL DEFAULT '0',
+  `last_uid_in_folder` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `special_use` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_contents`
+--
+
+CREATE TABLE `fo_mail_contents` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `account_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `from` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `from_name` varchar(250) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sent_date` datetime NOT NULL,
+  `received_date` datetime NOT NULL,
+  `has_attachments` int(1) NOT NULL DEFAULT '0',
+  `size` int(10) NOT NULL DEFAULT '0',
+  `state` int(1) NOT NULL DEFAULT '0' COMMENT '0:nothing, 1:sent, 2:draft',
+  `is_deleted` int(1) NOT NULL DEFAULT '0',
+  `is_shared` int(1) NOT NULL DEFAULT '0',
+  `imap_folder_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `account_email` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
+  `content_file_id` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `message_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Message-Id header',
+  `in_reply_to_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Message-Id header of the previous email in the conversation',
+  `conversation_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `conversation_last` int(1) NOT NULL DEFAULT '1',
+  `sync` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_content_imap_folders`
+--
+
+CREATE TABLE `fo_mail_content_imap_folders` (
+  `account_id` int(10) UNSIGNED NOT NULL,
+  `message_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `folder` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `uid` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `object_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_conversations`
+--
+
+CREATE TABLE `fo_mail_conversations` (
+  `id` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_datas`
+--
+
+CREATE TABLE `fo_mail_datas` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `to` text COLLATE utf8_unicode_ci NOT NULL,
+  `cc` text COLLATE utf8_unicode_ci NOT NULL,
+  `bcc` text COLLATE utf8_unicode_ci NOT NULL,
+  `subject` text COLLATE utf8_unicode_ci,
+  `content` text COLLATE utf8_unicode_ci,
+  `body_plain` longtext COLLATE utf8_unicode_ci,
+  `body_html` longtext COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_mail_spam_filters`
+--
+
+CREATE TABLE `fo_mail_spam_filters` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `account_id` int(10) UNSIGNED NOT NULL,
+  `text_type` enum('email_address','subject') COLLATE utf8_unicode_ci NOT NULL,
+  `text` text COLLATE utf8_unicode_ci NOT NULL,
+  `spam_state` enum('no spam','spam') COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_member_restrictions`
+--
+
+CREATE TABLE `fo_member_restrictions` (
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `restricted_member_id` int(10) UNSIGNED NOT NULL,
+  `order` smallint(5) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_object_contact_permissions`
+--
+
+CREATE TABLE `fo_object_contact_permissions` (
+  `rel_object_id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `can_read` tinyint(1) UNSIGNED NOT NULL,
+  `can_write` tinyint(1) UNSIGNED NOT NULL,
+  `can_delete` tinyint(1) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_object_properties`
+--
+
+CREATE TABLE `fo_object_properties` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `rel_object_id` int(10) UNSIGNED NOT NULL,
+  `name` text COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_object_selector_temp_values`
+--
+
+CREATE TABLE `fo_object_selector_temp_values` (
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `identifier` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `updated_on` datetime NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_object_type_dependencies`
+--
+
+CREATE TABLE `fo_object_type_dependencies` (
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `dependant_object_type_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_object_type_hierarchies`
+--
+
+CREATE TABLE `fo_object_type_hierarchies` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `parent_object_type_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `child_object_type_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_object_type_hierarchy_options`
+--
+
+CREATE TABLE `fo_object_type_hierarchy_options` (
+  `hierarchy_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `dimension_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `member_type_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `option` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `value` text CHARACTER SET utf8 COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_permission_contexts`
+--
+
+CREATE TABLE `fo_permission_contexts` (
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_project_charts`
+--
+
+CREATE TABLE `fo_project_charts` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `type_id` int(10) UNSIGNED DEFAULT NULL,
+  `display_id` int(10) UNSIGNED DEFAULT NULL,
+  `show_in_project` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `show_in_parents` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_chart_params`
+--
+
+CREATE TABLE `fo_project_chart_params` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `chart_id` int(10) UNSIGNED NOT NULL,
+  `value` varchar(80) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_co_types`
+--
+
+CREATE TABLE `fo_project_co_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `object_manager` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `created_by_id` int(10) UNSIGNED NOT NULL,
+  `created_on` datetime NOT NULL,
+  `updated_by_id` int(10) UNSIGNED NOT NULL,
+  `updated_on` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_events`
+--
+
+CREATE TABLE `fo_project_events` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `start` datetime DEFAULT NULL,
+  `duration` datetime DEFAULT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `private` char(1) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `repeat_end` date DEFAULT NULL,
+  `repeat_forever` tinyint(1) UNSIGNED NOT NULL,
+  `repeat_num` mediumint(9) NOT NULL DEFAULT '0',
+  `repeat_d` smallint(6) NOT NULL DEFAULT '0',
+  `repeat_m` smallint(6) NOT NULL DEFAULT '0',
+  `repeat_y` smallint(6) NOT NULL DEFAULT '0',
+  `repeat_h` smallint(6) NOT NULL DEFAULT '0',
+  `repeat_dow` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `repeat_wnum` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `repeat_mjump` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `type_id` int(11) NOT NULL DEFAULT '0',
+  `special_id` text COLLATE utf8_unicode_ci,
+  `update_sync` datetime DEFAULT NULL,
+  `ext_cal_id` int(10) UNSIGNED NOT NULL,
+  `original_event_id` int(10) UNSIGNED DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_project_forms`
+--
+
+CREATE TABLE `fo_project_forms` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `success_message` text COLLATE utf8_unicode_ci NOT NULL,
+  `action` enum('add_comment','add_task') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'add_comment',
+  `in_object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `is_visible` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_enabled` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `order` smallint(6) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_project_milestones`
+--
+
+CREATE TABLE `fo_project_milestones` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `due_date` datetime NOT NULL,
+  `is_urgent` tinyint(1) NOT NULL DEFAULT '0',
+  `completed_on` datetime NOT NULL,
+  `completed_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `is_template` tinyint(1) NOT NULL DEFAULT '0',
+  `from_template_id` int(10) NOT NULL DEFAULT '0',
+  `from_template_object_id` int(10) UNSIGNED DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_project_task_dependencies`
+--
+
+CREATE TABLE `fo_project_task_dependencies` (
+  `previous_task_id` int(10) UNSIGNED NOT NULL,
+  `task_id` int(10) UNSIGNED NOT NULL,
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_webpages`
+--
+
+CREATE TABLE `fo_project_webpages` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `url` text COLLATE utf8_unicode_ci,
+  `description` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_queued_emails`
+--
+
+CREATE TABLE `fo_queued_emails` (
+  `id` int(10) NOT NULL,
+  `to` text COLLATE utf8_unicode_ci,
+  `cc` text COLLATE utf8_unicode_ci,
+  `bcc` text COLLATE utf8_unicode_ci,
+  `from` text COLLATE utf8_unicode_ci,
+  `subject` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_unicode_ci,
+  `attachments` text COLLATE utf8_unicode_ci,
+  `timestamp` datetime NOT NULL,
+  `object_id` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_report_conditions`
+--
+
+CREATE TABLE `fo_report_conditions` (
+  `id` int(10) NOT NULL,
+  `report_id` int(10) NOT NULL,
+  `custom_property_id` int(10) NOT NULL,
+  `field_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `condition` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `is_parametrizable` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_sent_notifications`
+--
+
+CREATE TABLE `fo_sent_notifications` (
+  `id` int(10) NOT NULL,
+  `queued_email_id` int(10) NOT NULL DEFAULT '0',
+  `sent_date` datetime NOT NULL,
+  `to` text COLLATE utf8_unicode_ci,
+  `cc` text COLLATE utf8_unicode_ci,
+  `bcc` text COLLATE utf8_unicode_ci,
+  `from` text COLLATE utf8_unicode_ci,
+  `subject` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_unicode_ci,
+  `attachments` text COLLATE utf8_unicode_ci,
+  `timestamp` datetime NOT NULL,
+  `object_id` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_sharing_table_flags`
+--
+
+CREATE TABLE `fo_sharing_table_flags` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `execution_date` datetime NOT NULL,
+  `permission_string` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `created_by_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_specific_permissions`
+--
+
+CREATE TABLE `fo_specific_permissions` (
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `can_change_project_status` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_revert_project_status` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_assign_supervisor` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_extend_quota` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_templates`
+--
+
+CREATE TABLE `fo_templates` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `can_instance_from_mail` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_template_instantiated_parameters`
+--
+
+CREATE TABLE `fo_template_instantiated_parameters` (
+  `template_id` int(10) UNSIGNED NOT NULL,
+  `instantiation_id` int(10) UNSIGNED NOT NULL,
+  `parameter_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_template_milestones`
+--
+
+CREATE TABLE `fo_template_milestones` (
+  `template_id` int(10) UNSIGNED DEFAULT NULL,
+  `session_id` int(10) DEFAULT NULL,
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `due_date` datetime NOT NULL,
+  `is_urgent` tinyint(1) NOT NULL DEFAULT '0',
+  `completed_on` datetime NOT NULL,
+  `completed_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `is_template` tinyint(1) NOT NULL DEFAULT '0',
+  `from_template_id` int(10) NOT NULL DEFAULT '0',
+  `from_template_object_id` int(10) UNSIGNED DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_template_objects`
+--
+
+CREATE TABLE `fo_template_objects` (
+  `template_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `created_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_on` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_template_object_properties`
+--
+
+CREATE TABLE `fo_template_object_properties` (
+  `template_id` int(10) NOT NULL,
+  `object_id` int(10) NOT NULL,
+  `property` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_template_parameters`
+--
+
+CREATE TABLE `fo_template_parameters` (
+  `id` int(10) NOT NULL,
+  `template_id` int(10) NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `default_value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_template_tasks`
+--
+
+CREATE TABLE `fo_template_tasks` (
+  `template_id` int(10) UNSIGNED DEFAULT NULL,
+  `session_id` int(10) DEFAULT NULL,
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `parent_id` int(10) UNSIGNED DEFAULT NULL,
+  `parents_path` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `depth` int(2) UNSIGNED NOT NULL DEFAULT '0',
+  `text` text COLLATE utf8_unicode_ci,
+  `due_date` datetime NOT NULL,
+  `start_date` datetime NOT NULL,
+  `assigned_to_contact_id` int(10) UNSIGNED DEFAULT NULL,
+  `assigned_on` datetime DEFAULT NULL,
+  `assigned_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `time_estimate` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `completed_on` datetime NOT NULL,
+  `completed_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `started_on` datetime DEFAULT NULL,
+  `started_by_id` int(10) UNSIGNED NOT NULL,
+  `priority` int(10) UNSIGNED DEFAULT '200',
+  `state` int(10) UNSIGNED DEFAULT NULL,
+  `order` int(10) UNSIGNED DEFAULT '0',
+  `milestone_id` int(10) UNSIGNED DEFAULT NULL,
+  `is_template` tinyint(1) NOT NULL DEFAULT '0',
+  `from_template_id` int(10) NOT NULL DEFAULT '0',
+  `from_template_object_id` int(10) UNSIGNED DEFAULT '0',
+  `repeat_end` datetime NOT NULL,
+  `repeat_forever` tinyint(1) NOT NULL,
+  `repeat_num` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `repeat_d` int(10) UNSIGNED NOT NULL,
+  `repeat_m` int(10) UNSIGNED NOT NULL,
+  `repeat_y` int(10) UNSIGNED NOT NULL,
+  `repeat_by` varchar(15) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `object_subtype` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `percent_completed` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `use_due_time` tinyint(1) DEFAULT '0',
+  `use_start_time` tinyint(1) DEFAULT '0',
+  `original_task_id` int(10) UNSIGNED DEFAULT '0',
+  `type_content` enum('text','html') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'text'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_timeslots`
+--
+
+CREATE TABLE `fo_timeslots` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `rel_object_id` int(10) UNSIGNED NOT NULL,
+  `start_time` datetime NOT NULL,
+  `end_time` datetime NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `paused_on` datetime NOT NULL,
+  `subtract` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `fixed_billing` decimal(20,3) NOT NULL DEFAULT '0.000',
+  `hourly_billing` decimal(20,3) NOT NULL DEFAULT '0.000',
+  `is_fixed_billing` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `rate_currency_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `billing_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `worked_time` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- =========================================----------------------
+--
+-- Table structure for table `fo_administration_logs`
+--
+
+CREATE TABLE `fo_administration_logs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `created_on` datetime NOT NULL,
+  `title` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `log_data` text COLLATE utf8_unicode_ci NOT NULL,
+  `category` enum('system','security') COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_administration_logs`
+--
+
+INSERT INTO `fo_administration_logs` (`id`, `created_on`, `title`, `log_data`, `category`) VALUES
+(1, '2022-09-30 09:58:46', 'invalid login', '124.123.181.38', 'security'),
+(2, '2022-09-30 09:58:55', 'invalid login', '124.123.181.38', 'security');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_administration_tools`
+--
+
+CREATE TABLE `fo_administration_tools` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `controller` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `action` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `order` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `visible` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_administration_tools`
+--
+
+INSERT INTO `fo_administration_tools` (`id`, `name`, `controller`, `action`, `order`, `visible`) VALUES
+(1, 'test_mail_settings', 'administration', 'tool_test_email', 1, 1),
+(2, 'mass_mailer', 'administration', 'tool_mass_mailer', 2, 0);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_application_log_details`
+--
+
+CREATE TABLE `fo_application_log_details` (
+  `application_log_id` int(11) NOT NULL,
+  `property` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `old_value` text COLLATE utf8_unicode_ci,
+  `new_value` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_application_log_details`
+--
+
+INSERT INTO `fo_application_log_details` (`application_log_id`, `property`, `old_value`, `new_value`) VALUES
+(3, 'company_id', '', '1'),
+(3, 'first_name', '', 'Prasad'),
+(3, 'name', '', 'Prasad Devarakonda'),
+(3, 'object_id', '', '4'),
+(3, 'permission_group_id', '', '15'),
+(3, 'salt', '', '71923aa19f739'),
+(3, 'subscribers', '', '2'),
+(3, 'surname', '', 'Devarakonda'),
+(3, 'token', '', '2cf89c1502e594d6156fdd46d54fbbb11e9c5c27'),
+(3, 'twister', '', '9357126084'),
+(3, 'user_type', '', '1'),
+(3, 'username', '', 'A0180'),
+(4, 'company_id', '', '1'),
+(4, 'first_name', '', 'Prasad'),
+(4, 'name', '', 'Prasad Devarakonda'),
+(4, 'object_id', '', '4'),
+(4, 'subscribers', '', '2'),
+(4, 'surname', '', 'Devarakonda'),
+(51, 'company_id', '', '1'),
+(51, 'cp_1', '', 'Developer'),
+(51, 'first_name', '', 'Pradeep'),
+(51, 'name', '', 'Pradeep Kumar'),
+(51, 'object_id', '', '5'),
+(51, 'permission_group_id', '', '16'),
+(51, 'salt', '', 'e0c8aa5934eb0'),
+(51, 'subscribers', '', '4'),
+(51, 'surname', '', 'Kumar'),
+(51, 'token', '', 'c180dc2d068e252bc9d5d6555c2cd99793acdc7f'),
+(51, 'twister', '', '7925038461'),
+(51, 'user_type', '', '12'),
+(51, 'username', '', 'pradeepkumar'),
+(52, 'company_id', '', '1'),
+(52, 'cp_1', '', 'Developer'),
+(52, 'first_name', '', 'Pradeep'),
+(52, 'name', '', 'Pradeep Kumar'),
+(52, 'object_id', '', '5'),
+(52, 'subscribers', '', '4'),
+(52, 'surname', '', 'Kumar'),
+(54, 'name', '', 'Testing'),
+(54, 'object_id', '', '6'),
+(54, 'subscribers', '', '4'),
+(54, 'text', '', 'Sample note here'),
+(54, 'type_content', '', 'html'),
+(56, 'assigned_by_id', '', '4'),
+(56, 'assigned_on', '', '2022-10-04 06:43:30'),
+(56, 'due_date', '', '2022-10-04 00:00:00'),
+(56, 'move_direction_non_working_days', '', 'advance'),
+(56, 'name', '', 'Test task'),
+(56, 'object_id', '', '7'),
+(56, 'order', '', '1'),
+(56, 'percent_completed', '', '100'),
+(56, 'priority', '', '200'),
+(56, 'start_date', '', '2022-10-04 00:00:00'),
+(56, 'subscribers', '', '4'),
+(56, 'time_estimate', '', '60'),
+(56, 'type_content', '', 'html'),
+(57, 'completed_by_id', '0', '4'),
+(57, 'completed_on', '', '2022-10-04 06:47:09'),
+(63, 'company_id', '', '1'),
+(63, 'cp_1', '', 'Testing'),
+(63, 'first_name', '', 'Test'),
+(63, 'name', '', 'Test Last Name'),
+(63, 'object_id', '', '8'),
+(63, 'permission_group_id', '', '17'),
+(63, 'salt', '', '284278aa76c93'),
+(63, 'subscribers', '', '4'),
+(63, 'surname', '', 'Last Name'),
+(63, 'token', '', '978d7a7cc817ba01591fd44ab747b695f4837a2f'),
+(63, 'twister', '', '4073291658'),
+(63, 'user_type', '', '6'),
+(63, 'username', '', 'testlastname'),
+(64, 'company_id', '', '1'),
+(64, 'cp_1', '', 'Testing'),
+(64, 'first_name', '', 'Test'),
+(64, 'name', '', 'Test Last Name'),
+(64, 'object_id', '', '8'),
+(64, 'subscribers', '', '4'),
+(64, 'surname', '', 'Last Name'),
+(65, 'name', '', 'Test Workspace'),
+(65, 'object_id', '', '9'),
+(81, 'name', '', 'Offer accepted'),
+(81, 'object_id', '', '11'),
+(82, 'name', '', 'Offer rejected'),
+(82, 'object_id', '', '12'),
+(83, 'name', '', 'On Boarded'),
+(83, 'object_id', '', '13'),
+(87, 'classification', '', '6'),
+(87, 'is_visible', '', '1'),
+(87, 'name', '', 'Employee_Data_Form_FTE.docx'),
+(87, 'object_id', '', '14'),
+(87, 'subscribers', '', '4'),
+(89, 'classification', '', '6'),
+(89, 'is_visible', '', '1'),
+(89, 'name', '', 'NavathaTransport.docx'),
+(89, 'object_id', '', '16'),
+(89, 'subscribers', '', '4'),
+(91, 'classification', '', '6'),
+(91, 'is_visible', '', '1'),
+(91, 'name', '', 'Acko Bike Policy - DBCR00526752899_00.pdf'),
+(91, 'object_id', '', '18'),
+(91, 'subscribers', '', '4'),
+(93, 'classification', '', '6'),
+(93, 'is_visible', '', '1'),
+(93, 'name', '', 'PaymentReceipt_16006782_.pdf'),
+(93, 'object_id', '', '20'),
+(93, 'subscribers', '', '4');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_application_read_logs`
+--
+
+CREATE TABLE `fo_application_read_logs` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `taken_by_id` int(10) NOT NULL DEFAULT '0',
+  `rel_object_id` int(10) NOT NULL DEFAULT '0',
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `action` enum('read','download') COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_application_read_logs`
+--
+
+INSERT INTO `fo_application_read_logs` (`id`, `taken_by_id`, `rel_object_id`, `created_on`, `created_by_id`, `action`) VALUES
+(1, 2, 2, '2022-09-30 10:42:46', 2, 'read'),
+(2, 2, 2, '2022-09-30 10:43:16', 2, 'read'),
+(3, 4, 4, '2022-10-03 05:12:12', 4, 'read'),
+(4, 4, 4, '2022-10-03 05:12:44', 4, 'read'),
+(5, 4, 4, '2022-10-03 13:07:51', 4, 'read'),
+(6, 4, 4, '2022-10-03 13:08:05', 4, 'read'),
+(7, 4, 4, '2022-10-04 05:34:13', 4, 'read'),
+(8, 4, 4, '2022-10-04 05:41:39', 4, 'read'),
+(9, 4, 4, '2022-10-04 05:48:48', 4, 'read'),
+(10, 4, 4, '2022-10-04 05:48:57', 4, 'read'),
+(11, 4, 4, '2022-10-04 06:00:07', 4, 'read'),
+(12, 4, 4, '2022-10-04 06:02:19', 4, 'read'),
+(13, 4, 4, '2022-10-04 06:06:23', 4, 'read'),
+(14, 4, 4, '2022-10-04 06:08:20', 4, 'read'),
+(15, 4, 4, '2022-10-04 06:20:45', 4, 'read'),
+(16, 4, 4, '2022-10-04 06:25:45', 4, 'read'),
+(17, 4, 4, '2022-10-04 06:37:03', 4, 'read'),
+(18, 4, 4, '2022-10-04 06:37:29', 4, 'read'),
+(19, 4, 4, '2022-10-04 06:39:13', 4, 'read'),
+(20, 4, 4, '2022-10-04 06:43:54', 4, 'read'),
+(21, 4, 7, '2022-10-04 06:46:57', 4, 'read'),
+(22, 4, 7, '2022-10-04 06:47:10', 4, 'read'),
+(23, 4, 5, '2022-10-04 07:09:48', 4, 'read'),
+(24, 4, 4, '2022-10-04 07:10:53', 4, 'read'),
+(25, 4, 5, '2022-10-04 07:13:44', 4, 'read'),
+(26, 4, 5, '2022-10-04 07:13:48', 4, 'read'),
+(27, 4, 5, '2022-10-04 07:14:52', 4, 'read'),
+(28, 4, 5, '2022-10-04 07:16:33', 4, 'read'),
+(29, 4, 5, '2022-10-04 07:17:04', 4, 'read'),
+(30, 4, 5, '2022-10-04 07:17:13', 4, 'read'),
+(31, 4, 5, '2022-10-04 07:18:26', 4, 'read'),
+(32, 4, 5, '2022-10-04 07:18:30', 4, 'read'),
+(33, 4, 5, '2022-10-04 07:18:40', 4, 'read'),
+(34, 4, 5, '2022-10-04 07:18:47', 4, 'read'),
+(35, 4, 5, '2022-10-04 07:18:58', 4, 'read'),
+(36, 4, 4, '2022-10-04 07:34:15', 4, 'read'),
+(37, 4, 8, '2022-10-04 07:48:15', 4, 'read'),
+(38, 4, 8, '2022-10-04 07:49:51', 4, 'read'),
+(39, 4, 8, '2022-10-04 08:00:20', 4, 'read'),
+(40, 4, 4, '2022-10-04 09:09:13', 4, 'read'),
+(41, 4, 4, '2022-10-10 07:18:41', 4, 'read');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_contact_addresses`
+--
+
+CREATE TABLE `fo_contact_addresses` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `address_type_id` int(10) UNSIGNED NOT NULL,
+  `street` text COLLATE utf8_unicode_ci,
+  `city` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `state` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `country` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `zip_code` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_main` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_addresses`
+--
+
+INSERT INTO `fo_contact_addresses` (`id`, `contact_id`, `address_type_id`, `street`, `city`, `state`, `country`, `zip_code`, `is_main`) VALUES
+(1, 8, 2, '', '', '', 'in', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_config_categories`
+--
+
+CREATE TABLE `fo_contact_config_categories` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `type` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `category_order` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `located_under` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_config_categories`
+--
+
+INSERT INTO `fo_contact_config_categories` (`id`, `name`, `is_system`, `type`, `category_order`, `located_under`) VALUES
+(1, 'general', 0, 0, 0, 0),
+(2, 'task panel', 0, 0, 2, 0),
+(3, 'calendar panel', 0, 0, 4, 0),
+(4, 'context help', 1, 0, 5, 0),
+(5, 'time panel', 0, 0, 3, 0),
+(6, 'contact panel', 0, 0, 8, 0),
+(7, 'listing preferences', 0, 0, 10, 0),
+(8, 'reporting', 0, 0, 15, 0),
+(9, 'connected systems', 0, 0, 9, 0),
+(10, 'mails panel', 0, 0, 5, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_config_options`
+--
+
+CREATE TABLE `fo_contact_config_options` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `category_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `default_value` text COLLATE utf8_unicode_ci,
+  `config_handler_class` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `option_order` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `dev_comment` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `options` varchar(511) COLLATE utf8_unicode_ci DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_config_options`
+--
+
+INSERT INTO `fo_contact_config_options` (`id`, `category_name`, `name`, `default_value`, `config_handler_class`, `is_system`, `option_order`, `dev_comment`, `options`) VALUES
+(1, 'task panel', 'tasksDateStart', '', 'DateTimeConfigHandler', 1, 0, 'date from to filter out task list', ''),
+(2, 'task panel', 'tasksDateEnd', '', 'DateTimeConfigHandler', 1, 0, 'the date up to filter the list of tasks', ''),
+(3, 'task panel', 'show_notify_checkbox_in_quick_add', '1', 'BoolConfigHandler', 1, 0, 'Show notification checkbox in quick add task view', ''),
+(4, 'task panel', 'can notify from quick add', '1', 'BoolConfigHandler', 0, 0, 'Notification checkbox default value', ''),
+(5, 'task panel', 'can notify subscribers', '1', 'BoolConfigHandler', 0, 0, 'Notification checkbox default value', ''),
+(6, 'task panel', 'tasksShowWorkspaces', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(7, 'task panel', 'tasksShowTime', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(8, 'task panel', 'tasksShowTimeQuick', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(9, 'task panel', 'tasksShowDates', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(10, 'task panel', 'tasksShowPercentCompletedBar', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(11, 'task panel', 'tasksShowTimeEstimates', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(12, 'task panel', 'tasksShowTimePending', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(13, 'task panel', 'tasksShowTimeWorked', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(14, 'task panel', 'tasksShowQuickEdit', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(15, 'task panel', 'tasksShowQuickComplete', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(16, 'task panel', 'tasksShowQuickComment', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(17, 'task panel', 'tasksShowQuickMarkAsStarted', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(18, 'task panel', 'tasksShowStartDates', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(19, 'task panel', 'tasksShowAssignedBy', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(20, 'task panel', 'tasksShowClassification', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(21, 'task panel', 'tasksShowSubtasksStructure', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(22, 'task panel', 'tasksShowEndDates', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(23, 'task panel', 'tasksShowQuickAddSubTasks', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(24, 'task panel', 'tasksShowDescriptionOnTimeForms', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(25, 'task panel', 'tasksShowTags', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(26, 'task panel', 'tasksShowEmptyMilestones', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(27, 'task panel', 'tasksPreviousPendingTasks', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(28, 'task panel', 'tasksGroupBy', 'due_date', 'StringConfigHandler', 1, 0, '', ''),
+(29, 'task panel', 'tasksOrderBy', 'priority', 'StringConfigHandler', 1, 0, '', ''),
+(30, 'task panel', 'task panel status', '1', 'IntegerConfigHandler', 1, 0, '', ''),
+(31, 'task panel', 'task panel filter', 'assigned_to', 'StringConfigHandler', 1, 0, '', ''),
+(32, 'task panel', 'task panel filter value', '0', 'UserCompanyConfigHandler', 1, 0, '', ''),
+(33, 'task panel', 'noOfTasks', '15', 'IntegerConfigHandler', 0, 100, NULL, ''),
+(34, 'task panel', 'task_display_limit', '500', 'IntegerConfigHandler', 0, 200, NULL, ''),
+(35, 'task panel', 'pushUseWorkingDays', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(36, 'task panel', 'tasksShowDimensionCols', '', 'StringConfigHandler', 1, 0, '', ''),
+(37, 'task panel', 'tasksUseDateFilters', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(38, 'task panel', 'tasksShowAssignedToName', '0', 'BoolConfigHandler', 0, 0, '', ''),
+(39, 'task panel', 'tasksGroupsPaginationCount', '5', 'IntegerConfigHandler', 0, 0, '', ''),
+(40, 'general', 'listingContactsBy', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(41, 'general', 'localization', '', 'LocalizationConfigHandler', 0, 100, '', ''),
+(42, 'general', 'search_engine', 'match', 'SearchEngineConfigHandler', 0, 700, '', ''),
+(43, 'general', 'lastAccessedWorkspace', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(44, 'general', 'work_day_start_time', '9:00', 'TimeConfigHandler', 0, 400, 'Work day start time', ''),
+(45, 'general', 'work_day_end_time', '18:00', 'TimeConfigHandler', 0, 410, 'Work day end time', ''),
+(46, 'general', 'time_format_use_24', '0', 'BoolConfigHandler', 0, 500, 'Use 24 hours time format', ''),
+(47, 'general', 'date_format', 'd/m/Y', 'DateFormatConfigHandler', 0, 600, 'Date objects will be displayed using this format.', ''),
+(48, 'general', 'descriptive_date_format', 'F j, Y (l)', 'StringConfigHandler', 0, 700, 'Descriptive dates will be displayed using this format.', ''),
+(49, 'general', 'custom_report_tab', '5', 'StringConfigHandler', 1, 0, NULL, ''),
+(50, 'general', 'last_mail_format', 'html', 'StringConfigHandler', 1, 0, NULL, ''),
+(51, 'general', 'amount_objects_to_show', '5', 'IntegerConfigHandler', 0, 0, NULL, ''),
+(52, 'general', 'reset_password', '', 'StringConfigHandler', 1, 0, 'Used to store per-user tokens to validate password reset requests', ''),
+(53, 'general', 'autodetect_time_zone', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(54, 'general', 'detect_mime_type_from_extension', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(55, 'general', 'root_dimensions', ',2', 'RootDimensionsConfigHandler', 0, 0, NULL, ''),
+(56, 'general', 'show_object_direct_url', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(57, 'general', 'drag_drop_prompt', 'prompt', 'DragDropPromptConfigHandler', 0, 0, NULL, ''),
+(58, 'general', 'notify_myself_too', '0', 'BoolConfigHandler', 0, 100, '', ''),
+(59, 'calendar panel', 'calendar view type', 'viewweek', 'StringConfigHandler', 1, 0, '', ''),
+(60, 'calendar panel', 'calendar user filter', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(61, 'calendar panel', 'calendar status filter', '', 'StringConfigHandler', 1, 0, '', ''),
+(62, 'calendar panel', 'start_monday', '', 'BoolConfigHandler', 0, 0, '', ''),
+(63, 'calendar panel', 'show_week_numbers', '', 'BoolConfigHandler', 0, 0, '', ''),
+(64, 'calendar panel', 'show_birthdays_in_calendar', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(65, 'calendar panel', 'show_multiple_color_events', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(66, 'calendar panel', 'displayed events amount', '3', 'IntegerConfigHandler', 0, 0, '', ''),
+(67, 'context help', 'show_tasks_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(68, 'context help', 'show_account_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(69, 'context help', 'show_active_tasks_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(70, 'context help', 'show_general_timeslots_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(71, 'context help', 'show_late_tasks_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(72, 'context help', 'show_pending_tasks_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(73, 'context help', 'show_documents_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(74, 'context help', 'show_active_tasks_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(75, 'context help', 'show_calendar_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(76, 'context help', 'show_messages_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(77, 'context help', 'show_dashboard_info_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(78, 'context help', 'show_comments_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(79, 'context help', 'show_emails_widget_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(80, 'context help', 'show_reporting_panel_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(81, 'context help', 'show_add_file_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(82, 'context help', 'show_administration_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(83, 'context help', 'show_member_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(84, 'context help', 'show_add_contact_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(85, 'context help', 'show_add_company_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(86, 'context help', 'show_upload_file_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(87, 'context help', 'show_upload_file_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(88, 'context help', 'show_upload_file_tags_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(89, 'context help', 'show_upload_file_description_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(90, 'context help', 'show_upload_file_custom_properties_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(91, 'context help', 'show_upload_file_subscribers_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(92, 'context help', 'show_upload_file_linked_objects_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(93, 'context help', 'show_add_note_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(94, 'context help', 'show_add_note_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(95, 'context help', 'show_add_note_tags_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(96, 'context help', 'show_add_note_custom_properties_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(97, 'context help', 'show_add_note_subscribers_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(98, 'context help', 'show_add_note_linked_object_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(99, 'context help', 'show_add_milestone_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(100, 'context help', 'show_add_milestone_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(101, 'context help', 'show_add_milestone_tags_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(102, 'context help', 'show_add_milestone_description_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(103, 'context help', 'show_add_milestone_reminders_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(104, 'context help', 'show_add_milestone_custom_properties_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(105, 'context help', 'show_add_milestone_linked_object_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(106, 'context help', 'show_add_milestone_subscribers_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(107, 'context help', 'show_add_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(108, 'context help', 'show_print_report_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(109, 'context help', 'show_add_task_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(110, 'context help', 'show_add_task_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(111, 'context help', 'show_add_task_tags_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(112, 'context help', 'show_add_task_reminders_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(113, 'context help', 'show_add_task_custom_properties_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(114, 'context help', 'show_add_task_linked_objects_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(115, 'context help', 'show_add_task_subscribers_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(116, 'context help', 'show_list_task_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(117, 'context help', 'show_time_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(118, 'context help', 'show_add_webpage_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(119, 'context help', 'show_add_webpage_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(120, 'context help', 'show_add_webpage_tags_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(121, 'context help', 'show_add_webpage_description_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(122, 'context help', 'show_add_webpage_custom_properties_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(123, 'context help', 'show_add_webpage_subscribers_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(124, 'context help', 'show_add_webpage_linked_objects_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(125, 'context help', 'show_add_event_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(126, 'context help', 'show_add_event_workspace_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(127, 'context help', 'show_add_event_tag_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(128, 'context help', 'show_add_event_description_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(129, 'context help', 'show_add_event_repeat_options_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(130, 'context help', 'show_add_event_reminders_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(131, 'context help', 'show_add_event_custom_properties_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(132, 'context help', 'show_add_event_subscribers_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(133, 'context help', 'show_add_event_linked_objects_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(134, 'context help', 'show_add_event_inivitation_context_help', '1', 'BoolConfigHandler', 1, 0, NULL, ''),
+(135, 'time panel', 'TM show time type', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(136, 'time panel', 'TM report show time type', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(137, 'time panel', 'TM user filter', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(138, 'time panel', 'TM tasks user filter', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(139, 'time panel', 'show_start_time_action', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(140, 'time panel', 'add_timeslot_view_dimensions_combos', '2,3,', 'ManageableDimensionsConfigHandler', 0, 0, 'dimensions ids for skip', ''),
+(141, 'time panel', 'show_pause_time_action', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(142, 'time panel', 'stop_running_timeslots', '0', 'BoolConfigHandler', 0, 0, '', ''),
+(143, 'general', 'show_context_help', 'until_close', 'ShowContextHelpConfigHandler', 0, 0, NULL, ''),
+(144, 'dashboard', 'show charts widget', '1', 'BoolConfigHandler', 0, 600, '', ''),
+(145, 'dashboard', 'show dashboard info widget', '1', 'BoolConfigHandler', 0, 900, '', ''),
+(146, 'general', 'rememberGUIState', '1', 'RememberGUIConfigHandler', 0, 300, '', ''),
+(147, 'calendar panel', 'calendar task filter', 'pending', 'StringConfigHandler', 1, 0, '', ''),
+(148, 'task panel', 'close timeslot open', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(149, 'calendar panel', 'reminders_events', 'reminder_email,1,60', 'StringConfigHandler', 0, 0, NULL, ''),
+(150, 'dashboard', 'filters_dashboard', '0,0,10,0', 'StringConfigHandler', 0, 0, 'first position: entry to see the dimension, second position: view timeslot, third position: recent activities to show, fourth position: view views and downloads', ''),
+(151, 'task panel', 'reminders_tasks', 'reminder_email,1,1440', 'StringConfigHandler', 0, 23, NULL, ''),
+(152, 'task panel', 'add_task_autoreminder', '0', 'BoolConfigHandler', 0, 21, NULL, ''),
+(153, 'task panel', 'add_self_task_autoreminder', '1', 'BoolConfigHandler', 0, 22, NULL, ''),
+(154, 'task panel', 'add_task_default_reminder', '1', 'BoolConfigHandler', 0, 20, NULL, ''),
+(155, 'task panel', 'quick_add_task_view_dimensions_combos', '2,3,', 'ManageableDimensionsConfigHandler', 0, 0, 'dimensions ids for skip', ''),
+(156, 'calendar panel', 'add_event_autoreminder', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(157, 'calendar panel', 'autoassign_events', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(158, 'calendar panel', 'event_send_invitations', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(159, 'calendar panel', 'event_subscribe_invited', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(160, 'mails panel', 'mails_per_page', '50', 'IntegerConfigHandler', 0, 0, NULL, ''),
+(161, 'mails panel', 'attach_to_notification', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(162, 'general', 'access_member_after_add', '1', 'BoolConfigHandler', 0, 1300, NULL, ''),
+(163, 'general', 'access_member_after_add_remember', '0', 'BoolConfigHandler', 0, 1301, NULL, ''),
+(164, 'general', 'sendEmailNotification', '1', 'BoolConfigHandler', 0, 0, 'Send email notification to new user', ''),
+(165, 'general', 'viewContactsChecked', '1', 'BoolConfigHandler', 1, 0, 'in people panel is view contacts checked', ''),
+(166, 'general', 'viewUsersChecked', '1', 'BoolConfigHandler', 1, 0, 'in people panel is view users checked', ''),
+(167, 'general', 'viewCompaniesChecked', '1', 'BoolConfigHandler', 1, 0, 'in people panel is view companies checked', ''),
+(168, 'general', 'updateOnLinkedObjects', '1', 'BoolConfigHandler', 0, 0, 'Update objects when linking others', ''),
+(169, 'dashboard', 'overviewAsList', '0', 'BoolConfigHandler', 1, 0, 'View Overview as list', ''),
+(170, 'general', 'contacts_per_page', '50', 'IntegerConfigHandler', 0, 1200, NULL, ''),
+(171, 'listing preferences', 'breadcrumb_member_count', '5', 'IntegerConfigHandler', 0, 5, NULL, ''),
+(172, 'general', 'timeReportDate', '4', 'IntegerConfigHandler', 1, 0, '', ''),
+(173, 'general', 'timeReportDateStart', '1900-01-01 00:00:00', 'DateTimeConfigHandler', 1, 0, '', ''),
+(174, 'general', 'timeReportDateEnd', '1900-01-01 00:00:00', 'DateTimeConfigHandler', 1, 0, '', ''),
+(175, 'general', 'timeReportPerson', '0', 'IntegerConfigHandler', 1, 0, '', ''),
+(176, 'general', 'timeReportTimeslotType', '2', 'IntegerConfigHandler', 1, 0, '', ''),
+(177, 'general', 'timeReportGroupBy', '0,0,0', 'StringConfigHandler', 1, 0, '', ''),
+(178, 'general', 'timeReportAltGroupBy', '0,0,0', 'StringConfigHandler', 1, 0, '', ''),
+(179, 'general', 'timeReportShowEstimatedTime', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(180, 'general', 'timeReportTaskStatus', 'all', 'StringConfigHandler', 1, 0, '', ''),
+(181, 'general', 'can_modify_navigation_panel', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(182, 'general', 'view_mail_attachs_expanded', '1', 'BoolConfigHandler', 1, 0, '', ''),
+(183, 'general', 'timeReportShowBilling', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(184, 'general', 'settings_closed', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(185, 'contact panel', 'show_inactive_users_in_list', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(186, 'general', 'enable_trash_confirmation', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(187, 'general', 'enable_archive_confirmation', '1', 'BoolConfigHandler', 0, 0, '', ''),
+(188, 'general', 'trash_objects_in_member_after_delete', '0', 'BoolConfigHandler', 1, 0, '', ''),
+(189, 'system', 'widget_dimensions', '', 'AllDimensionsConfigHandler', 1, 0, '', ''),
+(190, 'reporting', 'report_time_colums_display', 'friendly', 'TimeFormatConfigHandler', 0, 1, '', ''),
+(191, 'reporting', 'pdf_page_layout', 'Portrait', 'ListConfigHandler', 0, 0, '', '{\"option\": [{\"value\": \"Portrait\",\"text\": \"config_pdf_layout_portrait\"},{\"value\": \"Landscape\",\"text\": \"config_pdf_layout_landscape\"}]}'),
+(192, 'reporting', 'pdf_page_size', 'A4', 'ListConfigHandler', 0, 0, '', '{\"option\": [{\"value\": \"A0\",\"text\": \"config_pdf_size_A0\"},{\"value\": \"A1\",\"text\": \"config_pdf_size_A1\"},{\"value\": \"A2\",\"text\": \"config_pdf_size_A2\"},{\"value\": \"A3\",\"text\": \"config_pdf_size_A3\"},{\"value\": \"A4\",\"text\": \"config_pdf_size_A4\"},{\"value\": \"A5\",\"text\": \"config_pdf_size_A5\"},{\"value\": \"Legal\",\"text\": \"config_pdf_size_legal\"},{\"value\": \"Letter\",\"text\": \"config_pdf_size_letter\"}]}'),
+(193, 'time panel', 'automatic_calculation_time', '1', 'ListConfigHandler', 0, 0, ' ', '{\"option\": [{\"value\": \"1\",\"text\": \"config_start_calc\"},{\"value\": \"2\",\"text\": \"config_end_calc\"},{\"value\": \"3\",\"text\": \"always_show_modal\"}]}'),
+(194, 'contact panel', 'properties_for_contact_component', '', 'ContactPropertySelectorConfigHandler', 0, 0, '', 'contact'),
+(195, 'time panel', 'automatic_calculation_start_time', '1', 'ListConfigHandler', 0, 0, ' ', '{\"option\": [{\"value\": \"1\",\"text\": \"config_dates_calc\"},{\"value\": \"2\",\"text\": \"config_hours_calc\"},{\"value\": \"3\",\"text\": \"always_show_modal\"}]}'),
+(196, 'general', 'decimals_separator', '.', 'ListConfigHandler', 0, 0, ' ', '{\"option\": [{\"value\": \".\",\"text\": \".\"},{\"value\": \",\",\"text\": \",\"}]}'),
+(197, 'general', 'thousand_separator', ',', 'ListConfigHandler', 0, 0, ' ', '{\"option\": [{\"value\": \".\",\"text\": \".\"},{\"value\": \",\",\"text\": \",\"}]}'),
+(198, 'general', 'decimal_digits', '2', 'IntegerConfigHandler', 0, 0, ' ', ''),
+(199, 'mails panel', 'view deleted accounts emails', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(200, 'mails panel', 'check_is_defult_account', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(201, 'mails panel', 'block_email_images', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(202, 'mails panel', 'draft_autosave_timeout', '60', 'IntegerConfigHandler', 0, 100, NULL, ''),
+(203, 'mails panel', 'default_mail_font_size', '14', 'IntegerConfigHandler', 0, 100, NULL, ''),
+(204, 'mails panel', 'attach_docs_content', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(205, 'mails panel', 'email_polling', '0', 'IntegerConfigHandler', 1, 0, NULL, ''),
+(206, 'mails panel', 'show_unread_on_title', '0', 'BoolConfigHandler', 1, 0, NULL, ''),
+(207, 'mails panel', 'max_spam_level', '5', 'IntegerConfigHandler', 0, 100, NULL, ''),
+(208, 'mails panel', 'create_contacts_from_email_recipients', '0', 'BoolConfigHandler', 0, 101, NULL, ''),
+(209, 'mails panel', 'mail_drag_drop_prompt', 'prompt', 'MailDragDropPromptConfigHandler', 0, 102, NULL, ''),
+(210, 'mails panel', 'auto_classify_attachments', '1', 'BoolConfigHandler', 0, 103, NULL, ''),
+(211, 'mails panel', 'show_emails_as_conversations', '0', 'BoolConfigHandler', 0, 0, NULL, ''),
+(212, 'mails panel', 'mails account filter', '', 'StringConfigHandler', 1, 0, NULL, ''),
+(213, 'mails panel', 'mails classification filter', 'all', 'StringConfigHandler', 1, 0, NULL, ''),
+(214, 'mails panel', 'mails read filter', 'all', 'StringConfigHandler', 1, 0, NULL, ''),
+(215, 'mails panel', 'hide_quoted_text_in_emails', '1', 'BoolConfigHandler', 0, 110, NULL, ''),
+(216, 'mails panel', 'mail_account_err_check_interval', '300', 'IntegerConfigHandler', 0, 120, NULL, ''),
+(217, 'mails panel', 'classify_mail_with_conversation', '1', 'BoolConfigHandler', 0, 130, NULL, ''),
+(218, 'mails panel', 'folder_received_columns', 'from,subject,account,date,folder,actions', 'StringConfigHandler', 1, 0, NULL, ''),
+(219, 'mails panel', 'folder_sent_columns', 'to,subject,account,date,folder,actions', 'StringConfigHandler', 1, 0, NULL, ''),
+(220, 'mails panel', 'folder_draft_columns', 'to,subject,account,date,folder,actions', 'StringConfigHandler', 1, 0, NULL, ''),
+(221, 'mails panel', 'folder_junk_columns', 'from,subject,account,date,folder,actions', 'StringConfigHandler', 1, 0, NULL, ''),
+(222, 'mails panel', 'folder_outbox_columns', 'to,subject,account,date,folder,actions', 'StringConfigHandler', 1, 0, NULL, ''),
+(223, 'mails panel', 'check_attach_word', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(224, 'listing preferences', 'lp_dim_workspaces_show_as_column', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(225, 'listing preferences', 'lp_dim_tags_show_as_column', '1', 'BoolConfigHandler', 0, 0, NULL, ''),
+(226, 'system', 'current_time_module_filters', '', 'StringConfigHandler', 1, 0, '', '');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_contact_config_option_values`
+--
+
+CREATE TABLE `fo_contact_config_option_values` (
+  `option_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `value` text COLLATE utf8_unicode_ci,
+  `member_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_config_option_values`
+--
+
+INSERT INTO `fo_contact_config_option_values` (`option_id`, `contact_id`, `value`, `member_id`) VALUES
+(1, 4, '2022-10-04 00:00:00', 0),
+(28, 4, 'nothing', 0),
+(29, 2, 'priority', 0),
+(29, 4, 'priority', 0),
+(30, 2, '2', 0),
+(30, 4, '2', 0),
+(31, 4, 'created_by', 0),
+(32, 4, '0', 0),
+(40, 4, '1', 0),
+(41, 4, 'en_us', 0),
+(44, 4, '9:00 AM', 0),
+(45, 4, '6:00 PM', 0),
+(52, 5, 'a28b43aee1db240600266e520fe3a748de9585c2;1664950823', 0),
+(52, 8, '1bbe7c63a586e2e6cf27920f7e611a55e5ea7ecb;1664955723', 0),
+(53, 2, '1', 0),
+(53, 4, '1', 0),
+(53, 5, '1', 0),
+(53, 8, '1', 0),
+(55, 4, '1,2', 0),
+(58, 0, '0', 0),
+(164, 2, '1', 0),
+(164, 4, '1', 0),
+(165, 4, '0', 0),
+(167, 4, '0', 0),
+(184, 4, '1', 0),
+(185, 4, '1', 0),
+(194, 4, ' ', 0),
+(226, 4, '{\"type_filter\":\"0\",\"user_filter\":\"0\",\"period_filter\":\"\",\"from_filter\":\"\",\"to_filter\":\"\"}', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_dimension_permissions`
+--
+
+CREATE TABLE `fo_contact_dimension_permissions` (
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `permission_type` enum('allow all','deny all','check') COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_dimension_permissions`
+--
+
+INSERT INTO `fo_contact_dimension_permissions` (`permission_group_id`, `dimension_id`, `permission_type`) VALUES
+(1, 2, 'check'),
+(14, 1, 'check'),
+(14, 2, 'check'),
+(15, 1, 'check'),
+(15, 2, 'check'),
+(16, 1, 'check'),
+(16, 2, 'check'),
+(17, 1, 'check'),
+(17, 2, 'check');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_contact_member_cache`
+--
+
+CREATE TABLE `fo_contact_member_cache` (
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `parent_member_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `last_activity` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_member_cache`
+--
+
+INSERT INTO `fo_contact_member_cache` (`contact_id`, `member_id`, `parent_member_id`, `last_activity`) VALUES
+(2, 5, 0, '0000-00-00 00:00:00'),
+(2, 6, 8, '0000-00-00 00:00:00'),
+(2, 7, 5, '0000-00-00 00:00:00'),
+(2, 8, 0, '0000-00-00 00:00:00'),
+(4, 1, 0, '0000-00-00 00:00:00'),
+(4, 5, 0, '0000-00-00 00:00:00'),
+(4, 6, 8, '0000-00-00 00:00:00'),
+(4, 7, 5, '0000-00-00 00:00:00'),
+(4, 8, 0, '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_member_permissions`
+--
+
+CREATE TABLE `fo_contact_member_permissions` (
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `can_write` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_delete` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_member_permissions`
+--
+
+INSERT INTO `fo_contact_member_permissions` (`permission_group_id`, `member_id`, `object_type_id`, `can_write`, `can_delete`) VALUES
+(14, 0, 3, 1, 1),
+(14, 0, 4, 1, 1),
+(14, 0, 5, 1, 1),
+(14, 0, 6, 1, 1),
+(14, 0, 9, 1, 1),
+(14, 0, 10, 1, 1),
+(14, 0, 11, 1, 1),
+(14, 0, 15, 1, 1),
+(14, 0, 17, 1, 1),
+(14, 1, 3, 1, 1),
+(14, 1, 4, 1, 1),
+(14, 1, 5, 1, 1),
+(14, 1, 6, 1, 1),
+(14, 1, 9, 1, 1),
+(14, 1, 10, 1, 1),
+(14, 1, 11, 1, 1),
+(14, 1, 12, 1, 1),
+(14, 1, 13, 1, 1),
+(14, 1, 15, 1, 1),
+(14, 1, 16, 1, 1),
+(14, 1, 17, 1, 1),
+(14, 1, 18, 1, 1),
+(14, 1, 19, 1, 1),
+(14, 1, 20, 1, 1),
+(14, 1, 23, 1, 1),
+(14, 2, 3, 1, 1),
+(14, 2, 4, 1, 1),
+(14, 2, 5, 1, 1),
+(14, 2, 6, 1, 1),
+(14, 2, 9, 1, 1),
+(14, 2, 10, 1, 1),
+(14, 2, 11, 1, 1),
+(14, 2, 12, 1, 1),
+(14, 2, 13, 1, 1),
+(14, 2, 15, 1, 1),
+(14, 2, 16, 1, 1),
+(14, 2, 17, 1, 1),
+(14, 2, 18, 1, 1),
+(14, 2, 19, 1, 1),
+(14, 2, 20, 1, 1),
+(14, 2, 23, 1, 1),
+(14, 5, 1, 1, 1),
+(14, 5, 3, 1, 1),
+(14, 5, 5, 1, 1),
+(14, 5, 6, 1, 1),
+(14, 5, 9, 1, 1),
+(14, 5, 10, 1, 1),
+(14, 5, 11, 1, 1),
+(14, 5, 15, 1, 1),
+(14, 5, 17, 1, 1),
+(14, 6, 1, 1, 1),
+(14, 6, 3, 1, 1),
+(14, 6, 5, 1, 1),
+(14, 6, 6, 1, 1),
+(14, 6, 9, 1, 1),
+(14, 6, 10, 1, 1),
+(14, 6, 11, 1, 1),
+(14, 6, 15, 1, 1),
+(14, 6, 17, 1, 1),
+(14, 7, 1, 1, 1),
+(14, 7, 3, 1, 1),
+(14, 7, 5, 1, 1),
+(14, 7, 6, 1, 1),
+(14, 7, 9, 1, 1),
+(14, 7, 10, 1, 1),
+(14, 7, 11, 1, 1),
+(14, 7, 15, 1, 1),
+(14, 7, 17, 1, 1),
+(14, 8, 1, 1, 1),
+(14, 8, 3, 1, 1),
+(14, 8, 5, 1, 1),
+(14, 8, 6, 1, 1),
+(14, 8, 9, 1, 1),
+(14, 8, 10, 1, 1),
+(14, 8, 11, 1, 1),
+(14, 8, 15, 1, 1),
+(14, 8, 17, 1, 1),
+(15, 0, 3, 1, 1),
+(15, 0, 4, 1, 1),
+(15, 0, 5, 1, 1),
+(15, 0, 6, 1, 1),
+(15, 0, 9, 1, 1),
+(15, 0, 10, 1, 1),
+(15, 0, 11, 1, 1),
+(15, 0, 15, 1, 1),
+(15, 0, 17, 1, 1),
+(15, 0, 20, 1, 1),
+(15, 0, 23, 1, 1),
+(15, 1, 3, 1, 1),
+(15, 1, 4, 1, 1),
+(15, 1, 5, 1, 1),
+(15, 1, 6, 1, 1),
+(15, 1, 9, 1, 1),
+(15, 1, 10, 1, 1),
+(15, 1, 11, 1, 1),
+(15, 1, 15, 1, 1),
+(15, 1, 17, 1, 1),
+(15, 1, 23, 1, 1),
+(15, 2, 3, 1, 1),
+(15, 2, 4, 1, 1),
+(15, 2, 5, 1, 1),
+(15, 2, 6, 1, 1),
+(15, 2, 9, 1, 1),
+(15, 2, 10, 1, 1),
+(15, 2, 11, 1, 1),
+(15, 2, 12, 1, 1),
+(15, 2, 13, 1, 1),
+(15, 2, 15, 1, 1),
+(15, 2, 16, 1, 1),
+(15, 2, 17, 1, 1),
+(15, 2, 18, 1, 1),
+(15, 2, 19, 1, 1),
+(15, 2, 20, 1, 1),
+(15, 2, 23, 1, 1),
+(15, 3, 3, 1, 1),
+(15, 3, 4, 1, 1),
+(15, 3, 5, 1, 1),
+(15, 3, 6, 1, 1),
+(15, 3, 9, 1, 1),
+(15, 3, 10, 1, 1),
+(15, 3, 11, 1, 1),
+(15, 3, 12, 1, 1),
+(15, 3, 13, 1, 1),
+(15, 3, 15, 1, 1),
+(15, 3, 16, 1, 1),
+(15, 3, 17, 1, 1),
+(15, 3, 18, 1, 1),
+(15, 3, 19, 1, 1),
+(15, 3, 20, 1, 1),
+(15, 3, 23, 1, 1),
+(15, 4, 3, 1, 1),
+(15, 4, 4, 1, 1),
+(15, 4, 5, 1, 1),
+(15, 4, 6, 1, 1),
+(15, 4, 9, 1, 1),
+(15, 4, 10, 1, 1),
+(15, 4, 11, 1, 1),
+(15, 4, 12, 1, 1),
+(15, 4, 13, 1, 1),
+(15, 4, 15, 1, 1),
+(15, 4, 16, 1, 1),
+(15, 4, 17, 1, 1),
+(15, 4, 18, 1, 1),
+(15, 4, 19, 1, 1),
+(15, 4, 20, 1, 1),
+(15, 4, 23, 1, 1),
+(15, 5, 1, 1, 1),
+(15, 5, 3, 1, 1),
+(15, 5, 5, 1, 1),
+(15, 5, 6, 1, 1),
+(15, 5, 9, 1, 1),
+(15, 5, 10, 1, 1),
+(15, 5, 11, 1, 1),
+(15, 5, 15, 1, 1),
+(15, 5, 17, 1, 1),
+(15, 6, 1, 1, 1),
+(15, 6, 3, 1, 1),
+(15, 6, 5, 1, 1),
+(15, 6, 6, 1, 1),
+(15, 6, 9, 1, 1),
+(15, 6, 10, 1, 1),
+(15, 6, 11, 1, 1),
+(15, 6, 15, 1, 1),
+(15, 6, 17, 1, 1),
+(15, 7, 1, 1, 1),
+(15, 7, 3, 1, 1),
+(15, 7, 5, 1, 1),
+(15, 7, 6, 1, 1),
+(15, 7, 9, 1, 1),
+(15, 7, 10, 1, 1),
+(15, 7, 11, 1, 1),
+(15, 7, 15, 1, 1),
+(15, 7, 17, 1, 1),
+(15, 8, 1, 1, 1),
+(15, 8, 3, 1, 1),
+(15, 8, 5, 1, 1),
+(15, 8, 6, 1, 1),
+(15, 8, 9, 1, 1),
+(15, 8, 10, 1, 1),
+(15, 8, 11, 1, 1),
+(15, 8, 15, 1, 1),
+(15, 8, 17, 1, 1),
+(16, 3, 3, 0, 0),
+(16, 3, 4, 0, 0),
+(16, 3, 5, 0, 0),
+(16, 3, 6, 0, 0),
+(16, 3, 9, 0, 0),
+(16, 3, 10, 0, 0),
+(16, 3, 11, 0, 0),
+(16, 3, 12, 0, 0),
+(16, 3, 13, 0, 0),
+(16, 3, 15, 0, 0),
+(16, 3, 16, 0, 0),
+(16, 3, 17, 0, 0),
+(16, 3, 18, 0, 0),
+(16, 3, 19, 0, 0),
+(16, 3, 20, 0, 0),
+(16, 3, 23, 0, 0),
+(17, 4, 3, 1, 1),
+(17, 4, 4, 1, 1),
+(17, 4, 5, 1, 1),
+(17, 4, 6, 1, 1),
+(17, 4, 9, 1, 1),
+(17, 4, 10, 1, 1),
+(17, 4, 11, 1, 1),
+(17, 4, 12, 1, 1),
+(17, 4, 13, 1, 1),
+(17, 4, 15, 1, 1),
+(17, 4, 16, 1, 1),
+(17, 4, 17, 1, 1),
+(17, 4, 18, 1, 1),
+(17, 4, 19, 1, 1),
+(17, 4, 20, 1, 1),
+(17, 4, 23, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_passwords`
+--
+
+CREATE TABLE `fo_contact_passwords` (
+  `id` int(10) NOT NULL,
+  `contact_id` int(10) NOT NULL,
+  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `password_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_passwords`
+--
+
+INSERT INTO `fo_contact_passwords` (`id`, `contact_id`, `password`, `password_date`) VALUES
+(1, 2, 'UVNVCVIDBQMJWAYHB1hSAxFWDwhbDVYQ', '2022-09-30 09:58:32'),
+(2, 4, 'DQVVVw9oRlRDAwI=', '2022-09-30 10:03:18'),
+(3, 5, 'XwdUBVQGVw4EAlIEAAgFUw==', '2022-10-04 06:20:23'),
+(4, 8, 'Bg9VUFVQAVo=', '2022-10-04 07:42:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_permission_groups`
+--
+
+CREATE TABLE `fo_contact_permission_groups` (
+  `contact_id` int(10) UNSIGNED NOT NULL,
+  `permission_group_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_permission_groups`
+--
+
+INSERT INTO `fo_contact_permission_groups` (`contact_id`, `permission_group_id`) VALUES
+(2, 14),
+(4, 15),
+(5, 16),
+(8, 17);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_contact_widget_options`
+--
+
+CREATE TABLE `fo_contact_widget_options` (
+  `widget_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `contact_id` int(11) NOT NULL,
+  `member_type_id` int(11) NOT NULL DEFAULT '0',
+  `option` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `config_handler_class` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `is_system` tinyint(1) UNSIGNED DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_contact_widget_options`
+--
+
+INSERT INTO `fo_contact_widget_options` (`widget_name`, `contact_id`, `member_type_id`, `option`, `value`, `config_handler_class`, `is_system`) VALUES
+('calendar', 0, 0, 'filter_by_myself', '1', 'BooleanConfigHandler', 0),
+('calendar', 4, 0, 'filter_by_myself', '1', '', 0),
+('overdue_upcoming', 0, 0, 'assigned_to_user', '0', 'UserCompanyConfigHandler', 0),
+('overdue_upcoming', 4, 0, 'assigned_to_user', '0', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_countries`
+--
+
+CREATE TABLE `fo_countries` (
+  `code` char(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_countries`
+--
+
+INSERT INTO `fo_countries` (`code`, `name`) VALUES
+('AF', 'Afghanistan'),
+('AX', 'Aland Islands'),
+('AL', 'Albania'),
+('DZ', 'Algeria'),
+('AS', 'American Samoa'),
+('AD', 'Andorra'),
+('AO', 'Angola'),
+('AI', 'Anguilla'),
+('AQ', 'Antarctica'),
+('AG', 'Antigua and Barbuda'),
+('AR', 'Argentina'),
+('AM', 'Armenia'),
+('AW', 'Aruba'),
+('AU', 'Australia'),
+('AT', 'Austria'),
+('AZ', 'Azerbaijan'),
+('BS', 'Bahamas'),
+('BH', 'Bahrain'),
+('BD', 'Bangladesh'),
+('BB', 'Barbados'),
+('BY', 'Belarus'),
+('BE', 'Belgium'),
+('BZ', 'Belize'),
+('BJ', 'Benin'),
+('BM', 'Bermuda'),
+('BT', 'Bhutan'),
+('BO', 'Bolivia'),
+('BQ', 'Bonaire, Saint Eustatius and Saba '),
+('BA', 'Bosnia and Herzegovina'),
+('BW', 'Botswana'),
+('BV', 'Bouvet Island'),
+('BR', 'Brazil'),
+('IO', 'British Indian Ocean Territory'),
+('VG', 'British Virgin Islands'),
+('BN', 'Brunei'),
+('BG', 'Bulgaria'),
+('BF', 'Burkina Faso'),
+('BI', 'Burundi'),
+('KH', 'Cambodia'),
+('CM', 'Cameroon'),
+('CA', 'Canada'),
+('CV', 'Cape Verde'),
+('KY', 'Cayman Islands'),
+('CF', 'Central African Republic'),
+('TD', 'Chad'),
+('CL', 'Chile'),
+('CN', 'China'),
+('CX', 'Christmas Island'),
+('CC', 'Cocos Islands'),
+('CO', 'Colombia'),
+('KM', 'Comoros'),
+('CK', 'Cook Islands'),
+('CR', 'Costa Rica'),
+('HR', 'Croatia'),
+('CU', 'Cuba'),
+('CW', 'Cura├ºao'),
+('CY', 'Cyprus'),
+('CZ', 'Czech Republic'),
+('CD', 'Democratic Republic of the Congo'),
+('DK', 'Denmark'),
+('DJ', 'Djibouti'),
+('DM', 'Dominica'),
+('DO', 'Dominican Republic'),
+('TL', 'East Timor'),
+('EC', 'Ecuador'),
+('EG', 'Egypt'),
+('SV', 'El Salvador'),
+('GQ', 'Equatorial Guinea'),
+('ER', 'Eritrea'),
+('EE', 'Estonia'),
+('ET', 'Ethiopia'),
+('FK', 'Falkland Islands'),
+('FO', 'Faroe Islands'),
+('FJ', 'Fiji'),
+('FI', 'Finland'),
+('FR', 'France'),
+('GF', 'French Guiana'),
+('PF', 'French Polynesia'),
+('TF', 'French Southern Territories'),
+('GA', 'Gabon'),
+('GM', 'Gambia'),
+('GE', 'Georgia'),
+('DE', 'Germany'),
+('GH', 'Ghana'),
+('GI', 'Gibraltar'),
+('GR', 'Greece'),
+('GL', 'Greenland'),
+('GD', 'Grenada'),
+('GP', 'Guadeloupe'),
+('GU', 'Guam'),
+('GT', 'Guatemala'),
+('GG', 'Guernsey'),
+('GN', 'Guinea'),
+('GW', 'Guinea-Bissau'),
+('GY', 'Guyana'),
+('HT', 'Haiti'),
+('HM', 'Heard Island and McDonald Islands'),
+('HN', 'Honduras'),
+('HK', 'Hong Kong'),
+('HU', 'Hungary'),
+('IS', 'Iceland'),
+('IN', 'India'),
+('ID', 'Indonesia'),
+('IR', 'Iran'),
+('IQ', 'Iraq'),
+('IE', 'Ireland'),
+('IM', 'Isle of Man'),
+('IL', 'Israel'),
+('IT', 'Italy'),
+('CI', 'Ivory Coast'),
+('JM', 'Jamaica'),
+('JP', 'Japan'),
+('JE', 'Jersey'),
+('JO', 'Jordan'),
+('KZ', 'Kazakhstan'),
+('KE', 'Kenya'),
+('KI', 'Kiribati'),
+('XK', 'Kosovo'),
+('KW', 'Kuwait'),
+('KG', 'Kyrgyzstan'),
+('LA', 'Laos'),
+('LV', 'Latvia'),
+('LB', 'Lebanon'),
+('LS', 'Lesotho'),
+('LR', 'Liberia'),
+('LY', 'Libya'),
+('LI', 'Liechtenstein'),
+('LT', 'Lithuania'),
+('LU', 'Luxembourg'),
+('MO', 'Macao'),
+('MK', 'Macedonia'),
+('MG', 'Madagascar'),
+('MW', 'Malawi'),
+('MY', 'Malaysia'),
+('MV', 'Maldives'),
+('ML', 'Mali'),
+('MT', 'Malta'),
+('MH', 'Marshall Islands'),
+('MQ', 'Martinique'),
+('MR', 'Mauritania'),
+('MU', 'Mauritius'),
+('YT', 'Mayotte'),
+('MX', 'Mexico'),
+('FM', 'Micronesia'),
+('MD', 'Moldova'),
+('MC', 'Monaco'),
+('MN', 'Mongolia'),
+('ME', 'Montenegro'),
+('MS', 'Montserrat'),
+('MA', 'Morocco'),
+('MZ', 'Mozambique'),
+('MM', 'Myanmar'),
+('NA', 'Namibia'),
+('NR', 'Nauru'),
+('NP', 'Nepal'),
+('NL', 'Netherlands'),
+('AN', 'Netherlands Antilles'),
+('NC', 'New Caledonia'),
+('NZ', 'New Zealand'),
+('NI', 'Nicaragua'),
+('NE', 'Niger'),
+('NG', 'Nigeria'),
+('NU', 'Niue'),
+('NF', 'Norfolk Island'),
+('KP', 'North Korea'),
+('MP', 'Northern Mariana Islands'),
+('NO', 'Norway'),
+('OM', 'Oman'),
+('PK', 'Pakistan'),
+('PW', 'Palau'),
+('PS', 'Palestinian Territory'),
+('PA', 'Panama'),
+('PG', 'Papua New Guinea'),
+('PY', 'Paraguay'),
+('PE', 'Peru'),
+('PH', 'Philippines'),
+('PN', 'Pitcairn'),
+('PL', 'Poland'),
+('PT', 'Portugal'),
+('PR', 'Puerto Rico'),
+('QA', 'Qatar'),
+('CG', 'Republic of the Congo'),
+('RE', 'Reunion'),
+('RO', 'Romania'),
+('RU', 'Russia'),
+('RW', 'Rwanda'),
+('BL', 'Saint Barth├®lemy'),
+('SH', 'Saint Helena'),
+('KN', 'Saint Kitts and Nevis'),
+('LC', 'Saint Lucia'),
+('MF', 'Saint Martin'),
+('PM', 'Saint Pierre and Miquelon'),
+('VC', 'Saint Vincent and the Grenadines'),
+('WS', 'Samoa'),
+('SM', 'San Marino'),
+('ST', 'Sao Tome and Principe'),
+('SA', 'Saudi Arabia'),
+('SN', 'Senegal'),
+('RS', 'Serbia'),
+('CS', 'Serbia and Montenegro'),
+('SC', 'Seychelles'),
+('SL', 'Sierra Leone'),
+('SG', 'Singapore'),
+('SX', 'Sint Maarten'),
+('SK', 'Slovakia'),
+('SI', 'Slovenia'),
+('SB', 'Solomon Islands'),
+('SO', 'Somalia'),
+('ZA', 'South Africa'),
+('GS', 'South Georgia and the South Sandwich Islands'),
+('KR', 'South Korea'),
+('SS', 'South Sudan'),
+('ES', 'Spain'),
+('LK', 'Sri Lanka'),
+('SD', 'Sudan'),
+('SR', 'Suriname'),
+('SJ', 'Svalbard and Jan Mayen'),
+('SZ', 'Swaziland'),
+('SE', 'Sweden'),
+('CH', 'Switzerland'),
+('SY', 'Syria'),
+('TW', 'Taiwan'),
+('TJ', 'Tajikistan'),
+('TZ', 'Tanzania'),
+('TH', 'Thailand'),
+('TG', 'Togo'),
+('TK', 'Tokelau'),
+('TO', 'Tonga'),
+('TT', 'Trinidad and Tobago'),
+('TN', 'Tunisia'),
+('TR', 'Turkey'),
+('TM', 'Turkmenistan'),
+('TC', 'Turks and Caicos Islands'),
+('TV', 'Tuvalu'),
+('VI', 'U.S. Virgin Islands'),
+('UG', 'Uganda'),
+('UA', 'Ukraine'),
+('AE', 'United Arab Emirates'),
+('GB', 'United Kingdom'),
+('US', 'United States'),
+('UM', 'United States Minor Outlying Islands'),
+('UY', 'Uruguay'),
+('UZ', 'Uzbekistan'),
+('VU', 'Vanuatu'),
+('VA', 'Vatican'),
+('VE', 'Venezuela'),
+('VN', 'Vietnam'),
+('WF', 'Wallis and Futuna'),
+('EH', 'Western Sahara'),
+('YE', 'Yemen'),
+('ZM', 'Zambia'),
+('ZW', 'Zimbabwe');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_cron_events`
+--
+
+CREATE TABLE `fo_cron_events` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(45) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `recursive` tinyint(1) NOT NULL DEFAULT '1',
+  `delay` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `is_system` tinyint(1) NOT NULL DEFAULT '0',
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_cron_events`
+--
+
+INSERT INTO `fo_cron_events` (`id`, `name`, `recursive`, `delay`, `is_system`, `enabled`, `date`) VALUES
+(1, 'purge_trash', 1, 1440, 1, 1, '1900-01-01 00:00:00'),
+(2, 'send_reminders', 1, 10, 0, 1, '1900-01-01 00:00:00'),
+(3, 'send_password_expiration_reminders', 1, 1440, 1, 1, '1900-01-01 00:00:00'),
+(4, 'send_notifications_through_cron', 1, 1, 0, 0, '1900-01-01 00:00:00'),
+(5, 'delete_mails_from_server', 1, 1440, 1, 1, '1900-01-01 00:00:00'),
+(6, 'clear_tmp_folder', 1, 1440, 1, 1, '1900-01-01 00:00:00'),
+(7, 'check_upgrade', 1, 1440, 1, 0, '1900-01-01 00:00:00'),
+(8, 'import_google_calendar', 1, 10, 0, 0, '1900-01-01 00:00:00'),
+(9, 'export_google_calendar', 1, 10, 0, 0, '1900-01-01 00:00:00'),
+(10, 'sharing_table_partial_rebuild', 1, 1440, 1, 1, '1900-01-01 00:00:00'),
+(11, 'check_sharing_table_flags', 1, 10, 1, 1, '1900-01-01 00:00:00'),
+(12, 'clean_object_selector_temp_selection', 1, 360, 1, 1, '1900-01-01 00:00:00'),
+(13, 'send_outbox_mails', 1, 1, 1, 1, '1900-01-01 00:00:00'),
+(14, 'rebuild_contact_member_cache', 1, 1440, 1, 1, '1900-01-01 00:00:00'),
+(15, 'check_mail', 1, 10, 0, 1, '2022-09-30 05:56:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_currencies`
+--
+
+CREATE TABLE `fo_currencies` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `symbol` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `short_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `is_default` tinyint(1) NOT NULL,
+  `external_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_currencies`
+--
+
+INSERT INTO `fo_currencies` (`id`, `symbol`, `name`, `short_name`, `is_default`, `external_id`) VALUES
+(1, '₹', 'Dollar', '₹', 0, 0);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_custom_properties`
+--
+
+CREATE TABLE `fo_custom_properties` (
+  `id` int(10) NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `values` text COLLATE utf8_unicode_ci NOT NULL,
+  `default_value` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `default_currency_id` int(2) NOT NULL DEFAULT '1',
+  `is_required` tinyint(1) NOT NULL DEFAULT '0',
+  `is_multiple_values` tinyint(1) NOT NULL DEFAULT '0',
+  `property_order` int(10) NOT NULL DEFAULT '0',
+  `visible_by_default` tinyint(1) NOT NULL DEFAULT '0',
+  `is_special` tinyint(1) NOT NULL DEFAULT '0',
+  `is_disabled` tinyint(1) NOT NULL DEFAULT '0',
+  `show_in_lists` tinyint(1) NOT NULL DEFAULT '0',
+  `contact_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'all'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_custom_properties`
+--
+
+INSERT INTO `fo_custom_properties` (`id`, `object_type_id`, `name`, `code`, `type`, `description`, `values`, `default_value`, `default_currency_id`, `is_required`, `is_multiple_values`, `property_order`, `visible_by_default`, `is_special`, `is_disabled`, `show_in_lists`, `contact_type`) VALUES
+(1, 15, 'Job title', 'job_title', 'text', '', '', '', 1, 0, 0, 0, 1, 1, 0, 0, 'all'),
+(2, 15, 'Prefix', 'prefix_code', 'text', '', '', '', 1, 0, 0, 0, 0, 1, 0, 0, 'all'),
+(3, 1, 'Color', 'color_special', 'color', '', '', '', 1, 0, 0, 30, 1, 1, 0, 0, 'all'),
+(4, 1, 'Description', 'description_special', 'memo', '', '', '', 1, 0, 0, 31, 1, 1, 0, 0, 'all');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_custom_property_values`
+--
+
+CREATE TABLE `fo_custom_property_values` (
+  `id` int(10) NOT NULL,
+  `object_id` int(10) NOT NULL,
+  `custom_property_id` int(10) NOT NULL,
+  `value` text COLLATE utf8_unicode_ci,
+  `currency_id` int(2) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_custom_property_values`
+--
+
+INSERT INTO `fo_custom_property_values` (`id`, `object_id`, `custom_property_id`, `value`, `currency_id`) VALUES
+(1, 4, 1, '', 0),
+(2, 4, 2, '', 0),
+(3, 1, 1, '', 0),
+(4, 1, 2, '', 0),
+(5, 2, 1, '', 0),
+(6, 2, 2, '', 0),
+(7, 5, 1, 'Developer', 0),
+(8, 5, 2, '', 0),
+(9, 8, 1, 'Testing', 0),
+(10, 8, 2, '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimensions`
+--
+
+CREATE TABLE `fo_dimensions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `code` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_root` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_manageable` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `allows_multiple_selection` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `defines_permissions` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_default` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `default_order` int(10) NOT NULL DEFAULT '0',
+  `options` text COLLATE utf8_unicode_ci NOT NULL,
+  `permission_query_method` enum('mandatory','not_mandatory') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'mandatory',
+  `is_required` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimensions`
+--
+
+INSERT INTO `fo_dimensions` (`id`, `code`, `name`, `is_root`, `is_manageable`, `allows_multiple_selection`, `defines_permissions`, `is_system`, `is_default`, `default_order`, `options`, `permission_query_method`, `is_required`) VALUES
+(1, 'feng_persons', 'People', 1, 0, 0, 1, 1, 0, 99, '{\"useLangs\":true,\"defaultAjax\":{\"controller\":\"dashboard\", \"action\": \"main_dashboard\"},\"quickAdd\":{\"formAction\":\"?c=contact&a=quick_add\"}}', 'not_mandatory', 0),
+(2, 'workspaces', 'Workspaces', 1, 1, 0, 1, 1, 0, 2, '{\"defaultAjax\":{\"controller\":\"dashboard\", \"action\": \"main_dashboard\"}, \"quickAdd\":true,\"showInPaths\":true,\"useLangs\":true}', 'mandatory', 0),
+(3, 'tags', 'Tags', 1, 1, 0, 0, 1, 0, 3, '{\"defaultAjax\":{\"controller\":\"dashboard\", \"action\": \"main_dashboard\"},\"quickAdd\":true,\"showInPaths\":true,\"useLangs\":true}', 'not_mandatory', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_member_associations`
+--
+
+CREATE TABLE `fo_dimension_member_associations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `associated_dimension_id` int(10) UNSIGNED NOT NULL,
+  `associated_object_type_id` int(10) UNSIGNED NOT NULL,
+  `is_required` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_multiple` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `keeps_record` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `allows_default_selection` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimension_member_associations`
+--
+
+INSERT INTO `fo_dimension_member_associations` (`id`, `dimension_id`, `object_type_id`, `associated_dimension_id`, `associated_object_type_id`, `is_required`, `is_multiple`, `keeps_record`, `allows_default_selection`, `code`) VALUES
+(1, 2, 1, 1, 21, 0, 1, 0, 0, ''),
+(2, 2, 1, 1, 22, 0, 1, 0, 0, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_object_types`
+--
+
+CREATE TABLE `fo_dimension_object_types` (
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `is_root` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `options` text COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimension_object_types`
+--
+
+INSERT INTO `fo_dimension_object_types` (`dimension_id`, `object_type_id`, `is_root`, `options`, `enabled`) VALUES
+(1, 21, 1, '{\"defaultAjax\":{\"controller\":\"contact\", \"action\": \"card\"}}', 1),
+(1, 22, 1, '{\"defaultAjax\":{\"controller\":\"contact\", \"action\": \"company_card\"}}', 1),
+(2, 1, 1, '{\"defaultAjax\":{\"controller\":\"dashboard\", \"action\": \"main_dashboard\"}}', 1),
+(3, 2, 1, '{\"defaultAjax\":{\"controller\":\"dashboard\", \"action\": \"main_dashboard\"}}', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_object_type_contents`
+--
+
+CREATE TABLE `fo_dimension_object_type_contents` (
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `dimension_object_type_id` int(10) UNSIGNED NOT NULL,
+  `content_object_type_id` int(10) UNSIGNED NOT NULL,
+  `is_required` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_multiple` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimension_object_type_contents`
+--
+
+INSERT INTO `fo_dimension_object_type_contents` (`dimension_id`, `dimension_object_type_id`, `content_object_type_id`, `is_required`, `is_multiple`) VALUES
+(1, 21, 3, 0, 1),
+(1, 21, 4, 0, 1),
+(1, 21, 5, 0, 1),
+(1, 21, 6, 0, 1),
+(1, 21, 9, 0, 1),
+(1, 21, 10, 0, 1),
+(1, 21, 11, 0, 1),
+(1, 21, 12, 0, 1),
+(1, 21, 13, 0, 1),
+(1, 21, 15, 0, 1),
+(1, 21, 16, 0, 1),
+(1, 21, 17, 0, 1),
+(1, 21, 18, 0, 1),
+(1, 21, 19, 0, 1),
+(1, 21, 20, 0, 1),
+(1, 21, 23, 0, 1),
+(1, 22, 3, 0, 1),
+(1, 22, 4, 0, 1),
+(1, 22, 5, 0, 1),
+(1, 22, 6, 0, 1),
+(1, 22, 9, 0, 1),
+(1, 22, 10, 0, 1),
+(1, 22, 11, 0, 1),
+(1, 22, 12, 0, 1),
+(1, 22, 13, 0, 1),
+(1, 22, 15, 0, 1),
+(1, 22, 16, 0, 1),
+(1, 22, 17, 0, 1),
+(1, 22, 18, 0, 1),
+(1, 22, 19, 0, 1),
+(1, 22, 20, 0, 1),
+(1, 22, 23, 0, 1),
+(2, 1, 3, 0, 1),
+(2, 1, 4, 0, 1),
+(2, 1, 5, 0, 1),
+(2, 1, 6, 0, 1),
+(2, 1, 9, 0, 1),
+(2, 1, 10, 0, 1),
+(2, 1, 11, 0, 1),
+(2, 1, 12, 0, 1),
+(2, 1, 13, 0, 1),
+(2, 1, 15, 0, 1),
+(2, 1, 16, 0, 1),
+(2, 1, 17, 0, 1),
+(2, 1, 18, 0, 1),
+(2, 1, 19, 0, 1),
+(2, 1, 20, 0, 1),
+(2, 1, 23, 0, 1),
+(3, 2, 3, 0, 1),
+(3, 2, 4, 0, 1),
+(3, 2, 5, 0, 1),
+(3, 2, 6, 0, 1),
+(3, 2, 9, 0, 1),
+(3, 2, 10, 0, 1),
+(3, 2, 11, 0, 1),
+(3, 2, 12, 0, 1),
+(3, 2, 13, 0, 1),
+(3, 2, 15, 0, 1),
+(3, 2, 16, 0, 1),
+(3, 2, 17, 0, 1),
+(3, 2, 18, 0, 1),
+(3, 2, 19, 0, 1),
+(3, 2, 20, 0, 1),
+(3, 2, 23, 0, 1);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_dimension_object_type_hierarchies`
+--
+
+CREATE TABLE `fo_dimension_object_type_hierarchies` (
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `parent_object_type_id` int(10) UNSIGNED NOT NULL,
+  `child_object_type_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimension_object_type_hierarchies`
+--
+
+INSERT INTO `fo_dimension_object_type_hierarchies` (`dimension_id`, `parent_object_type_id`, `child_object_type_id`) VALUES
+(1, 22, 21),
+(2, 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_object_type_options`
+--
+
+CREATE TABLE `fo_dimension_object_type_options` (
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimension_object_type_options`
+--
+
+INSERT INTO `fo_dimension_object_type_options` (`dimension_id`, `object_type_id`, `name`, `value`) VALUES
+(2, 1, 'select_after_creation', '1'),
+(3, 1, 'select_after_creation', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_dimension_options`
+--
+
+CREATE TABLE `fo_dimension_options` (
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_dimension_options`
+--
+
+INSERT INTO `fo_dimension_options` (`dimension_id`, `name`, `value`) VALUES
+(1, 'useLangs', '1'),
+(2, 'showInPaths', '1'),
+(2, 'useLangs', '1'),
+(3, 'showInPaths', '1'),
+(3, 'useLangs', '1');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_file_repo_attributes`
+--
+
+CREATE TABLE `fo_file_repo_attributes` (
+  `id` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `attribute` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_file_repo_attributes`
+--
+
+INSERT INTO `fo_file_repo_attributes` (`id`, `attribute`, `value`) VALUES
+('27c394fe5e0dc296eff0b48b83b2cabd0528cd1d', 'public', 'return true;'),
+('27c394fe5e0dc296eff0b48b83b2cabd0528cd1d', 'type', 'return \'image/png\';'),
+('30eea985310aae1a9fe0129366dd300c4c4e7df8', 'name', 'return \'Acko Bike Policy - DBCR00526752899_00.pdf\';'),
+('30eea985310aae1a9fe0129366dd300c4c4e7df8', 'size', 'return 118607;'),
+('30eea985310aae1a9fe0129366dd300c4c4e7df8', 'type', 'return \'application/pdf\';'),
+('33c0caf7dc9ccd590289ec8ba3176c301e1fea2b', 'public', 'return true;'),
+('33c0caf7dc9ccd590289ec8ba3176c301e1fea2b', 'type', 'return \'image/png\';'),
+('3fbd24f98a43aedfaf2ca0393752d2c27ecc498b', 'name', 'return \'PaymentReceipt_16006782_.pdf\';'),
+('3fbd24f98a43aedfaf2ca0393752d2c27ecc498b', 'size', 'return 162782;'),
+('3fbd24f98a43aedfaf2ca0393752d2c27ecc498b', 'type', 'return \'application/pdf\';'),
+('83aa28f3c5d040b533c1700a56d94cdc2c4f0f8a', 'name', 'return \'NavathaTransport.docx\';'),
+('83aa28f3c5d040b533c1700a56d94cdc2c4f0f8a', 'size', 'return 524625;'),
+('83aa28f3c5d040b533c1700a56d94cdc2c4f0f8a', 'type', 'return \'application/vnd.openxmlformats-officedocument.wordprocessingml.document\';'),
+('a013cb79519e8617e2535ce4fcaed92d4b22ea2a', 'name', 'return \'Employee_Data_Form_FTE.docx\';'),
+('a013cb79519e8617e2535ce4fcaed92d4b22ea2a', 'size', 'return 31979;'),
+('a013cb79519e8617e2535ce4fcaed92d4b22ea2a', 'type', 'return \'application/vnd.openxmlformats-officedocument.wordprocessingml.document\';'),
+('a7c8dc806f061d132be3571d272158af832c7036', 'public', 'return true;'),
+('a7c8dc806f061d132be3571d272158af832c7036', 'type', 'return \'image/png\';'),
+('eff623e2cfe561b62ed3c2af80e7de40dce05797', 'public', 'return true;'),
+('eff623e2cfe561b62ed3c2af80e7de40dce05797', 'type', 'return \'image/png\';'),
+('fba2e911fc9e1d026d888ff9928414301af8b0d1', 'name', 'return \'NavathaTransport.docx\';'),
+('fba2e911fc9e1d026d888ff9928414301af8b0d1', 'size', 'return 524625;'),
+('fba2e911fc9e1d026d888ff9928414301af8b0d1', 'type', 'return \'application/vnd.openxmlformats-officedocument.wordprocessingml.document\';'),
+('ffb5dd6242a243dad1a27cb002bb3f7665c8ea3b', 'public', 'return true;'),
+('ffb5dd6242a243dad1a27cb002bb3f7665c8ea3b', 'type', 'return \'image/png\';');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_file_types`
+--
+
+CREATE TABLE `fo_file_types` (
+  `id` smallint(5) UNSIGNED NOT NULL,
+  `extension` varchar(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `icon` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_searchable` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_image` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_allow` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_file_types`
+--
+
+INSERT INTO `fo_file_types` (`id`, `extension`, `icon`, `is_searchable`, `is_image`, `is_allow`) VALUES
+(1, 'zip', 'archive.png', 0, 0, 1),
+(2, 'rar', 'archive.png', 0, 0, 1),
+(3, 'bz', 'archive.png', 0, 0, 1),
+(4, 'bz2', 'archive.png', 0, 0, 1),
+(5, 'gz', 'archive.png', 0, 0, 1),
+(6, 'ace', 'archive.png', 0, 0, 1),
+(7, 'mp3', 'audio.png', 0, 0, 1),
+(8, 'wma', 'audio.png', 0, 0, 1),
+(9, 'ogg', 'audio.png', 0, 0, 1),
+(10, 'doc', 'doc.png', 0, 0, 1),
+(11, 'xls', 'xls.png', 0, 0, 1),
+(12, 'docx', 'doc.png', 1, 0, 1),
+(13, 'xlsx', 'xls.png', 0, 0, 1),
+(14, 'gif', 'image.png', 0, 1, 1),
+(15, 'jpg', 'image.png', 0, 1, 1),
+(16, 'jpeg', 'image.png', 0, 1, 1),
+(17, 'png', 'image.png', 0, 1, 1),
+(18, 'mov', 'mov.png', 0, 0, 1),
+(19, 'pdf', 'pdf.png', 1, 0, 1),
+(20, 'psd', 'psd.png', 0, 0, 1),
+(21, 'rm', 'rm.png', 0, 0, 1),
+(22, 'svg', 'svg.png', 0, 0, 1),
+(23, 'swf', 'swf.png', 0, 0, 1),
+(24, 'avi', 'video.png', 0, 0, 1),
+(25, 'mpeg', 'video.png', 0, 0, 1),
+(26, 'mpg', 'video.png', 0, 0, 1),
+(27, 'qt', 'mov.png', 0, 0, 1),
+(28, 'vob', 'video.png', 0, 0, 1),
+(29, 'txt', 'text.png', 1, 0, 1),
+(30, 'html', 'html.png', 1, 0, 1),
+(31, 'slim', 'ppt.png', 1, 0, 1),
+(32, 'ppt', 'ppt.png', 0, 0, 1),
+(33, 'webfile', 'webfile.png', 0, 0, 1),
+(34, 'odt', 'doc.png', 0, 0, 1),
+(35, 'fodt', 'doc.png', 0, 0, 1),
+(36, 'ics', 'ics.png', 0, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_guistate`
+--
+
+CREATE TABLE `fo_guistate` (
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '1',
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_guistate`
+--
+
+INSERT INTO `fo_guistate` (`contact_id`, `name`, `value`) VALUES
+(2, 'menu-panel', 'o%3Acollapsed%3Db%253A0'),
+(4, 'mails-manager', 'o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253Achecker%25255Ewidth%25253Dn%2525253A20%255Eo%25253Aid%25253Ds%2525253Aicon%25255Ewidth%25253Dn%2525253A28%255Eo%25253Aid%25253Ds%2525253AisRead%25255Ewidth%25253Dn%2525253A16%255Eo%25253Aid%25253Ds%2525253Astatus_ico%25255Ewidth%25253Dn%2525253A42%255Eo%25253Aid%25253Ds%2525253AhasAttachment%25255Ewidth%25253Dn%2525253A24%255Eo%25253Aid%25253Ds%2525253Afrom%25255Ewidth%25253Dn%2525253A172%255Eo%25253Aid%25253Ds%2525253Ato%25255Ewidth%25253Dn%2525253A200%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253Asubject%25255Ewidth%25253Dn%2525253A360%255Eo%25253Aid%25253Ds%2525253Aaccount%25255Ewidth%25253Dn%2525253A86%255Eo%25253Aid%25253Ds%2525253Adate%25255Ewidth%25253Dn%2525253A86%255Eo%25253Aid%25253Ds%2525253Afolder%25255Ewidth%25253Dn%2525253A56%255Eo%25253Aid%25253Ds%2525253Aactions%25255Ewidth%25253Dn%2525253A86%255Eo%25253Aid%25253Ds%2525253Adim_2%25255Ewidth%25253Dn%2525253A142%5Esort%3Do%253Afield%253Ds%25253Adate%255Edirection%253Ds%25253ADESC'),
+(4, 'menu-panel', 'o%3Acollapsed%3Db%253A0');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_im_types`
+--
+
+CREATE TABLE `fo_im_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `icon` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `disabled` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_im_types`
+--
+
+INSERT INTO `fo_im_types` (`id`, `name`, `icon`, `disabled`) VALUES
+(1, 'ICQ', 'icq.gif', 1),
+(2, 'AIM', 'aim.gif', 1),
+(3, 'MSN', 'msn.gif', 1),
+(4, 'Yahoo!', 'yahoo.gif', 1),
+(5, 'Skype', 'skype.gif', 1),
+(6, 'Jabber', 'jabber.gif', 1),
+(7, 'Twitter', 'twitter.svg', 0),
+(8, 'Facebook', 'facebook.svg', 0),
+(9, 'LinkedIn', 'linkedin.svg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_max_role_object_type_permissions`
+--
+
+CREATE TABLE `fo_max_role_object_type_permissions` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `can_delete` tinyint(1) NOT NULL,
+  `can_write` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_max_role_object_type_permissions`
+--
+
+INSERT INTO `fo_max_role_object_type_permissions` (`role_id`, `object_type_id`, `can_delete`, `can_write`) VALUES
+(1, 3, 1, 1),
+(1, 4, 1, 1),
+(1, 5, 1, 1),
+(1, 6, 1, 1),
+(1, 9, 1, 1),
+(1, 10, 1, 1),
+(1, 11, 1, 1),
+(1, 15, 1, 1),
+(1, 17, 1, 1),
+(1, 23, 1, 1),
+(2, 3, 1, 1),
+(2, 4, 1, 1),
+(2, 5, 1, 1),
+(2, 6, 1, 1),
+(2, 9, 1, 1),
+(2, 10, 1, 1),
+(2, 11, 1, 1),
+(2, 15, 1, 1),
+(2, 17, 1, 1),
+(2, 23, 1, 1),
+(3, 3, 1, 1),
+(3, 4, 1, 1),
+(3, 5, 1, 1),
+(3, 6, 1, 1),
+(3, 9, 1, 1),
+(3, 10, 1, 1),
+(3, 11, 1, 1),
+(3, 15, 1, 1),
+(3, 17, 1, 1),
+(3, 23, 1, 1),
+(4, 3, 1, 1),
+(4, 4, 1, 1),
+(4, 5, 1, 1),
+(4, 6, 1, 1),
+(4, 9, 1, 1),
+(4, 10, 1, 1),
+(4, 11, 1, 1),
+(4, 15, 1, 1),
+(4, 17, 1, 1),
+(4, 23, 1, 1),
+(5, 3, 0, 1),
+(5, 4, 0, 1),
+(5, 5, 0, 0),
+(5, 6, 0, 1),
+(5, 9, 0, 0),
+(5, 10, 0, 0),
+(5, 11, 0, 1),
+(5, 15, 0, 1),
+(5, 17, 0, 1),
+(5, 23, 0, 0),
+(6, 3, 0, 1),
+(6, 4, 0, 1),
+(6, 5, 0, 0),
+(6, 6, 0, 1),
+(6, 9, 0, 0),
+(6, 10, 0, 0),
+(6, 11, 0, 1),
+(6, 15, 0, 1),
+(6, 17, 0, 1),
+(6, 23, 0, 0),
+(7, 3, 0, 1),
+(7, 4, 0, 1),
+(7, 5, 0, 0),
+(7, 6, 0, 1),
+(7, 9, 0, 0),
+(7, 10, 0, 0),
+(7, 11, 0, 1),
+(7, 15, 0, 1),
+(7, 17, 0, 1),
+(7, 23, 0, 0),
+(11, 3, 0, 0),
+(11, 4, 0, 0),
+(11, 5, 0, 0),
+(11, 6, 0, 0),
+(11, 9, 0, 0),
+(11, 10, 0, 0),
+(11, 11, 0, 0),
+(11, 15, 0, 0),
+(11, 17, 0, 0),
+(11, 23, 0, 0),
+(12, 3, 0, 0),
+(12, 4, 0, 0),
+(12, 5, 0, 0),
+(12, 6, 0, 0),
+(12, 9, 0, 0),
+(12, 10, 0, 0),
+(12, 11, 0, 0),
+(12, 15, 0, 0),
+(12, 17, 0, 0),
+(13, 3, 0, 0),
+(13, 4, 0, 0),
+(13, 5, 0, 0),
+(13, 6, 0, 0),
+(13, 9, 0, 0),
+(13, 10, 0, 0),
+(13, 11, 0, 0),
+(13, 15, 0, 0),
+(13, 17, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_max_system_permissions`
+--
+
+CREATE TABLE `fo_max_system_permissions` (
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `can_manage_security` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_configuration` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_templates` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_time` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_add_mail_accounts` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_dimensions` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_dimension_members` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_tasks` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_task_assignee` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_billing` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_view_billing` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_see_assigned_to_other_tasks` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `can_see_others_timeslots` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `can_manage_contacts` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_update_other_users_invitations` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_link_objects` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_instantiate_templates` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_repetitive_properties_of_tasks` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_max_system_permissions`
+--
+
+INSERT INTO `fo_max_system_permissions` (`permission_group_id`, `can_manage_security`, `can_manage_configuration`, `can_manage_templates`, `can_manage_time`, `can_add_mail_accounts`, `can_manage_dimensions`, `can_manage_dimension_members`, `can_manage_tasks`, `can_task_assignee`, `can_manage_billing`, `can_view_billing`, `can_see_assigned_to_other_tasks`, `can_see_others_timeslots`, `can_manage_contacts`, `can_update_other_users_invitations`, `can_link_objects`, `can_instantiate_templates`, `can_manage_repetitive_properties_of_tasks`) VALUES
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(4, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1),
+(5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0),
+(6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0),
+(7, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0),
+(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0),
+(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0),
+(13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_members`
+--
+
+CREATE TABLE `fo_members` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `dimension_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `parent_member_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `depth` int(2) UNSIGNED NOT NULL,
+  `name` varchar(511) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `object_id` int(10) UNSIGNED DEFAULT NULL,
+  `order` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `color` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `archived_on` datetime NOT NULL,
+  `archived_by_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_members`
+--
+
+INSERT INTO `fo_members` (`id`, `dimension_id`, `object_type_id`, `parent_member_id`, `depth`, `name`, `description`, `object_id`, `order`, `color`, `archived_on`, `archived_by_id`) VALUES
+(1, 1, 21, 0, 1, 'Bandari, Rajnikar', '', 2, 0, 0, '0000-00-00 00:00:00', 0),
+(2, 1, 21, 0, 1, 'Devarakonda, Prasad', '', 4, 0, 0, '0000-00-00 00:00:00', 0),
+(3, 1, 21, 0, 1, 'Pradeep Kumar', '', 5, 0, 0, '0000-00-00 00:00:00', 0),
+(4, 1, 21, 0, 1, 'Test Last Name', '', 8, 0, 0, '0000-00-00 00:00:00', 0),
+(5, 2, 1, 0, 1, 'Offer forwarded', '', 9, 0, 0, '0000-00-00 00:00:00', 0),
+(6, 2, 1, 8, 2, 'Ravi chandra', '', 11, 0, 0, '0000-00-00 00:00:00', 0),
+(7, 2, 1, 5, 2, 'Rajnikar', '', 12, 0, 0, '0000-00-00 00:00:00', 0),
+(8, 2, 1, 0, 1, 'On Boarded', '', 13, 0, 0, '0000-00-00 00:00:00', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_member_property_members`
+--
+
+CREATE TABLE `fo_member_property_members` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `association_id` int(10) UNSIGNED NOT NULL,
+  `member_id` int(10) UNSIGNED NOT NULL,
+  `property_member_id` int(10) UNSIGNED NOT NULL,
+  `is_active` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `created_on` datetime NOT NULL,
+  `created_by_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_member_property_members`
+--
+
+INSERT INTO `fo_member_property_members` (`id`, `association_id`, `member_id`, `property_member_id`, `is_active`, `created_on`, `created_by_id`) VALUES
+(3, 1, 5, 1, 1, '2022-11-15 11:42:14', 4),
+(4, 1, 5, 2, 1, '2022-11-15 11:42:14', 4),
+(9, 1, 8, 1, 1, '2022-11-15 11:43:07', 4),
+(10, 1, 8, 2, 1, '2022-11-15 11:43:07', 4),
+(13, 1, 7, 1, 1, '2022-11-15 11:44:33', 4),
+(14, 1, 7, 2, 1, '2022-11-15 11:44:33', 4),
+(15, 1, 6, 1, 1, '2022-11-15 11:50:31', 4),
+(16, 1, 6, 2, 1, '2022-11-15 11:50:31', 4);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_object_reminders`
+--
+
+CREATE TABLE `fo_object_reminders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `type` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `context` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `minutes_before` int(10) DEFAULT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_object_reminders`
+--
+
+INSERT INTO `fo_object_reminders` (`id`, `object_id`, `contact_id`, `type`, `context`, `minutes_before`, `date`) VALUES
+(1, 7, 0, 'reminder_email', 'due_date', 1440, '2022-10-03 00:00:00');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_object_reminder_types`
+--
+
+CREATE TABLE `fo_object_reminder_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_object_reminder_types`
+--
+
+INSERT INTO `fo_object_reminder_types` (`id`, `name`) VALUES
+(1, 'reminder_email'),
+(2, 'reminder_popup');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_plugins`
+--
+
+CREATE TABLE `fo_plugins` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_installed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_activated` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `priority` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `activated_on` datetime NOT NULL,
+  `activated_by_id` int(10) UNSIGNED DEFAULT NULL,
+  `version` int(10) UNSIGNED DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_plugins`
+--
+
+INSERT INTO `fo_plugins` (`id`, `name`, `is_installed`, `is_activated`, `priority`, `activated_on`, `activated_by_id`, `version`) VALUES
+(1, 'core_dimensions', 1, 1, 0, '2022-09-30 05:56:17', NULL, 16),
+(3, 'mail', 1, 0, 0, '2022-09-30 05:56:17', NULL, 27),
+(4, 'workspaces', 1, 1, 0, '2022-09-30 05:56:17', NULL, 15);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_files`
+--
+
+CREATE TABLE `fo_project_files` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `is_locked` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_visible` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `expiration_time` datetime NOT NULL,
+  `checked_out_on` datetime NOT NULL,
+  `checked_out_by_id` int(10) UNSIGNED DEFAULT '0',
+  `was_auto_checked_out` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `type` int(1) NOT NULL DEFAULT '0',
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mail_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `attach_to_notification` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `default_subject` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_project_files`
+--
+
+INSERT INTO `fo_project_files` (`object_id`, `description`, `is_locked`, `is_visible`, `expiration_time`, `checked_out_on`, `checked_out_by_id`, `was_auto_checked_out`, `type`, `url`, `mail_id`, `attach_to_notification`, `default_subject`) VALUES
+(14, '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, '', 0, 0, ''),
+(16, '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, '', 0, 0, ''),
+(18, '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, '', 0, 0, ''),
+(20, '', 0, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0, '', 0, 0, '');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_project_file_revisions`
+--
+
+CREATE TABLE `fo_project_file_revisions` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `file_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `file_type_id` smallint(5) UNSIGNED NOT NULL DEFAULT '0',
+  `repository_id` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `thumb_filename` varchar(44) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `revision_number` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `comment` text COLLATE utf8_unicode_ci,
+  `type_string` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `filesize` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `hash` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_project_file_revisions`
+--
+
+INSERT INTO `fo_project_file_revisions` (`object_id`, `file_id`, `file_type_id`, `repository_id`, `thumb_filename`, `revision_number`, `comment`, `type_string`, `filesize`, `hash`) VALUES
+(15, 14, 12, 'a013cb79519e8617e2535ce4fcaed92d4b22ea2a', '', 1, '-- Initial version --', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 31979, 'e082fe606ffc7761a8de0e2d007844b2b7cd2baaa5bf81b79235db870ed72e2e'),
+(17, 16, 12, 'fba2e911fc9e1d026d888ff9928414301af8b0d1', '', 1, '-- Initial version --', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 524625, 'fd90022ca9a855f85ed3bb135b8d3488e6bf1a607ca08164dce07e10690b46ef'),
+(19, 18, 19, '30eea985310aae1a9fe0129366dd300c4c4e7df8', '', 1, '-- Initial version --', 'application/pdf', 118607, '9eb4c06076759580a3dc823f32e0bba790cddb9f04b574725a277a37024787b6'),
+(21, 20, 19, '3fbd24f98a43aedfaf2ca0393752d2c27ecc498b', '', 1, '-- Initial version --', 'application/pdf', 162782, '44d7a17c4af35833632da5effec18b062902af1810ddffc1ebe931dfcecdbb3b'),
+(22, 16, 12, '83aa28f3c5d040b533c1700a56d94cdc2c4f0f8a', '', 2, '', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 524625, 'fd90022ca9a855f85ed3bb135b8d3488e6bf1a607ca08164dce07e10690b46ef');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_project_messages`
+--
+
+CREATE TABLE `fo_project_messages` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `text` text COLLATE utf8_unicode_ci,
+  `type_content` enum('text','html') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'text'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_project_messages`
+--
+
+INSERT INTO `fo_project_messages` (`object_id`, `text`, `type_content`) VALUES
+(6, 'Sample note here', 'html');
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_read_objects`
+--
+
+CREATE TABLE `fo_read_objects` (
+  `rel_object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `is_read` int(1) NOT NULL DEFAULT '0',
+  `created_on` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_read_objects`
+--
+
+INSERT INTO `fo_read_objects` (`rel_object_id`, `contact_id`, `is_read`, `created_on`) VALUES
+(7, 4, 1, '2022-10-04 06:46:57');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_reports`
+--
+
+CREATE TABLE `fo_reports` (
+  `object_id` int(10) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `report_object_type_id` int(10) UNSIGNED NOT NULL,
+  `order_by` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_order_by_asc` tinyint(1) NOT NULL,
+  `ignore_context` tinyint(1) NOT NULL DEFAULT '1',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `function_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_reports`
+--
+
+INSERT INTO `fo_reports` (`object_id`, `description`, `report_object_type_id`, `order_by`, `is_order_by_asc`, `ignore_context`, `is_default`, `code`, `function_url`) VALUES
+(3, 'task time report description', 17, '', 1, 1, 1, 'total_task_times_report', '?c=reporting&a=total_task_times_p'),
+(10, '', 5, 'updated_on', 1, 1, 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_report_columns`
+--
+
+CREATE TABLE `fo_report_columns` (
+  `id` int(10) NOT NULL,
+  `report_id` int(10) NOT NULL,
+  `custom_property_id` int(10) NOT NULL,
+  `field_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_report_columns`
+--
+
+INSERT INTO `fo_report_columns` (`id`, `report_id`, `custom_property_id`, `field_name`) VALUES
+(1, 10, 0, 'percent_completed');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_role_object_type_permissions`
+--
+
+CREATE TABLE `fo_role_object_type_permissions` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `object_type_id` int(10) UNSIGNED NOT NULL,
+  `can_delete` tinyint(1) NOT NULL,
+  `can_write` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_role_object_type_permissions`
+--
+
+INSERT INTO `fo_role_object_type_permissions` (`role_id`, `object_type_id`, `can_delete`, `can_write`) VALUES
+(1, 3, 1, 1),
+(1, 4, 1, 1),
+(1, 5, 1, 1),
+(1, 6, 1, 1),
+(1, 9, 1, 1),
+(1, 10, 1, 1),
+(1, 11, 1, 1),
+(1, 15, 1, 1),
+(1, 17, 1, 1),
+(1, 23, 1, 1),
+(2, 3, 1, 1),
+(2, 4, 1, 1),
+(2, 5, 1, 1),
+(2, 6, 1, 1),
+(2, 9, 1, 1),
+(2, 10, 1, 1),
+(2, 11, 1, 1),
+(2, 15, 1, 1),
+(2, 17, 1, 1),
+(2, 23, 1, 1),
+(3, 3, 1, 1),
+(3, 4, 1, 1),
+(3, 5, 1, 1),
+(3, 6, 1, 1),
+(3, 9, 1, 1),
+(3, 10, 1, 1),
+(3, 11, 1, 1),
+(3, 15, 1, 1),
+(3, 17, 1, 1),
+(3, 23, 1, 1),
+(4, 3, 0, 1),
+(4, 4, 0, 1),
+(4, 5, 0, 1),
+(4, 6, 0, 1),
+(4, 9, 0, 1),
+(4, 10, 0, 1),
+(4, 11, 0, 1),
+(4, 15, 0, 1),
+(4, 17, 0, 1),
+(4, 23, 0, 1),
+(5, 5, 0, 0),
+(5, 6, 0, 1),
+(5, 9, 0, 0),
+(5, 10, 0, 0),
+(5, 11, 0, 0),
+(5, 15, 0, 0),
+(5, 17, 0, 1),
+(6, 5, 0, 0),
+(6, 6, 0, 1),
+(6, 9, 0, 0),
+(6, 10, 0, 0),
+(6, 11, 0, 0),
+(6, 15, 0, 0),
+(6, 17, 0, 1),
+(7, 5, 0, 0),
+(7, 6, 0, 0),
+(7, 9, 0, 0),
+(7, 17, 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_searchable_objects`
+--
+
+CREATE TABLE `fo_searchable_objects` (
+  `rel_object_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `column_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `content` text COLLATE utf8_unicode_ci NOT NULL,
+  `contact_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `assoc_member_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_searchable_objects`
+--
+
+INSERT INTO `fo_searchable_objects` (`rel_object_id`, `column_name`, `content`, `contact_id`, `assoc_member_id`) VALUES
+(1, 'first_name', 'Fint Solutions', 0, 0),
+(1, 'Job title', '', 0, 0),
+(1, 'name', 'Fint Solutions', 0, 0),
+(1, 'object_id', '1', 0, 0),
+(1, 'Prefix', '', 0, 0),
+(2, 'email_addres0', 'rajnikar.bandari@fintinc.com', 0, 0),
+(2, 'first_name', 'Rajnikar', 0, 0),
+(2, 'Job title', '', 0, 0),
+(2, 'name', 'Rajnikar Bandari', 0, 0),
+(2, 'object_id', '2', 0, 0),
+(2, 'Prefix', '', 0, 0),
+(2, 'surname', 'Bandari', 0, 0),
+(4, 'email_addres0', 'prasad@fintinc.com', 0, 0),
+(4, 'email_addres1', 'prasad@fintinc.com', 0, 0),
+(4, 'first_name', 'Prasad', 0, 0),
+(4, 'Job title', '', 0, 0),
+(4, 'name', 'Prasad Devarakonda', 0, 0),
+(4, 'object_id', '4', 0, 0),
+(4, 'Prefix', '', 0, 0),
+(4, 'surname', 'Devarakonda', 0, 0),
+(5, 'email_addres0', 'pradeep.namala@fintinc.com', 0, 0),
+(5, 'first_name', 'Pradeep', 0, 0),
+(5, 'Job title', 'Developer', 0, 0),
+(5, 'name', 'Pradeep Kumar', 0, 0),
+(5, 'object_id', '5', 0, 0),
+(5, 'Prefix', '', 0, 0),
+(5, 'surname', 'Kumar', 0, 0),
+(6, 'name', 'Testing', 0, 0),
+(6, 'object_id', '6', 0, 0),
+(6, 'text', 'Sample note here', 0, 0),
+(7, 'name', 'Test task', 0, 0),
+(7, 'object_id', '7', 0, 0),
+(8, 'address0', '   in ', 0, 0),
+(8, 'email_addres0', 'test@test.com', 0, 0),
+(8, 'email_addres1', 'test@test.com', 0, 0),
+(8, 'first_name', 'Test', 0, 0),
+(8, 'Job title', 'Testing', 0, 0),
+(8, 'name', 'Test Last Name', 0, 0),
+(8, 'object_id', '8', 0, 0),
+(8, 'Prefix', '', 0, 0),
+(8, 'surname', 'Last Name', 0, 0),
+(9, 'name', 'Offer forwarded', 0, 0),
+(9, 'object_id', '9', 0, 0),
+(11, 'name', 'Ravi chandra', 0, 0),
+(11, 'object_id', '11', 0, 0),
+(12, 'name', 'Rajnikar', 0, 0),
+(12, 'object_id', '12', 0, 0),
+(13, 'name', 'On Boarded', 0, 0),
+(13, 'object_id', '13', 0, 0),
+(14, 'name', 'Employee_Data_Form_FTE.docx', 0, 0),
+(14, 'object_id', '14', 0, 0),
+(15, 'comment', '-- Initial version --', 0, 0),
+(15, 'filecontent', '\n                                                                                                                             EMPLOYEE BASIC INFORMATIONEmployee Code(For Office Use):PHOTOEMPLOYEE DETAILS Name (As per Aadhar):Age:Date of Birth(As per CertificateDD-MM-YYYY format):Actual Date of Birth:(Birthday date you celebrate)Blood Group:Highest Education :Gender: FORMCHECKBOX Male FORMCHECKBOX FemaleMarital Status: FORMCHECKBOX   Married FORMCHECKBOX SingleWedding Date:Place of Birth:Contact No: Personal Email ID: Religion: Nationality:Present Address:Pin Code: Permanent Address:Pin Code: EMERGENCY CONTACT DETAILS    Full Name:Relationship: Address: Contact No: PARENTS DETAILS 2.RelationFull NameDate of BirthAge as on Aadhar NumberFATHERMOTHERBANK &amp; IDENTITY PROOF DETAILS3.Account Holders Name: Name of Bank:Account Number:  Branch (City): Bank Account Type: Branch Code (IFSC) No: Bank Address:Aadhar No:Pan Card No:Passport No:Issue Date:(DD-MMM-YYYY)Expiry Date: (DD-MMM-YYYY)EMPLOYEE PROVIDENT FUND DETAILS3.PF Account No (if applicable):UAN No (if applicable):Date of Exit (Previous Employer):FAMILY DETAILS 2.RelationNameGenderDOBSelfSpouseChild 1Child 2NOMINEE DETAILS3.Name:Relationship: DOB of Nominee:LANGUAGE PROFICIENCYReadWriteSpeak6.TeluguHindiEnglishOther Language (if any)ACADEMIC DETAILS4.QualificationYear of PassingName of the School/University/CollegeMajor SubjectClass/Division/PercentageSSCInterGraduationP.GAre you pursuing any courseIf yes, please give detailsEMPLOYMENT DETAILS (Starting from first organization to recent organization)4.Name of the OrganizationDesignationDuration WorkedReason for leavingHAVE YOU BEEN REFFERED TO THIS POSITION BY FINT EMPLOYEE, IF YES PLEASE MENTION DETAILS BELOW.5.Name:Contact NoEmp_IDREFERENCES FROM PREVIOUS ORGANIZATION (Freshers/Interns need not mention)5.Reference 1Reference 2NameDesignationContact NoAUTHORIZATION6.Copies of Educational certificates, PAN card, Aadhar card, Offer Letter /Appointment letter from previous employers, Relieving Letters,Salary last drawn proof (Payslips for last 3 months),3 Passport size photos to be enclosed on joining date.I hereby declare that the particulars given by me are true &amp; correct.Signature: Date: HR Use onlyTotal Documents Received Date by HRHR VerificationNoteSign:Date:\n', 0, 0),
+(15, 'object_id', '15', 0, 0),
+(16, 'name', 'NavathaTransport.docx', 0, 0),
+(16, 'object_id', '16', 0, 0),
+(17, 'comment', '-- Initial version --', 0, 0),
+(17, 'filecontent', '\nUNLOADFor scanning while unloading the articles we need to login our USER ID in Mobile ‘Easy Unload and Load’ app as follows . After successful login we need to select UNLOAD option as follows After selecting Unload , enter Invoice No and Invoice Date.After entry of Invoice No and Date we need to click on SCAN button and scan the QR code of every unloaded article.5. After completion of article scanning in mobile we need to open the ‘Auto Load Unload’ form in  transhipment moduleAfter selection of Unload and entry of Invoice no &amp; Invoice Date Scanned Articles and NOT Scanned Articles will appear in the form as follows  .We need to enter NOT Scanned Articles count in the field and we can also add excess unloaded article details by clicking ‘ADD’ button .After entry of Not Scanned Articles and excess unloaded article details we need to click ‘Submit’ button .By clicking Submit button if any short / excess articles are there , concern DRs will be generated automatically and those DR No’s will be displayed on the screen . LOADFor scanning the Articles to be Loaded we need to login our USER ID in Mobile‘Easy Unload and Load’ app  and select LOAD and enter Route No and Vehicle No.After entry of Route No and Vehicle No we need to click on SCAN button and scan the QR code of every article while loading. 3.   After completion of article scanning in mobile we need to open the ‘Auto Load  Unload’        form in transhipment module and select LOAD option . After selection of Load option, we need to enter Vehicle No ,  then Scanned Articles and NOT Scanned Articles will appear in the ‘Auto Load Unload form as follows.We need to enter Hamali id , Hamali batchWe MUST scan the barcode of ALL Loaded LRs for reconciliation. Also if we need to add the LRs for the articles which have no QR labels  we can add to the list  by scanning the barcode of LRAlso to Edit the Loaded Articles count of an LR we need to scan the Barcode of LR.After entry of Not Scanned QR code Articles count we need to click ‘Submit’ button. By clicking of Submit button if any shorts are there, concern DRs will be generated       automatically and those DR No’s will be displayed in the screen11      Auto generated DRs can be printed in the following form .\n', 0, 0),
+(17, 'object_id', '17', 0, 0),
+(18, 'name', 'Acko Bike Policy - DBCR00526752899_00.pdf', 0, 0),
+(18, 'object_id', '18', 0, 0),
+(19, 'comment', '-- Initial version --', 0, 0),
+(19, 'object_id', '19', 0, 0),
+(20, 'name', 'PaymentReceipt_16006782_.pdf', 0, 0),
+(20, 'object_id', '20', 0, 0),
+(21, 'comment', '-- Initial version --', 0, 0),
+(21, 'object_id', '21', 0, 0),
+(22, 'filecontent', '\nUNLOADFor scanning while unloading the articles we need to login our USER ID in Mobile ‘Easy Unload and Load’ app as follows . After successful login we need to select UNLOAD option as follows After selecting Unload , enter Invoice No and Invoice Date.After entry of Invoice No and Date we need to click on SCAN button and scan the QR code of every unloaded article.5. After completion of article scanning in mobile we need to open the ‘Auto Load Unload’ form in  transhipment moduleAfter selection of Unload and entry of Invoice no &amp; Invoice Date Scanned Articles and NOT Scanned Articles will appear in the form as follows  .We need to enter NOT Scanned Articles count in the field and we can also add excess unloaded article details by clicking ‘ADD’ button .After entry of Not Scanned Articles and excess unloaded article details we need to click ‘Submit’ button .By clicking Submit button if any short / excess articles are there , concern DRs will be generated automatically and those DR No’s will be displayed on the screen . LOADFor scanning the Articles to be Loaded we need to login our USER ID in Mobile‘Easy Unload and Load’ app  and select LOAD and enter Route No and Vehicle No.After entry of Route No and Vehicle No we need to click on SCAN button and scan the QR code of every article while loading. 3.   After completion of article scanning in mobile we need to open the ‘Auto Load  Unload’        form in transhipment module and select LOAD option . After selection of Load option, we need to enter Vehicle No ,  then Scanned Articles and NOT Scanned Articles will appear in the ‘Auto Load Unload form as follows.We need to enter Hamali id , Hamali batchWe MUST scan the barcode of ALL Loaded LRs for reconciliation. Also if we need to add the LRs for the articles which have no QR labels  we can add to the list  by scanning the barcode of LRAlso to Edit the Loaded Articles count of an LR we need to scan the Barcode of LR.After entry of Not Scanned QR code Articles count we need to click ‘Submit’ button. By clicking of Submit button if any shorts are there, concern DRs will be generated       automatically and those DR No’s will be displayed in the screen11      Auto generated DRs can be printed in the following form .\n', 0, 0),
+(22, 'object_id', '22', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_sharing_table`
+--
+
+CREATE TABLE `fo_sharing_table` (
+  `group_id` int(10) UNSIGNED NOT NULL,
+  `object_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_sharing_table`
+--
+
+INSERT INTO `fo_sharing_table` (`group_id`, `object_id`) VALUES
+(14, 1),
+(15, 1),
+(15, 3),
+(14, 5),
+(15, 5),
+(14, 6),
+(15, 6),
+(14, 7),
+(15, 7),
+(14, 8),
+(15, 8),
+(15, 9),
+(14, 10),
+(15, 10),
+(14, 11),
+(15, 11),
+(14, 12),
+(15, 12),
+(15, 13),
+(14, 14),
+(15, 14),
+(14, 16),
+(15, 16),
+(14, 18),
+(15, 18),
+(14, 20),
+(15, 20);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_system_permissions`
+--
+
+CREATE TABLE `fo_system_permissions` (
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `can_manage_security` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_configuration` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_templates` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_time` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_add_mail_accounts` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_dimensions` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_dimension_members` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_tasks` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_task_assignee` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_billing` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_view_billing` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_see_assigned_to_other_tasks` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `can_see_others_timeslots` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `can_manage_contacts` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_update_other_users_invitations` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_link_objects` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_instantiate_templates` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `can_manage_repetitive_properties_of_tasks` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_system_permissions`
+--
+
+INSERT INTO `fo_system_permissions` (`permission_group_id`, `can_manage_security`, `can_manage_configuration`, `can_manage_templates`, `can_manage_time`, `can_add_mail_accounts`, `can_manage_dimensions`, `can_manage_dimension_members`, `can_manage_tasks`, `can_task_assignee`, `can_manage_billing`, `can_view_billing`, `can_see_assigned_to_other_tasks`, `can_see_others_timeslots`, `can_manage_contacts`, `can_update_other_users_invitations`, `can_link_objects`, `can_instantiate_templates`, `can_manage_repetitive_properties_of_tasks`) VALUES
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1),
+(3, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1),
+(4, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1),
+(5, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0),
+(6, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0),
+(7, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0),
+(11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0),
+(14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1),
+(15, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1),
+(16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(17, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `fo_tab_panels`
+--
+
+CREATE TABLE `fo_tab_panels` (
+  `id` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+  `icon_cls` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `refresh_on_context_change` tinyint(1) NOT NULL,
+  `default_controller` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `default_action` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `initial_controller` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `initial_action` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `type` enum('system','plugin') COLLATE utf8_unicode_ci NOT NULL,
+  `ordering` int(10) NOT NULL,
+  `plugin_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `object_type_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `url_params` varchar(255) COLLATE utf8_unicode_ci DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_tab_panels`
+--
+
+INSERT INTO `fo_tab_panels` (`id`, `title`, `icon_cls`, `refresh_on_context_change`, `default_controller`, `default_action`, `initial_controller`, `initial_action`, `enabled`, `type`, `ordering`, `plugin_id`, `object_type_id`, `url_params`) VALUES
+('calendar-panel', 'calendar', 'ico-calendar', 1, 'event', 'view_calendar', '', '', 1, 'system', 7, 0, 10, ''),
+('contacts-panel', 'contacts', 'ico-contacts', 1, 'contact', 'init', '', '', 1, 'system', 4, 0, 15, ''),
+('documents-panel', 'documents', 'ico-documents', 1, 'files', 'init', '', '', 1, 'system', 3, 0, 6, ''),
+('mails-panel', 'email tab', 'ico-mail', 1, 'mail', 'init', '', '', 0, 'system', 12, 3, 23, ''),
+('messages-panel', 'messages', 'ico-messages', 1, 'message', 'init', '', '', 1, 'system', 10, 0, 3, ''),
+('more-panel', 'settings', 'ico-administration', 0, 'more', 'index', '', '', 1, 'system', 100, 0, 0, ''),
+('overview-panel', 'overview', 'ico-overview', 1, 'dashboard', 'main_dashboard', 'dashboard', 'main_dashboard', 1, 'system', 1, 0, 0, ''),
+('reporting-panel', 'reporting', 'ico-reporting', 1, 'reporting', 'index', '', '', 1, 'system', 8, 0, 11, ''),
+('tags-panel', 'tags', 'ico-tags', 1, 'member', 'init', '', '', 0, 'system', 20, 4, 2, '{\"dim_id\":3, \"type_id\":2}'),
+('tasks-panel', 'tasks', 'ico-tasks', 1, 'task', 'new_list_tasks', '', '', 1, 'system', 2, 0, 5, ''),
+('time-panel', 'time', 'ico-time-layout', 1, 'time', 'index', '', '', 1, 'system', 5, 0, 0, ''),
+('webpages-panel', 'web pages', 'ico-webpages', 1, 'webpage', 'init', '', '', 0, 'system', 9, 0, 4, ''),
+('workspaces-panel', 'workspaces', 'ico-workspaces', 1, 'member', 'init', '', '', 0, 'system', 20, 4, 1, '{\"dim_id\":2, \"type_id\":1}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_tab_panel_permissions`
+--
+
+CREATE TABLE `fo_tab_panel_permissions` (
+  `permission_group_id` int(10) UNSIGNED NOT NULL,
+  `tab_panel_id` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_tab_panel_permissions`
+--
+
+INSERT INTO `fo_tab_panel_permissions` (`permission_group_id`, `tab_panel_id`) VALUES
+(1, 'calendar-panel'),
+(1, 'contacts-panel'),
+(1, 'documents-panel'),
+(1, 'mails-panel'),
+(1, 'messages-panel'),
+(1, 'more-panel'),
+(1, 'overview-panel'),
+(1, 'reporting-panel'),
+(1, 'tags-panel'),
+(1, 'tasks-panel'),
+(1, 'time-panel'),
+(1, 'webpages-panel'),
+(1, 'workspaces-panel'),
+(2, 'calendar-panel'),
+(2, 'contacts-panel'),
+(2, 'documents-panel'),
+(2, 'mails-panel'),
+(2, 'messages-panel'),
+(2, 'more-panel'),
+(2, 'overview-panel'),
+(2, 'reporting-panel'),
+(2, 'tags-panel'),
+(2, 'tasks-panel'),
+(2, 'time-panel'),
+(2, 'webpages-panel'),
+(2, 'workspaces-panel'),
+(3, 'calendar-panel'),
+(3, 'contacts-panel'),
+(3, 'documents-panel'),
+(3, 'mails-panel'),
+(3, 'messages-panel'),
+(3, 'more-panel'),
+(3, 'overview-panel'),
+(3, 'reporting-panel'),
+(3, 'tags-panel'),
+(3, 'tasks-panel'),
+(3, 'time-panel'),
+(3, 'webpages-panel'),
+(3, 'workspaces-panel'),
+(4, 'calendar-panel'),
+(4, 'contacts-panel'),
+(4, 'documents-panel'),
+(4, 'mails-panel'),
+(4, 'messages-panel'),
+(4, 'more-panel'),
+(4, 'overview-panel'),
+(4, 'reporting-panel'),
+(4, 'tags-panel'),
+(4, 'tasks-panel'),
+(4, 'time-panel'),
+(4, 'webpages-panel'),
+(4, 'workspaces-panel'),
+(5, 'calendar-panel'),
+(5, 'contacts-panel'),
+(5, 'documents-panel'),
+(5, 'messages-panel'),
+(5, 'more-panel'),
+(5, 'overview-panel'),
+(5, 'reporting-panel'),
+(5, 'tasks-panel'),
+(5, 'time-panel'),
+(5, 'webpages-panel'),
+(6, 'calendar-panel'),
+(6, 'documents-panel'),
+(6, 'messages-panel'),
+(6, 'more-panel'),
+(6, 'overview-panel'),
+(6, 'tasks-panel'),
+(6, 'time-panel'),
+(6, 'webpages-panel'),
+(7, 'calendar-panel'),
+(7, 'documents-panel'),
+(7, 'messages-panel'),
+(7, 'more-panel'),
+(7, 'overview-panel'),
+(7, 'tasks-panel'),
+(7, 'time-panel'),
+(7, 'webpages-panel'),
+(11, 'calendar-panel'),
+(11, 'documents-panel'),
+(11, 'messages-panel'),
+(11, 'overview-panel'),
+(11, 'webpages-panel'),
+(12, 'calendar-panel'),
+(12, 'messages-panel'),
+(12, 'overview-panel'),
+(12, 'webpages-panel'),
+(13, 'calendar-panel'),
+(13, 'contacts-panel'),
+(13, 'documents-panel'),
+(13, 'messages-panel'),
+(13, 'more-panel'),
+(13, 'overview-panel'),
+(13, 'reporting-panel'),
+(13, 'tasks-panel'),
+(13, 'time-panel'),
+(13, 'webpages-panel'),
+(14, 'calendar-panel'),
+(14, 'contacts-panel'),
+(14, 'documents-panel'),
+(14, 'mails-panel'),
+(14, 'messages-panel'),
+(14, 'more-panel'),
+(14, 'overview-panel'),
+(14, 'reporting-panel'),
+(14, 'tags-panel'),
+(14, 'tasks-panel'),
+(14, 'time-panel'),
+(14, 'webpages-panel'),
+(14, 'workspaces-panel'),
+(15, 'calendar-panel'),
+(15, 'contacts-panel'),
+(15, 'documents-panel'),
+(15, 'mails-panel'),
+(15, 'messages-panel'),
+(15, 'more-panel'),
+(15, 'overview-panel'),
+(15, 'reporting-panel'),
+(15, 'tags-panel'),
+(15, 'tasks-panel'),
+(15, 'time-panel'),
+(15, 'webpages-panel'),
+(15, 'workspaces-panel'),
+(16, 'calendar-panel'),
+(16, 'messages-panel'),
+(16, 'overview-panel'),
+(17, 'calendar-panel'),
+(17, 'contacts-panel'),
+(17, 'documents-panel'),
+(17, 'messages-panel'),
+(17, 'more-panel'),
+(17, 'overview-panel'),
+(17, 'reporting-panel'),
+(17, 'tasks-panel'),
+(17, 'time-panel');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_telephone_types`
+--
+
+CREATE TABLE `fo_telephone_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_telephone_types`
+--
+
+INSERT INTO `fo_telephone_types` (`id`, `name`, `is_system`) VALUES
+(1, 'home', 1),
+(2, 'work', 1),
+(3, 'other', 1),
+(4, 'assistant', 0),
+(5, 'callback', 0),
+(6, 'mobile', 1),
+(7, 'pager', 0),
+(8, 'fax', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_timezones`
+--
+
+CREATE TABLE `fo_timezones` (
+  `id` int(10) NOT NULL,
+  `country_code` char(10) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `has_dst` tinyint(1) NOT NULL DEFAULT '0',
+  `gmt_offset` int(10) NOT NULL DEFAULT '0',
+  `gmt_dst_offset` int(10) NOT NULL DEFAULT '0',
+  `using_dst` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_timezones`
+--
+
+INSERT INTO `fo_timezones` (`id`, `country_code`, `name`, `has_dst`, `gmt_offset`, `gmt_dst_offset`, `using_dst`) VALUES
+(1, 'AD', 'Europe/Andorra', 1, 3600, 7200, 0),
+(2, 'AE', 'Asia/Dubai', 0, 14400, 14400, 0),
+(3, 'AF', 'Asia/Kabul', 0, 16200, 16200, 0),
+(4, 'AG', 'America/Antigua', 0, -14400, -14400, 0),
+(5, 'AI', 'America/Anguilla', 0, -14400, -14400, 0),
+(6, 'AL', 'Europe/Tirane', 1, 3600, 7200, 0),
+(7, 'AM', 'Asia/Yerevan', 0, 14400, 18000, 0),
+(8, 'AO', 'Africa/Luanda', 0, 3600, 3600, 0),
+(9, 'AQ', 'Antarctica/McMurdo', 1, 43200, 46800, 1),
+(10, 'AQ', 'Antarctica/Casey', 0, 28800, 28800, 0),
+(11, 'AQ', 'Antarctica/Davis', 0, 25200, 25200, 0),
+(12, 'AQ', 'Antarctica/DumontDUrville', 0, 36000, 36000, 0),
+(13, 'AQ', 'Antarctica/Mawson', 0, 18000, 18000, 0),
+(14, 'AQ', 'Antarctica/Palmer', 1, -14400, -10800, 1),
+(15, 'AQ', 'Antarctica/Rothera', 0, -10800, -10800, 0),
+(16, 'AQ', 'Antarctica/Syowa', 0, 10800, 10800, 0),
+(17, 'AQ', 'Antarctica/Troll', 0, 0, 7200, 0),
+(18, 'AQ', 'Antarctica/Vostok', 0, 21600, 21600, 0),
+(19, 'AR', 'America/Argentina/Buenos_Aires', 0, -10800, -7200, 0),
+(20, 'AR', 'America/Argentina/Cordoba', 0, -10800, -7200, 0),
+(21, 'AR', 'America/Argentina/Salta', 0, -10800, -7200, 0),
+(22, 'AR', 'America/Argentina/Jujuy', 0, -10800, -7200, 0),
+(23, 'AR', 'America/Argentina/Tucuman', 0, -10800, -7200, 0),
+(24, 'AR', 'America/Argentina/Catamarca', 0, -10800, -7200, 0),
+(25, 'AR', 'America/Argentina/La_Rioja', 0, -10800, -7200, 0),
+(26, 'AR', 'America/Argentina/San_Juan', 0, -10800, -7200, 0),
+(27, 'AR', 'America/Argentina/Mendoza', 0, -10800, -7200, 0),
+(28, 'AR', 'America/Argentina/San_Luis', 0, -10800, -10800, 0),
+(29, 'AR', 'America/Argentina/Rio_Gallegos', 0, -10800, -7200, 0),
+(30, 'AR', 'America/Argentina/Ushuaia', 0, -10800, -7200, 0),
+(31, 'AS', 'Pacific/Pago_Pago', 0, -39600, -39600, 0),
+(32, 'AT', 'Europe/Vienna', 1, 3600, 7200, 0),
+(33, 'AU', 'Australia/Lord_Howe', 1, 37800, 39600, 1),
+(34, 'AU', 'Antarctica/Macquarie', 0, 39600, 39600, 0),
+(35, 'AU', 'Australia/Hobart', 1, 36000, 39600, 1),
+(36, 'AU', 'Australia/Currie', 1, 36000, 39600, 1),
+(37, 'AU', 'Australia/Melbourne', 1, 36000, 39600, 1),
+(38, 'AU', 'Australia/Sydney', 1, 36000, 39600, 1),
+(39, 'AU', 'Australia/Broken_Hill', 1, 34200, 37800, 1),
+(40, 'AU', 'Australia/Brisbane', 0, 36000, 39600, 0),
+(41, 'AU', 'Australia/Lindeman', 0, 36000, 39600, 0),
+(42, 'AU', 'Australia/Adelaide', 1, 34200, 37800, 1),
+(43, 'AU', 'Australia/Darwin', 0, 34200, 37800, 0),
+(44, 'AU', 'Australia/Perth', 0, 28800, 32400, 0),
+(45, 'AU', 'Australia/Eucla', 0, 31500, 35100, 0),
+(46, 'AW', 'America/Aruba', 0, -14400, -14400, 0),
+(47, 'AX', 'Europe/Mariehamn', 1, 7200, 10800, 0),
+(48, 'AZ', 'Asia/Baku', 1, 14400, 18000, 0),
+(49, 'BA', 'Europe/Sarajevo', 1, 3600, 7200, 0),
+(50, 'BB', 'America/Barbados', 0, -14400, -10800, 0),
+(51, 'BD', 'Asia/Dhaka', 0, 21600, 25200, 0),
+(52, 'BE', 'Europe/Brussels', 1, 3600, 7200, 0),
+(53, 'BF', 'Africa/Ouagadougou', 0, 0, 0, 0),
+(54, 'BG', 'Europe/Sofia', 1, 7200, 10800, 0),
+(55, 'BH', 'Asia/Bahrain', 0, 10800, 10800, 0),
+(56, 'BI', 'Africa/Bujumbura', 0, 7200, 7200, 0),
+(57, 'BJ', 'Africa/Porto-Novo', 0, 3600, 3600, 0),
+(58, 'BL', 'America/St_Barthelemy', 0, -14400, -14400, 0),
+(59, 'BM', 'Atlantic/Bermuda', 1, -14400, -10800, 0),
+(60, 'BN', 'Asia/Brunei', 0, 28800, 28800, 0),
+(61, 'BO', 'America/La_Paz', 0, -14400, -12756, 0),
+(62, 'BQ', 'America/Kralendijk', 0, -14400, -14400, 0),
+(63, 'BR', 'America/Noronha', 0, -7200, -3600, 0),
+(64, 'BR', 'America/Belem', 0, -10800, -7200, 0),
+(65, 'BR', 'America/Fortaleza', 0, -10800, -7200, 0),
+(66, 'BR', 'America/Recife', 0, -10800, -7200, 0),
+(67, 'BR', 'America/Araguaina', 1, -10800, -7200, 0),
+(68, 'BR', 'America/Maceio', 0, -10800, -7200, 0),
+(69, 'BR', 'America/Bahia', 0, -10800, -7200, 0),
+(70, 'BR', 'America/Sao_Paulo', 1, -10800, -7200, 1),
+(71, 'BR', 'America/Campo_Grande', 1, -14400, -10800, 1),
+(72, 'BR', 'America/Cuiaba', 1, -14400, -10800, 1),
+(73, 'BR', 'America/Santarem', 0, -10800, -10800, 0),
+(74, 'BR', 'America/Porto_Velho', 0, -14400, -10800, 0),
+(75, 'BR', 'America/Boa_Vista', 0, -14400, -10800, 0),
+(76, 'BR', 'America/Manaus', 0, -14400, -10800, 0),
+(77, 'BR', 'America/Eirunepe', 0, -18000, -14400, 0),
+(78, 'BR', 'America/Rio_Branco', 0, -18000, -14400, 0),
+(79, 'BS', 'America/Nassau', 1, -18000, -14400, 0),
+(80, 'BT', 'Asia/Thimphu', 0, 21600, 21600, 0),
+(81, 'BW', 'Africa/Gaborone', 0, 7200, 7200, 0),
+(82, 'BY', 'Europe/Minsk', 0, 10800, 10800, 0),
+(83, 'BZ', 'America/Belize', 0, -21600, -18000, 0),
+(84, 'CA', 'America/St_Johns', 1, -12600, -9000, 0),
+(85, 'CA', 'America/Halifax', 1, -14400, -10800, 0),
+(86, 'CA', 'America/Glace_Bay', 1, -14400, -10800, 0),
+(87, 'CA', 'America/Moncton', 1, -14400, -10800, 0),
+(88, 'CA', 'America/Goose_Bay', 1, -14400, -10800, 0),
+(89, 'CA', 'America/Blanc-Sablon', 0, -14400, -10800, 0),
+(90, 'CA', 'America/Toronto', 1, -18000, -14400, 0),
+(91, 'CA', 'America/Nipigon', 1, -18000, -14400, 0),
+(92, 'CA', 'America/Thunder_Bay', 1, -18000, -14400, 0),
+(93, 'CA', 'America/Iqaluit', 1, -18000, -14400, 0),
+(94, 'CA', 'America/Pangnirtung', 1, -18000, -14400, 0),
+(95, 'CA', 'America/Atikokan', 0, -18000, -18000, 0),
+(96, 'CA', 'America/Winnipeg', 1, -21600, -18000, 0),
+(97, 'CA', 'America/Rainy_River', 1, -21600, -18000, 0),
+(98, 'CA', 'America/Resolute', 1, -21600, -18000, 0),
+(99, 'CA', 'America/Rankin_Inlet', 1, -21600, -18000, 0),
+(100, 'CA', 'America/Regina', 0, -21600, -21600, 0),
+(101, 'CA', 'America/Swift_Current', 0, -21600, -21600, 0),
+(102, 'CA', 'America/Edmonton', 1, -25200, -21600, 0),
+(103, 'CA', 'America/Cambridge_Bay', 1, -25200, -21600, 0),
+(104, 'CA', 'America/Yellowknife', 1, -25200, -21600, 0),
+(105, 'CA', 'America/Inuvik', 1, -25200, -21600, 0),
+(106, 'CA', 'America/Creston', 0, -25200, -25200, 0),
+(107, 'CA', 'America/Dawson_Creek', 0, -25200, -25200, 0),
+(108, 'CA', 'America/Fort_Nelson', 1, -25200, -25200, 0),
+(109, 'CA', 'America/Vancouver', 1, -28800, -25200, 0),
+(110, 'CA', 'America/Whitehorse', 1, -28800, -25200, 0),
+(111, 'CA', 'America/Dawson', 1, -28800, -25200, 0),
+(112, 'CC', 'Indian/Cocos', 0, 23400, 23400, 0),
+(113, 'CD', 'Africa/Kinshasa', 0, 3600, 3600, 0),
+(114, 'CD', 'Africa/Lubumbashi', 0, 7200, 7200, 0),
+(115, 'CF', 'Africa/Bangui', 0, 3600, 3600, 0),
+(116, 'CG', 'Africa/Brazzaville', 0, 3600, 3600, 0),
+(117, 'CH', 'Europe/Zurich', 1, 3600, 7200, 0),
+(118, 'CI', 'Africa/Abidjan', 0, 0, 0, 0),
+(119, 'CK', 'Pacific/Rarotonga', 0, -36000, -34200, 0),
+(120, 'CL', 'America/Santiago', 1, -14400, -10800, 1),
+(121, 'CL', 'Pacific/Easter', 1, -21600, -18000, 1),
+(122, 'CM', 'Africa/Douala', 0, 3600, 3600, 0),
+(123, 'CN', 'Asia/Shanghai', 0, 28800, 32400, 0),
+(124, 'CN', 'Asia/Urumqi', 0, 21600, 21600, 0),
+(125, 'CO', 'America/Bogota', 0, -18000, -14400, 0),
+(126, 'CR', 'America/Costa_Rica', 0, -21600, -18000, 0),
+(127, 'CU', 'America/Havana', 1, -18000, -14400, 0),
+(128, 'CV', 'Atlantic/Cape_Verde', 0, -3600, -3600, 0),
+(129, 'CW', 'America/Curacao', 0, -14400, -14400, 0),
+(130, 'CX', 'Indian/Christmas', 0, 25200, 25200, 0),
+(131, 'CY', 'Asia/Nicosia', 1, 7200, 10800, 0),
+(132, 'CZ', 'Europe/Prague', 1, 3600, 7200, 0),
+(133, 'DE', 'Europe/Berlin', 1, 3600, 7200, 0),
+(134, 'DE', 'Europe/Busingen', 1, 3600, 7200, 0),
+(135, 'DJ', 'Africa/Djibouti', 0, 10800, 10800, 0),
+(136, 'DK', 'Europe/Copenhagen', 1, 3600, 7200, 0),
+(137, 'DM', 'America/Dominica', 0, -14400, -14400, 0),
+(138, 'DO', 'America/Santo_Domingo', 0, -14400, -16200, 0),
+(139, 'DZ', 'Africa/Algiers', 0, 3600, 3600, 0),
+(140, 'EC', 'America/Guayaquil', 0, -18000, -18000, 0),
+(141, 'EC', 'Pacific/Galapagos', 0, -21600, -21600, 0),
+(142, 'EE', 'Europe/Tallinn', 1, 7200, 10800, 0),
+(143, 'EG', 'Africa/Cairo', 1, 7200, 10800, 0),
+(144, 'EH', 'Africa/El_Aaiun', 1, 0, 3600, 0),
+(145, 'ER', 'Africa/Asmara', 0, 10800, 10800, 0),
+(146, 'ES', 'Europe/Madrid', 1, 3600, 7200, 0),
+(147, 'ES', 'Africa/Ceuta', 1, 3600, 7200, 0),
+(148, 'ES', 'Atlantic/Canary', 1, 0, 3600, 0),
+(149, 'ET', 'Africa/Addis_Ababa', 0, 10800, 10800, 0),
+(150, 'FI', 'Europe/Helsinki', 1, 7200, 10800, 0),
+(151, 'FJ', 'Pacific/Fiji', 1, 43200, 46800, 1),
+(152, 'FK', 'Atlantic/Stanley', 0, -10800, -10800, 0),
+(153, 'FM', 'Pacific/Chuuk', 0, 36000, 36000, 0),
+(154, 'FM', 'Pacific/Pohnpei', 0, 39600, 39600, 0),
+(155, 'FM', 'Pacific/Kosrae', 0, 39600, 39600, 0),
+(156, 'FO', 'Atlantic/Faroe', 1, 0, 3600, 0),
+(157, 'FR', 'Europe/Paris', 1, 3600, 7200, 0),
+(158, 'GA', 'Africa/Libreville', 0, 3600, 3600, 0),
+(159, 'GB', 'Europe/London', 1, 0, 3600, 1),
+(160, 'GD', 'America/Grenada', 0, -14400, -14400, 0),
+(161, 'GE', 'Asia/Tbilisi', 0, 14400, 14400, 0),
+(162, 'GF', 'America/Cayenne', 0, -10800, -10800, 0),
+(163, 'GG', 'Europe/Guernsey', 1, 0, 3600, 0),
+(164, 'GH', 'Africa/Accra', 0, 0, 1200, 0),
+(165, 'GI', 'Europe/Gibraltar', 1, 3600, 7200, 0),
+(166, 'GL', 'America/Godthab', 1, -10800, -7200, 0),
+(167, 'GL', 'America/Danmarkshavn', 0, 0, -7200, 0),
+(168, 'GL', 'America/Scoresbysund', 1, -3600, 0, 0),
+(169, 'GL', 'America/Thule', 1, -14400, -10800, 0),
+(170, 'GM', 'Africa/Banjul', 0, 0, 0, 0),
+(171, 'GN', 'Africa/Conakry', 0, 0, 0, 0),
+(172, 'GP', 'America/Guadeloupe', 0, -14400, -14400, 0),
+(173, 'GQ', 'Africa/Malabo', 0, 3600, 3600, 0),
+(174, 'GR', 'Europe/Athens', 1, 7200, 10800, 0),
+(175, 'GS', 'Atlantic/South_Georgia', 0, -7200, -7200, 0),
+(176, 'GT', 'America/Guatemala', 0, -21600, -18000, 0),
+(177, 'GU', 'Pacific/Guam', 0, 36000, 36000, 0),
+(178, 'GW', 'Africa/Bissau', 0, 0, 0, 0),
+(179, 'GY', 'America/Guyana', 0, -14400, -14400, 0),
+(180, 'HK', 'Asia/Hong_Kong', 0, 28800, 32400, 0),
+(181, 'HN', 'America/Tegucigalpa', 0, -21600, -18000, 0),
+(182, 'HR', 'Europe/Zagreb', 1, 3600, 7200, 0),
+(183, 'HT', 'America/Port-au-Prince', 1, -18000, -14400, 0),
+(184, 'HU', 'Europe/Budapest', 1, 3600, 7200, 0),
+(185, 'ID', 'Asia/Jakarta', 0, 25200, 25200, 0),
+(186, 'ID', 'Asia/Pontianak', 0, 25200, 25200, 0),
+(187, 'ID', 'Asia/Makassar', 0, 28800, 28800, 0),
+(188, 'ID', 'Asia/Jayapura', 0, 32400, 32400, 0),
+(189, 'IE', 'Europe/Dublin', 1, 0, 3600, 0),
+(190, 'IL', 'Asia/Jerusalem', 1, 7200, 10800, 0),
+(191, 'IM', 'Europe/Isle_of_Man', 1, 0, 3600, 0),
+(192, 'IN', 'Asia/Kolkata', 0, 19800, 23400, 0),
+(193, 'IO', 'Indian/Chagos', 0, 21600, 21600, 0),
+(194, 'IQ', 'Asia/Baghdad', 0, 10800, 14400, 0),
+(195, 'IR', 'Asia/Tehran', 1, 12600, 16200, 0),
+(196, 'IS', 'Atlantic/Reykjavik', 0, 0, 0, 0),
+(197, 'IT', 'Europe/Rome', 1, 3600, 7200, 0),
+(198, 'JE', 'Europe/Jersey', 1, 0, 3600, 0),
+(199, 'JM', 'America/Jamaica', 0, -18000, -14400, 0),
+(200, 'JO', 'Asia/Amman', 1, 7200, 10800, 0),
+(201, 'JP', 'Asia/Tokyo', 0, 32400, 36000, 0),
+(202, 'KE', 'Africa/Nairobi', 0, 10800, 10800, 0),
+(203, 'KG', 'Asia/Bishkek', 0, 18000, 21600, 0),
+(204, 'KH', 'Asia/Phnom_Penh', 0, 25200, 25200, 0),
+(205, 'KI', 'Pacific/Tarawa', 0, 43200, 43200, 0),
+(206, 'KI', 'Pacific/Enderbury', 0, 46800, 46800, 0),
+(207, 'KI', 'Pacific/Kiritimati', 0, 50400, 50400, 0),
+(208, 'KM', 'Indian/Comoro', 0, 10800, 10800, 0),
+(209, 'KN', 'America/St_Kitts', 0, -14400, -14400, 0),
+(210, 'KP', 'Asia/Pyongyang', 0, 30600, 30600, 0),
+(211, 'KR', 'Asia/Seoul', 0, 32400, 36000, 0),
+(212, 'KW', 'Asia/Kuwait', 0, 10800, 10800, 0),
+(213, 'KY', 'America/Cayman', 0, -18000, -18000, 0),
+(214, 'KZ', 'Asia/Almaty', 0, 21600, 25200, 0),
+(215, 'KZ', 'Asia/Qyzylorda', 0, 18000, 21600, 0),
+(216, 'KZ', 'Asia/Aqtobe', 0, 18000, 21600, 0),
+(217, 'KZ', 'Asia/Aqtau', 0, 14400, 18000, 0),
+(218, 'KZ', 'Asia/Oral', 0, 14400, 18000, 0),
+(219, 'LA', 'Asia/Vientiane', 0, 25200, 25200, 0),
+(220, 'LB', 'Asia/Beirut', 1, 7200, 10800, 0),
+(221, 'LC', 'America/St_Lucia', 0, -14400, -14400, 0),
+(222, 'LI', 'Europe/Vaduz', 1, 3600, 7200, 0),
+(223, 'LK', 'Asia/Colombo', 0, 19800, 23400, 0),
+(224, 'LR', 'Africa/Monrovia', 0, 0, 0, 0),
+(225, 'LS', 'Africa/Maseru', 0, 7200, 10800, 0),
+(226, 'LT', 'Europe/Vilnius', 1, 7200, 10800, 0),
+(227, 'LU', 'Europe/Luxembourg', 1, 3600, 7200, 0),
+(228, 'LV', 'Europe/Riga', 1, 7200, 10800, 0),
+(229, 'LY', 'Africa/Tripoli', 1, 7200, 7200, 0),
+(230, 'MA', 'Africa/Casablanca', 1, 0, 3600, 0),
+(231, 'MC', 'Europe/Monaco', 1, 3600, 7200, 0),
+(232, 'MD', 'Europe/Chisinau', 1, 7200, 10800, 0),
+(233, 'ME', 'Europe/Podgorica', 1, 3600, 7200, 0),
+(234, 'MF', 'America/Marigot', 0, -14400, -14400, 0),
+(235, 'MG', 'Indian/Antananarivo', 0, 10800, 10800, 0),
+(236, 'MH', 'Pacific/Majuro', 0, 43200, 43200, 0),
+(237, 'MH', 'Pacific/Kwajalein', 0, 43200, 43200, 0),
+(238, 'MK', 'Europe/Skopje', 1, 3600, 7200, 0),
+(239, 'ML', 'Africa/Bamako', 0, 0, 0, 0),
+(240, 'MM', 'Asia/Yangon', 0, 23400, 23400, 0),
+(241, 'MN', 'Asia/Ulaanbaatar', 1, 28800, 32400, 0),
+(242, 'MN', 'Asia/Hovd', 1, 25200, 28800, 0),
+(243, 'MN', 'Asia/Choibalsan', 1, 28800, 32400, 0),
+(244, 'MO', 'Asia/Macau', 0, 28800, 32400, 0),
+(245, 'MP', 'Pacific/Saipan', 0, 36000, 36000, 0),
+(246, 'MQ', 'America/Martinique', 0, -14400, -10800, 0),
+(247, 'MR', 'Africa/Nouakchott', 0, 0, 0, 0),
+(248, 'MS', 'America/Montserrat', 0, -14400, -14400, 0),
+(249, 'MT', 'Europe/Malta', 1, 3600, 7200, 0),
+(250, 'MU', 'Indian/Mauritius', 0, 14400, 18000, 0),
+(251, 'MV', 'Indian/Maldives', 0, 18000, 18000, 0),
+(252, 'MW', 'Africa/Blantyre', 0, 7200, 7200, 0),
+(253, 'MX', 'America/Mexico_City', 1, -21600, -18000, 0),
+(254, 'MX', 'America/Cancun', 1, -18000, -18000, 0),
+(255, 'MX', 'America/Merida', 1, -21600, -18000, 0),
+(256, 'MX', 'America/Monterrey', 1, -21600, -18000, 0),
+(257, 'MX', 'America/Matamoros', 1, -21600, -18000, 0),
+(258, 'MX', 'America/Mazatlan', 1, -25200, -21600, 0),
+(259, 'MX', 'America/Chihuahua', 1, -25200, -21600, 0),
+(260, 'MX', 'America/Ojinaga', 1, -25200, -21600, 0),
+(261, 'MX', 'America/Hermosillo', 0, -25200, -21600, 0),
+(262, 'MX', 'America/Tijuana', 1, -28800, -25200, 0),
+(263, 'MX', 'America/Bahia_Banderas', 1, -21600, -18000, 0),
+(264, 'MY', 'Asia/Kuala_Lumpur', 0, 28800, 26400, 0),
+(265, 'MY', 'Asia/Kuching', 0, 28800, 30000, 0),
+(266, 'MZ', 'Africa/Maputo', 0, 7200, 7200, 0),
+(267, 'NA', 'Africa/Windhoek', 1, 3600, 7200, 1),
+(268, 'NC', 'Pacific/Noumea', 0, 39600, 43200, 0),
+(269, 'NE', 'Africa/Niamey', 0, 3600, 3600, 0),
+(270, 'NF', 'Pacific/Norfolk', 0, 39600, 45000, 0),
+(271, 'NG', 'Africa/Lagos', 0, 3600, 3600, 0),
+(272, 'NI', 'America/Managua', 0, -21600, -18000, 0),
+(273, 'NL', 'Europe/Amsterdam', 1, 3600, 7200, 0),
+(274, 'NO', 'Europe/Oslo', 1, 3600, 7200, 0),
+(275, 'NP', 'Asia/Kathmandu', 0, 20700, 20700, 0),
+(276, 'NR', 'Pacific/Nauru', 0, 43200, 43200, 0),
+(277, 'NU', 'Pacific/Niue', 0, -39600, -39600, 0),
+(278, 'NZ', 'Pacific/Auckland', 1, 43200, 46800, 1),
+(279, 'NZ', 'Pacific/Chatham', 1, 45900, 49500, 1),
+(280, 'OM', 'Asia/Muscat', 0, 14400, 14400, 0),
+(281, 'PA', 'America/Panama', 0, -18000, -18000, 0),
+(282, 'PE', 'America/Lima', 0, -18000, -14400, 0),
+(283, 'PF', 'Pacific/Tahiti', 0, -36000, -36000, 0),
+(284, 'PF', 'Pacific/Marquesas', 0, -34200, -34200, 0),
+(285, 'PF', 'Pacific/Gambier', 0, -32400, -32400, 0),
+(286, 'PG', 'Pacific/Port_Moresby', 0, 36000, 36000, 0),
+(287, 'PG', 'Pacific/Bougainville', 0, 39600, 39600, 0),
+(288, 'PH', 'Asia/Manila', 0, 28800, 32400, 0),
+(289, 'PK', 'Asia/Karachi', 0, 18000, 21600, 0),
+(290, 'PL', 'Europe/Warsaw', 1, 3600, 7200, 0),
+(291, 'PM', 'America/Miquelon', 1, -10800, -7200, 0),
+(292, 'PN', 'Pacific/Pitcairn', 0, -28800, -28800, 0),
+(293, 'PR', 'America/Puerto_Rico', 0, -14400, -10800, 0),
+(294, 'PS', 'Asia/Gaza', 1, 7200, 10800, 0),
+(295, 'PS', 'Asia/Hebron', 1, 7200, 10800, 0),
+(296, 'PT', 'Europe/Lisbon', 1, 0, 3600, 0),
+(297, 'PT', 'Atlantic/Madeira', 1, 0, 3600, 0),
+(298, 'PT', 'Atlantic/Azores', 1, -3600, 0, 0),
+(299, 'PW', 'Pacific/Palau', 0, 32400, 32400, 0),
+(300, 'PY', 'America/Asuncion', 1, -14400, -10800, 1),
+(301, 'QA', 'Asia/Qatar', 0, 10800, 10800, 0),
+(302, 'RE', 'Indian/Reunion', 0, 14400, 14400, 0),
+(303, 'RO', 'Europe/Bucharest', 1, 7200, 10800, 0),
+(304, 'RS', 'Europe/Belgrade', 1, 3600, 7200, 0),
+(305, 'RU', 'Europe/Kaliningrad', 0, 7200, 10800, 0),
+(306, 'RU', 'Europe/Moscow', 0, 10800, 14400, 0),
+(307, 'RU', 'Europe/Simferopol', 1, 10800, 10800, 0),
+(308, 'RU', 'Europe/Volgograd', 0, 10800, 14400, 0),
+(309, 'RU', 'Europe/Kirov', 0, 10800, 14400, 0),
+(310, 'RU', 'Europe/Astrakhan', 0, 14400, 14400, 0),
+(311, 'RU', 'Europe/Samara', 0, 14400, 18000, 0),
+(312, 'RU', 'Europe/Ulyanovsk', 0, 14400, 14400, 0),
+(313, 'RU', 'Asia/Yekaterinburg', 0, 18000, 21600, 0),
+(314, 'RU', 'Asia/Omsk', 0, 21600, 25200, 0),
+(315, 'RU', 'Asia/Novosibirsk', 0, 25200, 25200, 0),
+(316, 'RU', 'Asia/Barnaul', 0, 25200, 25200, 0),
+(317, 'RU', 'Asia/Tomsk', 0, 25200, 25200, 0),
+(318, 'RU', 'Asia/Novokuznetsk', 0, 25200, 28800, 0),
+(319, 'RU', 'Asia/Krasnoyarsk', 0, 25200, 28800, 0),
+(320, 'RU', 'Asia/Irkutsk', 0, 28800, 32400, 0),
+(321, 'RU', 'Asia/Chita', 0, 32400, 36000, 0),
+(322, 'RU', 'Asia/Yakutsk', 0, 32400, 36000, 0),
+(323, 'RU', 'Asia/Khandyga', 0, 32400, 39600, 0),
+(324, 'RU', 'Asia/Vladivostok', 0, 36000, 39600, 0),
+(325, 'RU', 'Asia/Ust-Nera', 0, 36000, 43200, 0),
+(326, 'RU', 'Asia/Magadan', 0, 39600, 43200, 0),
+(327, 'RU', 'Asia/Sakhalin', 0, 39600, 39600, 0),
+(328, 'RU', 'Asia/Srednekolymsk', 0, 39600, 43200, 0),
+(329, 'RU', 'Asia/Kamchatka', 0, 43200, 46800, 0),
+(330, 'RU', 'Asia/Anadyr', 0, 43200, 46800, 0),
+(331, 'RW', 'Africa/Kigali', 0, 7200, 7200, 0),
+(332, 'SA', 'Asia/Riyadh', 0, 10800, 10800, 0),
+(333, 'SB', 'Pacific/Guadalcanal', 0, 39600, 39600, 0),
+(334, 'SC', 'Indian/Mahe', 0, 14400, 14400, 0),
+(335, 'SD', 'Africa/Khartoum', 0, 10800, 10800, 0),
+(336, 'SE', 'Europe/Stockholm', 1, 3600, 7200, 0),
+(337, 'SG', 'Asia/Singapore', 0, 28800, 26400, 0),
+(338, 'SH', 'Atlantic/St_Helena', 0, 0, 0, 0),
+(339, 'SI', 'Europe/Ljubljana', 1, 3600, 7200, 0),
+(340, 'SJ', 'Arctic/Longyearbyen', 1, 3600, 7200, 0),
+(341, 'SK', 'Europe/Bratislava', 1, 3600, 7200, 0),
+(342, 'SL', 'Africa/Freetown', 0, 0, 0, 0),
+(343, 'SM', 'Europe/San_Marino', 1, 3600, 7200, 0),
+(344, 'SN', 'Africa/Dakar', 0, 0, 0, 0),
+(345, 'SO', 'Africa/Mogadishu', 0, 10800, 10800, 0),
+(346, 'SR', 'America/Paramaribo', 0, -10800, -10800, 0),
+(347, 'SS', 'Africa/Juba', 0, 10800, 10800, 0),
+(348, 'ST', 'Africa/Sao_Tome', 0, 0, 0, 0),
+(349, 'SV', 'America/El_Salvador', 0, -21600, -18000, 0),
+(350, 'SX', 'America/Lower_Princes', 0, -14400, -14400, 0),
+(351, 'SY', 'Asia/Damascus', 1, 7200, 10800, 0),
+(352, 'SZ', 'Africa/Mbabane', 0, 7200, 10800, 0),
+(353, 'TC', 'America/Grand_Turk', 1, -14400, -14400, 0),
+(354, 'TD', 'Africa/Ndjamena', 0, 3600, 7200, 0),
+(355, 'TF', 'Indian/Kerguelen', 0, 18000, 18000, 0),
+(356, 'TG', 'Africa/Lome', 0, 0, 0, 0),
+(357, 'TH', 'Asia/Bangkok', 0, 25200, 25200, 0),
+(358, 'TJ', 'Asia/Dushanbe', 0, 18000, 25200, 0),
+(359, 'TK', 'Pacific/Fakaofo', 0, 46800, 46800, 0),
+(360, 'TL', 'Asia/Dili', 0, 32400, 32400, 0),
+(361, 'TM', 'Asia/Ashgabat', 0, 18000, 21600, 0),
+(362, 'TN', 'Africa/Tunis', 0, 3600, 7200, 0),
+(363, 'TO', 'Pacific/Tongatapu', 0, 46800, 50400, 0),
+(364, 'TR', 'Europe/Istanbul', 1, 10800, 10800, 0),
+(365, 'TT', 'America/Port_of_Spain', 0, -14400, -14400, 0),
+(366, 'TV', 'Pacific/Funafuti', 0, 43200, 43200, 0),
+(367, 'TW', 'Asia/Taipei', 0, 28800, 32400, 0),
+(368, 'TZ', 'Africa/Dar_es_Salaam', 0, 10800, 10800, 0),
+(369, 'UA', 'Europe/Kiev', 1, 7200, 10800, 0),
+(370, 'UA', 'Europe/Uzhgorod', 1, 7200, 10800, 0),
+(371, 'UA', 'Europe/Zaporozhye', 1, 7200, 10800, 0),
+(372, 'UG', 'Africa/Kampala', 0, 10800, 10800, 0),
+(373, 'UM', 'Pacific/Johnston', 0, -36000, -34200, 0),
+(374, 'UM', 'Pacific/Midway', 0, -39600, -39600, 0),
+(375, 'UM', 'Pacific/Wake', 0, 43200, 43200, 0),
+(376, 'US', 'America/New_York', 1, -18000, -14400, 0),
+(377, 'US', 'America/Detroit', 1, -18000, -14400, 0),
+(378, 'US', 'America/Kentucky/Louisville', 1, -18000, -14400, 0),
+(379, 'US', 'America/Kentucky/Monticello', 1, -18000, -14400, 0),
+(380, 'US', 'America/Indiana/Indianapolis', 1, -18000, -14400, 0),
+(381, 'US', 'America/Indiana/Vincennes', 1, -18000, -14400, 0),
+(382, 'US', 'America/Indiana/Winamac', 1, -18000, -14400, 0),
+(383, 'US', 'America/Indiana/Marengo', 1, -18000, -14400, 0),
+(384, 'US', 'America/Indiana/Petersburg', 1, -18000, -14400, 0),
+(385, 'US', 'America/Indiana/Vevay', 1, -18000, -14400, 0),
+(386, 'US', 'America/Chicago', 1, -21600, -18000, 0),
+(387, 'US', 'America/Indiana/Tell_City', 1, -21600, -18000, 0),
+(388, 'US', 'America/Indiana/Knox', 1, -21600, -18000, 0),
+(389, 'US', 'America/Menominee', 1, -21600, -18000, 0),
+(390, 'US', 'America/North_Dakota/Center', 1, -21600, -18000, 0),
+(391, 'US', 'America/North_Dakota/New_Salem', 1, -21600, -18000, 0),
+(392, 'US', 'America/North_Dakota/Beulah', 1, -21600, -18000, 0),
+(393, 'US', 'America/Denver', 1, -25200, -21600, 0),
+(394, 'US', 'America/Boise', 1, -25200, -21600, 0),
+(395, 'US', 'America/Phoenix', 0, -25200, -21600, 0),
+(396, 'US', 'America/Los_Angeles', 1, -28800, -25200, 0),
+(397, 'US', 'America/Anchorage', 1, -32400, -28800, 0),
+(398, 'US', 'America/Juneau', 1, -32400, -28800, 0),
+(399, 'US', 'America/Sitka', 1, -32400, -28800, 0),
+(400, 'US', 'America/Metlakatla', 1, -32400, -28800, 0),
+(401, 'US', 'America/Yakutat', 1, -32400, -28800, 0),
+(402, 'US', 'America/Nome', 1, -32400, -28800, 0),
+(403, 'US', 'America/Adak', 1, -36000, -32400, 0),
+(404, 'US', 'Pacific/Honolulu', 0, -36000, -34200, 0),
+(405, 'UY', 'America/Montevideo', 1, -10800, -7200, 0),
+(406, 'UZ', 'Asia/Samarkand', 0, 18000, 21600, 0),
+(407, 'UZ', 'Asia/Tashkent', 0, 18000, 25200, 0),
+(408, 'VA', 'Europe/Vatican', 1, 3600, 7200, 0),
+(409, 'VC', 'America/St_Vincent', 0, -14400, -14400, 0),
+(410, 'VE', 'America/Caracas', 0, -14400, -14400, 0),
+(411, 'VG', 'America/Tortola', 0, -14400, -14400, 0),
+(412, 'VI', 'America/St_Thomas', 0, -14400, -14400, 0),
+(413, 'VN', 'Asia/Ho_Chi_Minh', 0, 25200, 25200, 0),
+(414, 'VU', 'Pacific/Efate', 0, 39600, 43200, 0),
+(415, 'WF', 'Pacific/Wallis', 0, 43200, 43200, 0),
+(416, 'WS', 'Pacific/Apia', 1, 46800, 50400, 1),
+(417, 'YE', 'Asia/Aden', 0, 10800, 10800, 0),
+(418, 'YT', 'Indian/Mayotte', 0, 10800, 10800, 0),
+(419, 'ZA', 'Africa/Johannesburg', 0, 7200, 10800, 0),
+(420, 'ZM', 'Africa/Lusaka', 0, 7200, 7200, 0),
+(421, 'ZW', 'Africa/Harare', 0, 7200, 7200, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_webpage_types`
+--
+
+CREATE TABLE `fo_webpage_types` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(30) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `is_system` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_webpage_types`
+--
+
+INSERT INTO `fo_webpage_types` (`id`, `name`, `is_system`) VALUES
+(1, 'personal', 1),
+(2, 'work', 1),
+(3, 'other', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fo_workspaces`
+--
+
+CREATE TABLE `fo_workspaces` (
+  `object_id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `show_description_in_overview` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `color` int(10) UNSIGNED DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `fo_workspaces`
+--
+
+INSERT INTO `fo_workspaces` (`object_id`, `description`, `show_description_in_overview`, `color`) VALUES
+(9, '', 0, 0),
+(11, '', 0, 0),
+(12, '', 0, 0),
+(13, '', 0, 0);
